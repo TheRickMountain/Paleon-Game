@@ -38,6 +38,7 @@ public class Game implements IScene {
 		ResourceManager.loadTexture("gui/slot", "ui_slot");
 		
 		ResourceManager.loadTexture("gui/icons/flint", "ui_flint");
+		ResourceManager.loadTexture("gui/icons/log wall", "ui_log wall");
 		ResourceManager.loadTexture("gui/icons/apple", "ui_apple");
 		ResourceManager.loadTexture("gui/icons/shroom", "ui_shroom");
 		

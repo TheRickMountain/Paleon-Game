@@ -17,7 +17,8 @@ public class Item {
 	public enum ItemType {
 		WEAPON,
 		CONSUMABLE,
-		ITEM
+		ITEM,
+		BUILDING
 	}
 	
 	public Item() {

@@ -1,19 +1,12 @@
 package com.wfe.behaviours;
 
-import com.wfe.components.Collider;
-import com.wfe.core.ResourceManager;
-import com.wfe.entities.Wall;
 import com.wfe.graph.Camera;
 import com.wfe.input.Key;
 import com.wfe.input.Keyboard;
-import com.wfe.input.Mouse;
-import com.wfe.math.Vector2f;
 import com.wfe.math.Vector3f;
 import com.wfe.physics.CollisionPacket;
 import com.wfe.physics.FPlane;
-import com.wfe.scenegraph.Entity;
 import com.wfe.scenegraph.World;
-import com.wfe.utils.MousePicker;
 
 public class ControllingBh extends Behaviour {
 
@@ -29,8 +22,6 @@ public class ControllingBh extends Behaviour {
 	
 	CollisionPacket colPackage;
 	
-	Entity buildingEntity;
-	
 	public ControllingBh(Camera camera) {
 		this.camera = camera;
 	}
@@ -44,30 +35,7 @@ public class ControllingBh extends Behaviour {
 	}
 
 	@Override
-	public void update(float dt) {	
-		if(Keyboard.isKeyDown(Key.NUM_1)) {
-			buildingEntity = new Wall(world);
-		}
-		
-		if(buildingEntity != null) {
-			Vector2f point = MousePicker.getGridPoint();
-			
-			if(point != null) {
-				buildingEntity.position.set(point.x, world.getTerrainHeight(point.x, point.y), point.y);
-			}
-			
-			if(Mouse.isButtonDown(0)) {
-				buildingEntity.addComponent(new Collider(ResourceManager.getColliderMesh("box"),
-						new Vector3f(buildingEntity.position.x, buildingEntity.position.y, buildingEntity.position.z),
-						new Vector3f(0, buildingEntity.rotation.y, 0), new Vector3f(1.5f, 1.5f, 1.5f)));
-				buildingEntity = null;
-			}
-			
-			if(Keyboard.isKeyDown(Key.R)) {
-				buildingEntity.rotation.y += 90;
-			}
-		}
-		
+	public void update(float dt) {			
 		moving(dt);
 	}
 

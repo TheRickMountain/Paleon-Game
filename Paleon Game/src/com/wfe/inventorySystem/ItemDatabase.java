@@ -8,6 +8,7 @@ public class ItemDatabase {
 	public static final int FLINT = 1;
 	public static final int APPLE = 2;
 	public static final int SHROOM = 3;
+	public static final int LOG_WALL = 4;
 	
 	private static List<Item> items = new ArrayList<Item>();
 	
@@ -16,6 +17,7 @@ public class ItemDatabase {
 		items.add(new Item("flint", FLINT, "heavy flint", 0, 0, Item.ItemType.ITEM, 1));
 		items.add(new Item("apple", APPLE, "sweet apple is so sweet", 0, 0, Item.ItemType.CONSUMABLE, 1));
 		items.add(new Item("shroom", SHROOM, "I have a mushroom", 0, 0, Item.ItemType.CONSUMABLE, 1));
+		items.add(new Item("log wall", LOG_WALL, "LOG WALL", 0, 0, Item.ItemType.BUILDING, 1));
 	}
 	
 	public static Item getItem(int id) {
