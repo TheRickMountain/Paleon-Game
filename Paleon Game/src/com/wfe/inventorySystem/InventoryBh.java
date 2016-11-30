@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.wfe.behaviours.Behaviour;
 import com.wfe.components.Collider;
+import com.wfe.components.Text;
 import com.wfe.core.Display;
 import com.wfe.core.ResourceManager;
 import com.wfe.entities.Wall;
@@ -16,6 +17,7 @@ import com.wfe.math.Vector2f;
 import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.Entity;
 import com.wfe.scenes.Game;
+import com.wfe.utils.Color;
 import com.wfe.utils.MathUtils;
 import com.wfe.utils.MousePicker;
 import com.wfe.utils.Rect;
@@ -25,15 +27,20 @@ public class InventoryBh extends Behaviour {
 	private List<Slot> downSlots = new ArrayList<Slot>();
 	
 	private Item draggedItem;
+	private int draggedItemCount;
 	
 	private Entity placeableEntity;
 	private float currentEntityRotation;
 	
 	private Rect rect;
 	
+	private Text countText;
+	
 	@Override
 	public void start() {	
 		ItemDatabase.init();
+		
+		countText = new Text("test", GUIRenderer.primitiveFont, 1.1f, Color.WHITE);			
 		
 		for(int i = 0; i < 8; i++) {
 			downSlots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
@@ -69,14 +76,17 @@ public class InventoryBh extends Behaviour {
 					if(draggedItem != null) {
 						if(slot.getItem() == null) {
 							slot.addItem(draggedItem);
+							slot.setItemsCount(draggedItemCount);
 							draggedItem = null;
 						} else {
 							Item temp = slot.getItem();
+							draggedItemCount = slot.getItemsCount();
 							slot.removeItem();
 							slot.addItem(draggedItem);
 							draggedItem = temp;
 						}
 					} else if(slot.getItem() != null) {
+						draggedItemCount = slot.getItemsCount();
 						draggedItem = slot.getItem();
 						slot.removeItem();
 					}
@@ -120,12 +130,15 @@ public class InventoryBh extends Behaviour {
 					if(Mouse.isButtonDown(0)) {
 						if(Game.state.equals(Game.State.GUI)) {
 							placeableEntity.remove();
-						} else {
-							placeableEntity.addComponent(new Collider(ResourceManager.getColliderMesh("box"),
-									new Vector3f(placeableEntity.position.x, placeableEntity.position.y, placeableEntity.position.z),
-									new Vector3f(0, placeableEntity.rotation.y, 0), new Vector3f(1.5f, 1.5f, 1.5f)));
 							placeableEntity = null;
 						}
+					}
+					
+					if(Mouse.isButtonDown(1)) {
+						placeableEntity.addComponent(new Collider(ResourceManager.getColliderMesh("box"),
+								new Vector3f(placeableEntity.position.x, placeableEntity.position.y, placeableEntity.position.z),
+								new Vector3f(0, placeableEntity.rotation.y, 0), new Vector3f(1.5f, 1.5f, 1.5f)));
+						placeableEntity = null;
 					}
 					
 					if(Keyboard.isKeyDown(Key.R)) {
@@ -145,8 +158,7 @@ public class InventoryBh extends Behaviour {
 	
 	public boolean addItem(int id) {
 		for(Slot slot : downSlots) {
-			if(slot.getItem() == null) {
-				slot.addItem(ItemDatabase.getItem(id));
+			if(slot.addItem(ItemDatabase.getItem(id))) {
 				return true;
 			}
 		}
@@ -156,10 +168,13 @@ public class InventoryBh extends Behaviour {
 	@Override
 	public void onGUI() {
 		for(Slot slot : downSlots)
-			slot.render();
+			slot.render(countText);
 		
-		if(draggedItem != null)
+		if(draggedItem != null) {
 			GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, 50, 50, draggedItem.itemIcon);
+			countText.setText("x" + draggedItemCount);
+			GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, countText);
+		}
 	}
 
 	
