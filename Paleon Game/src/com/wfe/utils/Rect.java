@@ -28,4 +28,8 @@ public class Rect {
 		this.height = height;
 	}
 	
+	public String toString() {
+		return "( " + x + " " + y + " " + width + " " + height + " )";
+	}
+	
 }

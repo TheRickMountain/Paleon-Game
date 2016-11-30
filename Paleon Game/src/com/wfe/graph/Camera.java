@@ -9,6 +9,7 @@ import com.wfe.input.Mouse;
 import com.wfe.math.Matrix4f;
 import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.Entity;
+import com.wfe.scenes.Game;
 import com.wfe.terrain.TerrainBlock;
 import com.wfe.utils.MathUtils;
 
@@ -76,20 +77,22 @@ public class Camera {
     }
 
     public void rotate(float dt) {
-        if(Mouse.isButton(2)) {
-            calculateAngleAroundPlayer(dt);
-            calculatePitch(dt);
-        }
-
-        if(Mouse.isButtonDown(2)) {
-            Mouse.hide();
-        }
-
-        if(Mouse.isButtonUp(2)) {
-            Mouse.show();
-        }
-
-        calculateZoom(dt);
+    	if(Game.state.equals(Game.State.GAME)) {
+	        if(Mouse.isButton(2)) {
+	            calculateAngleAroundPlayer(dt);
+	            calculatePitch(dt);
+	        }
+	
+	        if(Mouse.isButtonDown(2)) {
+	            Mouse.hide();
+	        }
+	
+	        if(Mouse.isButtonUp(2)) {
+	            Mouse.show();
+	        }
+	        
+	        calculateZoom(dt);
+    	}
 
         float horizontalDistance = calculateHorizontalDistance();
         float verticalDistance = calculateVerticalDistance();

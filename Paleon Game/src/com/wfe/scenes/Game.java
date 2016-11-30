@@ -30,7 +30,7 @@ public class Game implements IScene {
 	
 	public enum State {
 		GAME,
-		INVENTORY
+		GUI
 	}
 	
 	@Override

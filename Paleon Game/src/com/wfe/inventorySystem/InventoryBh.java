@@ -15,7 +15,10 @@ import com.wfe.input.Mouse;
 import com.wfe.math.Vector2f;
 import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.Entity;
+import com.wfe.scenes.Game;
+import com.wfe.utils.MathUtils;
 import com.wfe.utils.MousePicker;
+import com.wfe.utils.Rect;
 
 public class InventoryBh extends Behaviour {
 
@@ -25,6 +28,8 @@ public class InventoryBh extends Behaviour {
 	
 	private Entity placeableEntity;
 	private float currentEntityRotation;
+	
+	private Rect rect;
 	
 	@Override
 	public void start() {	
@@ -36,6 +41,11 @@ public class InventoryBh extends Behaviour {
 			
 		}
 		
+		Slot slot1 = downSlots.get(0);
+		Slot slot2 = downSlots.get(downSlots.size() - 1);
+		rect = new Rect(slot1.xPos, slot1.yPos,
+				slot2.xPos + slot2.xScale, slot2.yPos + slot2.yScale);
+		
 		downSlots.get(0).addItem(ItemDatabase.getItem(ItemDatabase.APPLE));
 		downSlots.get(1).addItem(ItemDatabase.getItem(ItemDatabase.FLINT));
 		downSlots.get(2).addItem(ItemDatabase.getItem(ItemDatabase.SHROOM));
@@ -46,6 +56,12 @@ public class InventoryBh extends Behaviour {
 	@Override
 	public void update(float deltaTime) {
 		building();
+		
+		if(MathUtils.point2DBoxIntersection(Mouse.getX(), Mouse.getY(), rect)) {
+			Game.state = Game.State.GUI;
+		} else {
+			Game.state = Game.State.GAME;
+		}
 		
 		for(Slot slot : downSlots) {
 			if(Mouse.isButtonDown(0)) {
@@ -83,6 +99,11 @@ public class InventoryBh extends Behaviour {
 				downSlots.get(i).xPos = (Display.getWidth() / 2) - 235 + (i * 60);
 				downSlots.get(i).yPos = Display.getHeight() - 50;
 			}
+			
+			Slot slot1 = downSlots.get(0);
+			Slot slot2 = downSlots.get(downSlots.size() - 1);
+			rect = new Rect(slot1.xPos, slot1.yPos,
+					slot2.xPos + slot2.xScale, slot2.yPos + slot2.yScale);
 		}
 	}
 	
@@ -97,10 +118,14 @@ public class InventoryBh extends Behaviour {
 					}
 					
 					if(Mouse.isButtonDown(0)) {
-						placeableEntity.addComponent(new Collider(ResourceManager.getColliderMesh("box"),
-								new Vector3f(placeableEntity.position.x, placeableEntity.position.y, placeableEntity.position.z),
-								new Vector3f(0, placeableEntity.rotation.y, 0), new Vector3f(1.5f, 1.5f, 1.5f)));
-						placeableEntity = null;
+						if(Game.state.equals(Game.State.GUI)) {
+							placeableEntity.remove();
+						} else {
+							placeableEntity.addComponent(new Collider(ResourceManager.getColliderMesh("box"),
+									new Vector3f(placeableEntity.position.x, placeableEntity.position.y, placeableEntity.position.z),
+									new Vector3f(0, placeableEntity.rotation.y, 0), new Vector3f(1.5f, 1.5f, 1.5f)));
+							placeableEntity = null;
+						}
 					}
 					
 					if(Keyboard.isKeyDown(Key.R)) {

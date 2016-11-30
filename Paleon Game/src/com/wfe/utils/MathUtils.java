@@ -27,6 +27,11 @@ public class MathUtils {
 				y >= yPos && y <= yPos + yScale;
     }
     
+    public static boolean point2DBoxIntersection(float x, float y, Rect rect) {
+    	return x >= rect.x && x <= rect.width &&
+				y >= rect.y && y <= rect.height;
+    }
+    
     public static boolean point3DBoxIntersection(float x, float y, float z, float xPos, float yPos, float zPos, 
     		float xScale, float yScale, float zScale) {
     	return x >= xPos && x <= xPos + xScale &&
