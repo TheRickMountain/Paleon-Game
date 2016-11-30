@@ -61,7 +61,9 @@ public class InventoryBh extends Behaviour {
 		downSlots.get(0).addItem(ItemDatabase.getItem(ItemDatabase.APPLE));
 		downSlots.get(1).addItem(ItemDatabase.getItem(ItemDatabase.FLINT));
 		downSlots.get(2).addItem(ItemDatabase.getItem(ItemDatabase.SHROOM));
-		downSlots.get(3).addItem(ItemDatabase.getItem(ItemDatabase.LOG_WALL));
+		
+		for(int i = 0; i < 10; i++)
+			downSlots.get(3).addItem(ItemDatabase.getItem(ItemDatabase.LOG_WALL));
 	}
 
 	
@@ -127,7 +129,10 @@ public class InventoryBh extends Behaviour {
 	}
 	
 	public void building() {
-		if(draggedItem != null) {
+		if(draggedItemCount == 0)
+			draggedItem = null;
+		
+		if(draggedItem != null) {			
 			if(draggedItem.itemType.equals(Item.ItemType.BUILDING)) {
 				if(building != null) {
 					Vector2f point = MousePicker.getGridPoint();
@@ -152,6 +157,7 @@ public class InventoryBh extends Behaviour {
 									new Vector3f(0, building.rotation.y, 0), new Vector3f(1.5f, 1.5f, 1.5f)));
 							building = null;
 							
+							draggedItemCount--;
 						}
 					}
 					
