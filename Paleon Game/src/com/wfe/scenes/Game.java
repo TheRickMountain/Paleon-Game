@@ -3,6 +3,7 @@ package com.wfe.scenes;
 import com.wfe.components.Text;
 import com.wfe.core.IScene;
 import com.wfe.core.ResourceManager;
+import com.wfe.entities.Birch;
 import com.wfe.entities.Flint;
 import com.wfe.entities.Grass;
 import com.wfe.entities.Player;
@@ -188,9 +189,9 @@ public class Game implements IScene {
         grass2.textureIndex = 0;
         grass2.rotation.y = 45;   
         
-        /*Birch conifer1 = new Birch(world, new Vector3f(384, world.getTerrainHeight(384, 384), 384));
-        Birch conifer2 = new Birch(world, new Vector3f(400, world.getTerrainHeight(400, 384), 384));
-        Birch conifer3 = new Birch(world, new Vector3f(384, world.getTerrainHeight(384, 400), 400));*/
+        //Birch birch1 = new Birch(world, new Vector3f(384, world.getTerrainHeight(384, 384) - 1f, 384));
+        Birch birch2 = new Birch(world, new Vector3f(400, world.getTerrainHeight(400, 384) - 1f, 384));
+        //Birch birch3 = new Birch(world, new Vector3f(384, world.getTerrainHeight(384, 400) - 1f, 400));
         
         Flint flint = new Flint(world);
         flint.position.set(384, world.getTerrainHeight(384, 384), 384);
