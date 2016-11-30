@@ -29,8 +29,10 @@ public class InventoryBh extends Behaviour {
 	private Item draggedItem;
 	private int draggedItemCount;
 	
-	private Entity placeableEntity;
+	private Entity building;
 	private float currentEntityRotation;
+	
+	private Entity player;
 	
 	private Rect rect;
 	
@@ -41,6 +43,8 @@ public class InventoryBh extends Behaviour {
 		ItemDatabase.init();
 		
 		countText = new Text("test", GUIRenderer.primitiveFont, 1.1f, Color.WHITE);			
+		
+		player = parent.getWorld().getEntityByName("Player");
 		
 		for(int i = 0; i < 8; i++) {
 			downSlots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
@@ -53,6 +57,7 @@ public class InventoryBh extends Behaviour {
 		rect = new Rect(slot1.xPos, slot1.yPos,
 				slot2.xPos + slot2.xScale, slot2.yPos + slot2.yScale);
 		
+		downSlots.get(0).addItem(ItemDatabase.getItem(ItemDatabase.APPLE));
 		downSlots.get(0).addItem(ItemDatabase.getItem(ItemDatabase.APPLE));
 		downSlots.get(1).addItem(ItemDatabase.getItem(ItemDatabase.FLINT));
 		downSlots.get(2).addItem(ItemDatabase.getItem(ItemDatabase.SHROOM));
@@ -97,7 +102,11 @@ public class InventoryBh extends Behaviour {
 				if(slot.overMouse()) {
 					if(slot.getItem() != null) {
 						if(slot.getItem().itemType.equals(Item.ItemType.CONSUMABLE)) {
-							slot.removeItem();
+							if(slot.getItemsCount() > 1) {
+								slot.removeItem(1);
+							} else {
+								slot.removeItem();
+							}
 						}
 					}
 				}
@@ -120,25 +129,30 @@ public class InventoryBh extends Behaviour {
 	public void building() {
 		if(draggedItem != null) {
 			if(draggedItem.itemType.equals(Item.ItemType.BUILDING)) {
-				if(placeableEntity != null) {
+				if(building != null) {
 					Vector2f point = MousePicker.getGridPoint();
 					
 					if(point != null) {
-						placeableEntity.position.set(point.x, parent.getWorld().getTerrainHeight(point.x, point.y), point.y);
+						building.position.set(point.x, parent.getWorld().getTerrainHeight(point.x, point.y), point.y);
 					}
 					
 					if(Mouse.isButtonDown(0)) {
 						if(Game.state.equals(Game.State.GUI)) {
-							placeableEntity.remove();
-							placeableEntity = null;
+							building.remove();
+							building = null;
 						}
 					}
 					
 					if(Mouse.isButtonDown(1)) {
-						placeableEntity.addComponent(new Collider(ResourceManager.getColliderMesh("box"),
-								new Vector3f(placeableEntity.position.x, placeableEntity.position.y, placeableEntity.position.z),
-								new Vector3f(0, placeableEntity.rotation.y, 0), new Vector3f(1.5f, 1.5f, 1.5f)));
-						placeableEntity = null;
+						if(MathUtils.getDistanceBetweenPoints(player.position.x, player.position.z, 
+								building.position.x, building.position.z) <= 10) {
+							
+							building.addComponent(new Collider(ResourceManager.getColliderMesh("box"),
+									new Vector3f(building.position.x, building.position.y, building.position.z),
+									new Vector3f(0, building.rotation.y, 0), new Vector3f(1.5f, 1.5f, 1.5f)));
+							building = null;
+							
+						}
 					}
 					
 					if(Keyboard.isKeyDown(Key.R)) {
@@ -146,11 +160,11 @@ public class InventoryBh extends Behaviour {
 						if(currentEntityRotation == 360)
 							currentEntityRotation = 0;
 						
-						placeableEntity.rotation.y = currentEntityRotation;
+						building.rotation.y = currentEntityRotation;
 					}
 				} else {
-					placeableEntity = new Wall(parent.getWorld());
-					placeableEntity.rotation.y = currentEntityRotation;
+					building = new Wall(parent.getWorld());
+					building.rotation.y = currentEntityRotation;
 				}
 			}
 		}

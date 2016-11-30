@@ -45,6 +45,10 @@ public class Slot {
 		itemsCount = 0;
 	}
 	
+	public void removeItem(int count) {
+		itemsCount -= count;
+	}
+	
 	public Item getItem() {
 		return item;
 	}

@@ -169,6 +169,9 @@ public class Game implements IScene {
 			}
 		}
 		
+		Player player = new Player(world, camera);
+	    player.rotation.y = 180; 
+		
 		Entity inventory = new Entity(world, "Inventory");
 	    inventory.addBehaviour(new InventoryBh());
 		
@@ -183,10 +186,7 @@ public class Game implements IScene {
         Grass grass2 = new Grass(world);
         grass2.position.set(400, world.getTerrainHeight(400, 400), 400);
         grass2.textureIndex = 0;
-        grass2.rotation.y = 45;
-        
-        Player player = new Player(world, camera);
-        player.rotation.y = 180;    
+        grass2.rotation.y = 45;   
         
         /*Birch conifer1 = new Birch(world, new Vector3f(384, world.getTerrainHeight(384, 384), 384));
         Birch conifer2 = new Birch(world, new Vector3f(400, world.getTerrainHeight(400, 384), 384));
