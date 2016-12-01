@@ -200,10 +200,10 @@ public class Game implements IScene {
         Shroom shroom = new Shroom(world);
         shroom.position.set(384, world.getTerrainHeight(384, 400), 400);
         
-        Bar healthBar = new Bar(world, "Health", ResourceManager.getTexture("ui_health"), new Color(1.0f, 0.2f, 0.1f));
+        Bar healthBar = new Bar(world, "HealthBar", ResourceManager.getTexture("ui_health"), new Color(1.0f, 0.2f, 0.1f));
         healthBar.position.set(20, 10);
         
-        Bar hungerBar = new Bar(world, "Hunger", ResourceManager.getTexture("ui_hunger"), new Color(1.0f, 0.5f, 0.1f));
+        Bar hungerBar = new Bar(world, "HungerBar", ResourceManager.getTexture("ui_hunger"), new Color(1.0f, 0.5f, 0.1f));
         hungerBar.position.set(20, 40);
         
         GameTime.setTime(12, 00);

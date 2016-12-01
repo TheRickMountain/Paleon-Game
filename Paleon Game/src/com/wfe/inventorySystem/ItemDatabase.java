@@ -15,8 +15,8 @@ public class ItemDatabase {
 	public static void init() {
 		items.add(new Item("", 0, "", 0, 0, Item.ItemType.ITEM, 0));
 		items.add(new Item("flint", FLINT, "heavy flint", 0, 0, Item.ItemType.ITEM, 1));
-		items.add(new Item("apple", APPLE, "sweet apple is so sweet", 0, 0, Item.ItemType.CONSUMABLE, 1));
-		items.add(new Item("shroom", SHROOM, "I have a mushroom", 0, 0, Item.ItemType.CONSUMABLE, 1));
+		items.add(new Item("apple", APPLE, "sweet apple is so sweet", 7, 0, Item.ItemType.CONSUMABLE, 1));
+		items.add(new Item("shroom", SHROOM, "I have a mushroom", 12, 0, Item.ItemType.CONSUMABLE, 1));
 		items.add(new Item("log wall", LOG_WALL, "LOG WALL", 0, 0, Item.ItemType.BUILDING, 1));
 	}
 	

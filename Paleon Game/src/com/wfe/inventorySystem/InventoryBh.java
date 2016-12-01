@@ -3,6 +3,7 @@ package com.wfe.inventorySystem;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.wfe.behaviours.BarBh;
 import com.wfe.behaviours.Behaviour;
 import com.wfe.components.Collider;
 import com.wfe.components.Text;
@@ -38,11 +39,16 @@ public class InventoryBh extends Behaviour {
 	
 	private Text countText;
 	
+	private BarBh health, hunger;
+	
 	@Override
 	public void start() {	
 		ItemDatabase.init();
 		
 		countText = new Text("test", GUIRenderer.primitiveFont, 1.1f, Color.WHITE);			
+		
+		health = parent.getWorld().getEntityByName("HealthBar").getBehaviour(BarBh.class);
+		hunger = parent.getWorld().getEntityByName("HungerBar").getBehaviour(BarBh.class);
 		
 		player = parent.getWorld().getEntityByName("Player");
 		
@@ -69,6 +75,10 @@ public class InventoryBh extends Behaviour {
 	
 	@Override
 	public void update(float deltaTime) {
+		if(Keyboard.isKeyDown(Key.H)) {
+			health.decrease(47);
+		}
+		
 		building();
 		
 		if(MathUtils.point2DBoxIntersection(Mouse.getX(), Mouse.getY(), rect)) {
@@ -86,11 +96,16 @@ public class InventoryBh extends Behaviour {
 							slot.setItemsCount(draggedItemCount);
 							draggedItem = null;
 						} else {
-							Item temp = slot.getItem();
-							draggedItemCount = slot.getItemsCount();
-							slot.removeItem();
-							slot.addItem(draggedItem);
-							draggedItem = temp;
+							if(slot.getItem().itemID == draggedItem.itemID) {
+								slot.addItem(draggedItem);
+								draggedItem = null;
+							} else {
+								Item temp = slot.getItem();
+								draggedItemCount = slot.getItemsCount();
+								slot.removeItem();
+								slot.addItem(draggedItem);
+								draggedItem = temp;
+							}
 						}
 					} else if(slot.getItem() != null) {
 						draggedItemCount = slot.getItemsCount();
@@ -105,8 +120,10 @@ public class InventoryBh extends Behaviour {
 					if(slot.getItem() != null) {
 						if(slot.getItem().itemType.equals(Item.ItemType.CONSUMABLE)) {
 							if(slot.getItemsCount() > 1) {
+								health.increase(slot.getItem().itemStarvation);
 								slot.removeItem(1);
 							} else {
+								health.increase(slot.getItem().itemStarvation);
 								slot.removeItem();
 							}
 						}

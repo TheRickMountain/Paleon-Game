@@ -25,17 +25,17 @@ public class Slot {
 		this.itemsCount = 0;
 	}
 	
-	public boolean addItem(Item item) {
-		if(this.item == null) {
+	public boolean addItem(Item item) {	
+		if(this.item != null) {
+			if(this.item.itemID == item.itemID) {
+				itemsCount++;
+				return true;
+			}
+		} else if(this.item == null) {
 			this.item = item;
 			itemsCount++;
 			return true;
 		} 
-		
-		if(this.item.itemID == item.itemID) {
-			itemsCount++;
-			return true;
-		}
 		
 		return false;
 	}

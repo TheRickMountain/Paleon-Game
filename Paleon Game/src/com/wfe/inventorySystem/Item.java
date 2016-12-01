@@ -9,8 +9,8 @@ public class Item {
 	public int itemID;
 	public String itemDesc;
 	public Texture itemIcon;
-	public int itemFood;
-	public float itemWeight;
+	public int itemStarvation;
+	public int itemDehydration;
 	public ItemType itemType;
 	public int stack;
 	
@@ -25,7 +25,7 @@ public class Item {
 		
 	}
 
-	public Item(String itemName, int itemId, String itemDesc, int itemFood, float itemWeight,
+	public Item(String itemName, int itemId, String itemDesc, int itemStarvation, int itemDehydration,
 			ItemType itemType, int stackability) {
 		this.itemName = itemName;
 		this.itemID = itemId;
@@ -33,8 +33,8 @@ public class Item {
 		if(!itemName.isEmpty()) {
 			this.itemIcon = ResourceManager.getTexture("ui_" + itemName);
 		}
-		this.itemFood = itemFood;
-		this.itemWeight = itemWeight;
+		this.itemStarvation = itemStarvation;
+		this.itemDehydration = itemDehydration;
 		this.itemType = itemType;
 		this.stack = stackability;
 	}
