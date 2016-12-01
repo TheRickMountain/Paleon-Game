@@ -19,9 +19,11 @@ import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.Entity;
 import com.wfe.scenes.Game;
 import com.wfe.utils.Color;
+import com.wfe.utils.GameTime;
 import com.wfe.utils.MathUtils;
 import com.wfe.utils.MousePicker;
 import com.wfe.utils.Rect;
+import com.wfe.utils.TimeUtil;
 
 public class InventoryBh extends Behaviour {
 
@@ -41,6 +43,8 @@ public class InventoryBh extends Behaviour {
 	
 	private BarBh health, hunger;
 	
+	private TimeUtil timeUtil;
+	
 	@Override
 	public void start() {	
 		ItemDatabase.init();
@@ -51,6 +55,8 @@ public class InventoryBh extends Behaviour {
 		hunger = parent.getWorld().getEntityByName("HungerBar").getBehaviour(BarBh.class);
 		
 		player = parent.getWorld().getEntityByName("Player");
+		
+		timeUtil = new TimeUtil();
 		
 		for(int i = 0; i < 8; i++) {
 			downSlots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
@@ -75,9 +81,7 @@ public class InventoryBh extends Behaviour {
 	
 	@Override
 	public void update(float deltaTime) {
-		if(Keyboard.isKeyDown(Key.H)) {
-			health.decrease(47);
-		}
+		updateHunger();
 		
 		building();
 		
@@ -120,10 +124,10 @@ public class InventoryBh extends Behaviour {
 					if(slot.getItem() != null) {
 						if(slot.getItem().itemType.equals(Item.ItemType.CONSUMABLE)) {
 							if(slot.getItemsCount() > 1) {
-								health.increase(slot.getItem().itemStarvation);
+								hunger.increase(slot.getItem().itemStarvation);
 								slot.removeItem(1);
 							} else {
-								health.increase(slot.getItem().itemStarvation);
+								hunger.increase(slot.getItem().itemStarvation);
 								slot.removeItem();
 							}
 						}
@@ -142,6 +146,13 @@ public class InventoryBh extends Behaviour {
 			Slot slot2 = downSlots.get(downSlots.size() - 1);
 			rect = new Rect(slot1.xPos, slot1.yPos,
 					slot2.xPos + slot2.xScale, slot2.yPos + slot2.yScale);
+		}
+	}
+
+	public void updateHunger() {
+		if((int)timeUtil.getTime() >= 10) {
+			hunger.decrease(1);
+			timeUtil.reset();
 		}
 	}
 	

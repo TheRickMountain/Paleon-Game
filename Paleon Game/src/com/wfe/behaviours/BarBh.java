@@ -1,5 +1,6 @@
 package com.wfe.behaviours;
 
+import com.wfe.components.Text;
 import com.wfe.graph.Texture;
 import com.wfe.graph.render.GUIRenderer;
 import com.wfe.utils.Color;
@@ -14,12 +15,14 @@ public class BarBh extends Behaviour {
 	
 	private Texture icon;
 	private Color color;
+	private Text text;
 	
 	private Rect rect;
 	
 	public BarBh(Texture icon, Color color) {
 		this.icon = icon;
 		this.color = color;
+		this.text = new Text("text", GUIRenderer.primitiveFont, 1.1f, Color.WHITE);
 	}
 	
 	@Override
@@ -42,6 +45,9 @@ public class BarBh extends Behaviour {
 		
 		GUIRenderer.render(rect.x + parent.position.x - 12.5f, rect.y + parent.position.y - 6.25f,
 				25 + rect.x, 25 + rect.y, icon);
+		text.setText("" + (int)currentValue);
+		GUIRenderer.render(rect.x + parent.position.x + 75, rect.y + parent.position.y - 2,
+				text);
 	}
 	
 	public void decrease(float value) {	

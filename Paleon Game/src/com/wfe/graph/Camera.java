@@ -25,7 +25,7 @@ public class Camera {
     private static final float MIN_DISTANCE = 20;
     private static final float MAX_DISTANCE = 60;
 
-    private float distanceFromPlayer = 50;
+    private float distanceFromPlayer = 60;
     private float angleAroundPlayer = 180;
     private float zoomSpeed = 50;
 

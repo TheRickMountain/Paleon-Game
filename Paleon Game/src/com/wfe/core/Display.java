@@ -37,6 +37,7 @@ import static org.lwjgl.opengl.GL11.glGetString;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import org.lwjgl.Version;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowSizeCallback;
@@ -64,7 +65,7 @@ public class Display {
         height = h;
     }
         
-    public void init() {
+    public void init(boolean foolscreen) {
         GLFWErrorCallback.createPrint(System.err).set();
 
         if(!glfwInit())
@@ -78,7 +79,11 @@ public class Display {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-        window = glfwCreateWindow(width, height, title, NULL, NULL);
+        if(foolscreen)
+        	window = glfwCreateWindow(width, height, title, GLFW.glfwGetPrimaryMonitor(), NULL);
+        else
+        	window = glfwCreateWindow(width, height, title, NULL, NULL);
+        
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 

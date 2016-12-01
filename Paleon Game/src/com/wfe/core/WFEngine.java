@@ -43,7 +43,7 @@ public class WFEngine implements Runnable {
     }
 
     protected void init() throws Exception {
-        display.init();
+        display.init(false);
         initScenes();
     }
 

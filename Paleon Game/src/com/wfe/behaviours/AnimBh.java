@@ -64,6 +64,10 @@ public class AnimBh extends Behaviour {
         leftShin.localRotation.x = -20;
         rightShin.localRotation.x = -20;
     }
+    
+    public void fighAnim(float dt) {
+    	
+    }
 
     public void idleAnim(float dt) {
         resetRotationX(leftArm, dt);
