@@ -151,6 +151,27 @@ public class GUIRenderer {
         GL30.glBindVertexArray(0);
     }
     
+    public static void render(float xPos, float yPos, float xScale, float yScale, Color color) {
+        GL30.glBindVertexArray(mesh.getVAO());
+        GL20.glEnableVertexAttribArray(0);
+
+        shader.setUniform("spriteColor", color);
+        Matrix4f.mul(projectionMatrix, 
+        		MathUtils.getModelMatrix(modelMatrix, xPos, yPos, 0, xScale, yScale), modelProjectionMatrix);
+        shader.setUniform("MP", modelProjectionMatrix);
+
+        shader.setUniform("mode", 1);
+        
+        GL11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 4);
+
+        GL20.glDisableVertexAttribArray(0);
+        GL30.glBindVertexArray(0);
+    }
+    
+    public static void render(Rect rect, Color color) {
+    	render(rect.x, rect.y, rect.width, rect.height, color);
+    }
+    
     public static void render(Rect rect, Texture texture) {
     	render(rect.x, rect.y, rect.width, rect.height, texture);
     }

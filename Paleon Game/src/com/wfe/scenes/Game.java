@@ -1,6 +1,5 @@
 package com.wfe.scenes;
 
-import com.wfe.components.Text;
 import com.wfe.core.IScene;
 import com.wfe.core.ResourceManager;
 import com.wfe.entities.Birch;
@@ -9,9 +8,8 @@ import com.wfe.entities.Grass;
 import com.wfe.entities.Player;
 import com.wfe.entities.Shroom;
 import com.wfe.graph.Camera;
-import com.wfe.graph.render.GUIRenderer;
-import com.wfe.graph.transform.Transform2D;
 import com.wfe.graph.water.WaterTile;
+import com.wfe.inventorySystem.Bar;
 import com.wfe.inventorySystem.InventoryBh;
 import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.Entity;
@@ -42,6 +40,9 @@ public class Game implements IScene {
 		ResourceManager.loadTexture("gui/icons/log wall", "ui_log wall");
 		ResourceManager.loadTexture("gui/icons/apple", "ui_apple");
 		ResourceManager.loadTexture("gui/icons/shroom", "ui_shroom");
+		
+		ResourceManager.loadTexture("gui/bar/health", "ui_health");
+		ResourceManager.loadTexture("gui/bar/hunger", "ui_hunger");
 		
 		ResourceManager.loadColliderMesh("box", "box");
 		ResourceManager.loadColliderMesh("wall", "wall");
@@ -173,9 +174,9 @@ public class Game implements IScene {
 		Entity inventory = new Entity(world, "Inventory");
 	    inventory.addBehaviour(new InventoryBh());
 		
-        Entity text = new Entity(world, "Text");
+        /*Entity text = new Entity(world, "Text");
         text.addComponent(new Text("Winter Fox Engine alpha 0.3 Unstable", GUIRenderer.primitiveFont, 1f, Color.RED));
-        text.setTransform(new Transform2D());
+        text.setTransform(new Transform2D());*/
         
         Grass grass = new Grass(world);
         grass.position.set(400, world.getTerrainHeight(400, 400), 400);
@@ -198,6 +199,12 @@ public class Game implements IScene {
         
         Shroom shroom = new Shroom(world);
         shroom.position.set(384, world.getTerrainHeight(384, 400), 400);
+        
+        Bar healthBar = new Bar(world, "Health", ResourceManager.getTexture("ui_health"), new Color(1.0f, 0.2f, 0.1f));
+        healthBar.position.set(20, 10);
+        
+        Bar hungerBar = new Bar(world, "Hunger", ResourceManager.getTexture("ui_hunger"), new Color(1.0f, 0.5f, 0.1f));
+        hungerBar.position.set(20, 40);
         
         GameTime.setTime(12, 00);
         

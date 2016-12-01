@@ -25,10 +25,14 @@ public class CollectableBh extends Behaviour {
 			if(MathUtils.getDistanceBetweenPoints(player.position.x, player.position.z, 
 					parent.position.x, parent.position.z) <= 5) {
 				if(bb.intersect()) {
-					if(inventory.addItem(ItemDatabase.FLINT)) {
-						parent.remove();
-					} else {
-						System.out.println("Inventory is full!");
+					if(parent.name.equals("flint")) {
+						if(inventory.addItem(ItemDatabase.FLINT)) {
+							parent.remove();
+						}
+					} else if(parent.name.equals("shroom")) {
+						if(inventory.addItem(ItemDatabase.SHROOM)) {
+							parent.remove();
+						}
 					}
 				}
 			}

@@ -8,6 +8,10 @@ public class Image extends Component {
 	public Texture texture;
 	public Color color;
 	
+	public Image(Color color) {
+		this(null, color);
+	}
+	
 	public Image(Texture texture) {
 		this(texture, new Color(1.0f, 1.0f, 1.0f));
 	}

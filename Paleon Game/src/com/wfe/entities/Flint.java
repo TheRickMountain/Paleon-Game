@@ -13,7 +13,7 @@ import com.wfe.scenegraph.World;
 public class Flint extends Entity {
 
 	public Flint(World world) {
-		super(world, "Flint");
+		super(world, "flint");
 		
 		addComponent(new Model(ResourceManager.getMesh("flint")));
 		addComponent(new Material(ResourceManager.getTexture("flint")));
