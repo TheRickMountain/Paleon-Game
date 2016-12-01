@@ -68,7 +68,7 @@ public class InventoryBh extends Behaviour {
 		downSlots.get(1).addItem(ItemDatabase.getItem(ItemDatabase.FLINT));
 		downSlots.get(2).addItem(ItemDatabase.getItem(ItemDatabase.SHROOM));
 		
-		for(int i = 0; i < 10; i++)
+		for(int i = 0; i < 22; i++)
 			downSlots.get(3).addItem(ItemDatabase.getItem(ItemDatabase.LOG_WALL));
 	}
 
@@ -194,11 +194,26 @@ public class InventoryBh extends Behaviour {
 	}
 	
 	public boolean addItem(int id) {
+		
 		for(Slot slot : downSlots) {
-			if(slot.addItem(ItemDatabase.getItem(id))) {
+			/*if(slot.addItem(ItemDatabase.getItem(id))) {
 				return true;
+			}*/
+			if(slot.getItem() != null) {
+				if(slot.getItem().itemID == id) {
+					if(slot.addItem(ItemDatabase.getItem(id))) {
+						return true;	
+					}
+				}
 			}
+			
 		}
+		
+		for(Slot slot : downSlots) {
+			if(slot.addItem(ItemDatabase.getItem(id)))
+				return true;
+		}
+		
 		return false;
 	}
 
