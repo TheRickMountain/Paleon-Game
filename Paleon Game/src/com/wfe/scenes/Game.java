@@ -170,14 +170,11 @@ public class Game implements IScene {
 			}
 		}
 		
-		Player player = new Player(world, camera);
-	    player.rotation.y = 180; 
-		
 		Entity inventory = new Entity(world, "Inventory");
 	    inventory.addBehaviour(new InventoryBh());
 		
         Entity text = new Entity(world, "Text");
-        text.addComponent(new Text("Winter Fox Engine 0.2", GUIRenderer.primitiveFont, 1f, Color.WHITE));
+        text.addComponent(new Text("Winter Fox Engine alpha 0.3 Unstable", GUIRenderer.primitiveFont, 1f, Color.RED));
         text.setTransform(new Transform2D());
         
         Grass grass = new Grass(world);
@@ -189,8 +186,11 @@ public class Game implements IScene {
         grass2.textureIndex = 0;
         grass2.rotation.y = 45;   
         
+        Player player = new Player(world, camera);
+	    player.rotation.y = 180; 
+        
         //Birch birch1 = new Birch(world, new Vector3f(384, world.getTerrainHeight(384, 384) - 1f, 384));
-        Birch birch2 = new Birch(world, new Vector3f(400, world.getTerrainHeight(400, 384) - 1f, 384));
+        Birch birch2 = new Birch(world, new Vector3f(400, world.getTerrainHeight(400, 384), 384));
         //Birch birch3 = new Birch(world, new Vector3f(384, world.getTerrainHeight(384, 400) - 1f, 400));
         
         Flint flint = new Flint(world);
@@ -200,6 +200,8 @@ public class Game implements IScene {
         shroom.position.set(384, world.getTerrainHeight(384, 400), 400);
         
         GameTime.setTime(12, 00);
+        
+        world.init();
 	}
 
 	@Override

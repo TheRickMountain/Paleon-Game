@@ -82,6 +82,8 @@ public class World {
     private boolean wireframeMode = false;
     public boolean onGuiLayer = false;
     
+    private boolean inGame = false;
+    
     private Vector4f reflectionClipPlane = new Vector4f(0, 1, 0, -WaterTile.HEIGHT + 1f);
     private Vector4f refractionClipPlane = new Vector4f(0, -1, 0, WaterTile.HEIGHT);
     private Vector4f normalClipPlane = new Vector4f(0, -1, 0, 15);
@@ -110,6 +112,14 @@ public class World {
         weather = new Weather();
         
         GameTime.init();
+    }
+    
+    public void init() {
+    	for(Behaviour bh : behaviours)
+        	if(bh.active)
+        		bh.start();
+         
+         inGame = true;
     }
 
     public void update(float dt) {
@@ -302,8 +312,12 @@ public class World {
     }
 
     protected void addBehaviour(Behaviour behaviour) {
-        behaviour.start();
-        behavioursToAdd.add(behaviour);
+        if(inGame) {
+        	behaviour.start();
+        	behavioursToAdd.add(behaviour);
+        } else {
+        	behaviours.add(behaviour);
+        }
     }
 
     protected void removeBehaviour(Behaviour behaviour) {
