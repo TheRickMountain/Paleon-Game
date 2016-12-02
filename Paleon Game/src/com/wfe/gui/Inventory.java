@@ -28,9 +28,6 @@ public class Inventory {
 
 	private List<Slot> quickSlots = new ArrayList<Slot>();
 	
-	public Item draggedItem;
-	private int draggedItemCount;
-	
 	private Entity building;
 	private float currentEntityRotation;
 	
@@ -38,7 +35,7 @@ public class Inventory {
 	
 	private Rect rect;
 	
-	private Text countText;
+	public Text countText;
 	
 	private BarBh health, hunger;
 	
@@ -80,6 +77,8 @@ public class Inventory {
 		
 		for(int i = 0; i < 22; i++)
 			quickSlots.get(5).addItem(ItemDatabase.getItem(ItemDatabase.LOG_WALL));
+		
+		quickSlots.get(6).addItem(ItemDatabase.getItem(ItemDatabase.AXE));
 	}
 
 	
@@ -94,35 +93,37 @@ public class Inventory {
 			Game.state = Game.State.GAME;
 		}
 		
-		for(Slot slot : quickSlots) {
-			if(Mouse.isButtonDown(0)) {
+		if(Mouse.isButtonDown(0)) {
+			for(Slot slot : quickSlots) {
 				if(slot.overMouse()) {
-					if(draggedItem != null) {
+					if(Game.gui.draggedItem != null) {
 						if(slot.getItem() == null) {
-							slot.addItem(draggedItem);
-							slot.setItemsCount(draggedItemCount);
-							draggedItem = null;
+							slot.addItem(Game.gui.draggedItem);
+							slot.setItemsCount(Game.gui.draggedItemCount);
+							Game.gui.draggedItem = null;
 						} else {
-							if(slot.getItem().itemID == draggedItem.itemID) {
-								slot.addItem(draggedItem);
-								draggedItem = null;
+							if(slot.getItem().itemID == Game.gui.draggedItem.itemID) {
+								slot.addItem(Game.gui.draggedItem);
+								Game.gui.draggedItem = null;
 							} else {
 								Item temp = slot.getItem();
-								draggedItemCount = slot.getItemsCount();
+								Game.gui.draggedItemCount = slot.getItemsCount();
 								slot.removeItem();
-								slot.addItem(draggedItem);
-								draggedItem = temp;
+								slot.addItem(Game.gui.draggedItem);
+								Game.gui.draggedItem = temp;
 							}
 						}
 					} else if(slot.getItem() != null) {
-						draggedItemCount = slot.getItemsCount();
-						draggedItem = slot.getItem();
+						Game.gui.draggedItemCount = slot.getItemsCount();
+						Game.gui.draggedItem = slot.getItem();
 						slot.removeItem();
 					}
 				}
 			}
+		}
 			
-			if(Mouse.isButtonDown(1)) {
+		if(Mouse.isButtonDown(1)) {
+			for(Slot slot : quickSlots) {
 				if(slot.overMouse()) {
 					if(slot.getItem() != null) {
 						if(slot.getItem().itemType.equals(Item.ItemType.CONSUMABLE)) {
@@ -143,6 +144,9 @@ public class Inventory {
 							Game.gui.equipment.addItem(slot.getItem());
 							slot.removeItem();
 						} else if(slot.getItem().itemType.equals(Item.ItemType.BOOTS)) {
+							Game.gui.equipment.addItem(slot.getItem());
+							slot.removeItem();
+						} else if(slot.getItem().itemType.equals(Item.ItemType.WEAPON)) {
 							Game.gui.equipment.addItem(slot.getItem());
 							slot.removeItem();
 						}
@@ -179,11 +183,11 @@ public class Inventory {
 	}
 	
 	public void building() {
-		if(draggedItemCount == 0)
-			draggedItem = null;
+		if(Game.gui.draggedItemCount == 0)
+			Game.gui.draggedItem = null;
 		
-		if(draggedItem != null) {			
-			if(draggedItem.itemType.equals(Item.ItemType.BUILDING)) {
+		if(Game.gui.draggedItem != null) {			
+			if(Game.gui.draggedItem.itemType.equals(Item.ItemType.BUILDING)) {
 				if(building != null) {
 					Vector2f point = MousePicker.getGridPoint();
 					
@@ -207,7 +211,7 @@ public class Inventory {
 									new Vector3f(0, building.rotation.y, 0), new Vector3f(1.5f, 1.5f, 1.5f)));
 							building = null;
 							
-							draggedItemCount--;
+							Game.gui.draggedItemCount--;
 						}
 					}
 					
@@ -251,12 +255,6 @@ public class Inventory {
 	public void render() {
 		for(Slot slot : quickSlots)
 			slot.render(countText);
-		
-		if(draggedItem != null) {
-			GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, 50, 50, draggedItem.itemIcon);
-			countText.setText("x" + draggedItemCount);
-			GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, countText);
-		}
 	}
 
 	

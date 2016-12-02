@@ -7,10 +7,10 @@ import com.wfe.input.Mouse;
 import com.wfe.math.Vector3f;
 import com.wfe.physics.CollisionPacket;
 import com.wfe.physics.FPlane;
+import com.wfe.scenegraph.Entity;
 import com.wfe.scenegraph.World;
-import com.wfe.utils.TimeUtil;
 
-public class ControllingBh extends Behaviour {
+public class PlayerBh extends Behaviour {
 
 	public float speed = 15.0f;
 	
@@ -22,13 +22,12 @@ public class ControllingBh extends Behaviour {
 	
 	private World world;
 	
-	CollisionPacket colPackage;
+	private CollisionPacket colPackage;
 	
-	private TimeUtil time;
+	private Entity weapon;
 	
-	public ControllingBh(Camera camera) {
+	public PlayerBh(Camera camera) {
 		this.camera = camera;
-		this.time = new TimeUtil();
 	}
 	
 	@Override
@@ -42,6 +41,16 @@ public class ControllingBh extends Behaviour {
 	@Override
 	public void update(float dt) {			
 		moving(dt);
+	}
+	
+	public void addWeapon(Entity weapon) {
+		this.weapon = weapon;
+		anim.addWeapon(weapon);
+	}
+	
+	public void removeWeapon() {
+		this.weapon = null;
+		anim.removeWeapon();
 	}
 
 	public void moving(float dt) {

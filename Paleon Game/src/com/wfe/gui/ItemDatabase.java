@@ -13,6 +13,7 @@ public class ItemDatabase {
 	public static final int TUNIC = 6;
 	public static final int PANTS = 7;
 	public static final int BOOTS = 8;
+	public static final int AXE = 9;
 	
 	private static List<Item> items = new ArrayList<Item>();
 	
@@ -26,6 +27,7 @@ public class ItemDatabase {
 		items.add(new Item("tunic", TUNIC, "", 0, 0, Item.ItemType.TUNIC, 1));
 		items.add(new Item("pants", PANTS, "", 0, 0, Item.ItemType.PANTS, 1));
 		items.add(new Item("boots", BOOTS, "", 0, 0, Item.ItemType.BOOTS, 1));
+		items.add(new Item("axe", AXE, "", 0, 0, Item.ItemType.WEAPON, 1));
 	}
 	
 	public static Item getItem(int id) {

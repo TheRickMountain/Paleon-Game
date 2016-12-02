@@ -1,7 +1,7 @@
 package com.wfe.entities;
 
 import com.wfe.behaviours.AnimBh;
-import com.wfe.behaviours.ControllingBh;
+import com.wfe.behaviours.PlayerBh;
 import com.wfe.components.Material;
 import com.wfe.components.Model;
 import com.wfe.core.ResourceManager;
@@ -104,7 +104,7 @@ public class Player extends Entity {
         }
         
         addBehaviour(new AnimBh());
-        addBehaviour(new ControllingBh(camera));
+        addBehaviour(new PlayerBh(camera));
 	}
 
 	

@@ -3,12 +3,17 @@ package com.wfe.gui;
 import com.wfe.behaviours.ButtonBh;
 import com.wfe.core.Display;
 import com.wfe.core.ResourceManager;
+import com.wfe.graph.render.GUIRenderer;
+import com.wfe.input.Mouse;
 import com.wfe.scenegraph.World;
 import com.wfe.utils.Color;
 
 public class GUI {
 	
 	private ButtonBh equipmentButtonBh;
+	
+	public Item draggedItem;
+	public int draggedItemCount;
 	
 	public Equipment equipment;
 	public Inventory inventory;
@@ -45,6 +50,12 @@ public class GUI {
 	public void render() {
 		equipment.render();
 		inventory.render();
+		
+		if(draggedItem != null) {
+			GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, 50, 50, draggedItem.itemIcon);
+			inventory.countText.setText("x" + draggedItemCount);
+			GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, inventory.countText);
+		}
 	}
 	
 }

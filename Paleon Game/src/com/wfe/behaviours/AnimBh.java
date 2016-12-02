@@ -1,7 +1,6 @@
 package com.wfe.behaviours;
 
 import com.wfe.scenegraph.Entity;
-import com.wfe.utils.TimeUtil;
 
 /**
  * Created by Rick on 08.10.2016.
@@ -16,6 +15,7 @@ public class AnimBh extends Behaviour {
     private Entity rightForearm;
     private Entity leftShin;
     private Entity rightShin;
+    private Entity weapon;
 
     private boolean extremitiesState = false;
 
@@ -104,6 +104,16 @@ public class AnimBh extends Behaviour {
         } else {
             entity.localRotation.x = 0;
         }
+    }
+    
+    public void addWeapon(Entity weapon) {
+    	this.weapon = weapon;
+    	rightForearm.addChild(weapon);
+    }
+    
+    public void removeWeapon() {
+    	rightForearm.removeChild(weapon);
+    	weapon = null;
     }
 
     @Override

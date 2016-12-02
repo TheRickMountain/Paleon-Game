@@ -3,8 +3,10 @@ package com.wfe.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.wfe.behaviours.PlayerBh;
 import com.wfe.core.Display;
 import com.wfe.core.ResourceManager;
+import com.wfe.entities.Axe;
 import com.wfe.input.Mouse;
 import com.wfe.scenegraph.World;
 import com.wfe.scenes.Game;
@@ -18,7 +20,15 @@ public class Equipment {
 	
 	public boolean opened = false;
 	
+	private PlayerBh player;
+	
+	private World world;
+	
 	public Equipment(World world) {
+		this.world = world;
+		
+		player = world.getEntityByName("Player").getBehaviour(PlayerBh.class);
+		
 		slots = new ArrayList<Slot>(8);
 		
 		
@@ -60,13 +70,26 @@ public class Equipment {
 			if(Mouse.isButtonDown(0)) {
 				for(Slot slot : slots) {
 					if(slot.overMouse()) {
-						if(Game.gui.inventory.draggedItem != null) {
-							addItem(Game.gui.inventory.draggedItem);
-							Game.gui.inventory.draggedItem = null;
+						
+						if(Game.gui.draggedItem != null) {
+							addItem(Game.gui.draggedItem);
+							Game.gui.draggedItem = null;
+						} else {
+							if(slot.getItem() != null) {
+								if(slot.getItem().itemType.equals(Item.ItemType.WEAPON)) {
+									player.removeWeapon();
+								}
+								
+								Game.gui.draggedItem = slot.getItem();
+								Game.gui.draggedItemCount = 1;
+								slot.removeItem();
+							}
 						}
 					}
 				}
 			}
+			
+			
 		}
 	}
 	
@@ -79,6 +102,9 @@ public class Equipment {
 			pantsSlot.addItem(item);
 		} else if(item.itemType.equals(Item.ItemType.BOOTS)) {
 			bootsSlot.addItem(item);
+		} else if(item.itemType.equals(Item.ItemType.WEAPON)) {
+			weaponSlot.addItem(item);
+			player.addWeapon(new Axe(world));
 		}
 	}
 	

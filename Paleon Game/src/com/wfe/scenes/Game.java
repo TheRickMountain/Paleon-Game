@@ -38,6 +38,10 @@ public class Game implements IScene {
 		ResourceManager.loadTexture("gui/icons/apple", "ui_apple");
 		ResourceManager.loadTexture("gui/icons/shroom", "ui_shroom");
 		ResourceManager.loadTexture("gui/icons/character", "ui_character");
+		ResourceManager.loadTexture("gui/icons/axe", "ui_axe");
+		
+		ResourceManager.loadTexture("models/axe/axe", "axe");
+		ResourceManager.loadMesh("models/axe/axe", "axe");
 		
 		ResourceManager.loadTexture("gui/icons/cap", "ui_cap");
 		ResourceManager.loadTexture("gui/icons/tunic", "ui_tunic");

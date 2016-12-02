@@ -30,7 +30,7 @@ public class Camera {
     private float zoomSpeed = 50;
 
     private static final float MAX_PITCH = 85;
-    private static final float MIN_PITCH = 45;
+    private static final float MIN_PITCH = 0;
     
     private Frustum frustum;
 
