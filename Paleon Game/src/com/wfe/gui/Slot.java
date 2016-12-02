@@ -1,4 +1,4 @@
-package com.wfe.inventorySystem;
+package com.wfe.gui;
 
 import com.wfe.components.Text;
 import com.wfe.graph.Texture;
@@ -59,6 +59,13 @@ public class Slot {
 			GUIRenderer.render(xPos, yPos, xScale, yScale, item.itemIcon);
 			text.setText("x" + itemsCount);
 			GUIRenderer.render(xPos, yPos, text);
+		}
+	}
+	
+	public void render() {
+		GUIRenderer.render(xPos, yPos, xScale, yScale, slotTexture);
+		if(item != null) {
+			GUIRenderer.render(xPos, yPos, xScale, yScale, item.itemIcon);
 		}
 	}
 	

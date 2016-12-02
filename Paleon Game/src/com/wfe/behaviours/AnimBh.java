@@ -1,6 +1,7 @@
 package com.wfe.behaviours;
 
 import com.wfe.scenegraph.Entity;
+import com.wfe.utils.TimeUtil;
 
 /**
  * Created by Rick on 08.10.2016.
@@ -65,8 +66,20 @@ public class AnimBh extends Behaviour {
         rightShin.localRotation.x = -20;
     }
     
-    public void fighAnim(float dt) {
+    boolean rightArmState = false;
+    public void choppingAnim(float dt) {
+    	rightForearm.localRotation.x = 45;
     	
+    	if(!rightArmState)
+    		rightArm.localRotation.x += animSpeed * dt;
+    	else
+    		rightArm.localRotation.x -= animSpeed * dt * 3;
+    	
+    	if(rightArm.localRotation.x >= 135) {
+    		rightArmState = true;
+    	} else if(rightArm.localRotation.x <= 35) {
+    		rightArmState = false;
+    	}
     }
 
     public void idleAnim(float dt) {

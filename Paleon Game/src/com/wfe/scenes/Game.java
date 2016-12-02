@@ -9,16 +9,13 @@ import com.wfe.entities.Player;
 import com.wfe.entities.Shroom;
 import com.wfe.graph.Camera;
 import com.wfe.graph.water.WaterTile;
-import com.wfe.inventorySystem.Bar;
-import com.wfe.inventorySystem.InventoryBh;
+import com.wfe.gui.GUI;
 import com.wfe.math.Vector3f;
-import com.wfe.scenegraph.Entity;
 import com.wfe.scenegraph.World;
 import com.wfe.terrain.Terrain;
 import com.wfe.terrain.TerrainGenerator;
 import com.wfe.terrain.TexturePack;
 import com.wfe.utils.CellInfo;
-import com.wfe.utils.Color;
 import com.wfe.utils.GameTime;
 
 public class Game implements IScene {
@@ -40,6 +37,12 @@ public class Game implements IScene {
 		ResourceManager.loadTexture("gui/icons/log wall", "ui_log wall");
 		ResourceManager.loadTexture("gui/icons/apple", "ui_apple");
 		ResourceManager.loadTexture("gui/icons/shroom", "ui_shroom");
+		ResourceManager.loadTexture("gui/icons/character", "ui_character");
+		
+		ResourceManager.loadTexture("gui/icons/cap", "ui_cap");
+		ResourceManager.loadTexture("gui/icons/tunic", "ui_tunic");
+		ResourceManager.loadTexture("gui/icons/pants", "ui_pants");
+		ResourceManager.loadTexture("gui/icons/boots", "ui_boots");
 		
 		ResourceManager.loadTexture("gui/bar/health", "ui_health");
 		ResourceManager.loadTexture("gui/bar/hunger", "ui_hunger");
@@ -131,6 +134,8 @@ public class Game implements IScene {
         ResourceManager.loadTexture("models/shroom/shroom", "shroom");
         /*** *** ***/
 	}
+	
+	public static GUI gui;
 
 	@Override
 	public void init() throws Exception {
@@ -170,9 +175,6 @@ public class Game implements IScene {
 				world.addWaterTile(new WaterTile(j, i));
 			}
 		}
-		
-		Entity inventory = new Entity(world, "Inventory");
-	    inventory.addBehaviour(new InventoryBh());
         
         Grass grass = new Grass(world);
         grass.position.set(400, world.getTerrainHeight(400, 400), 400);
@@ -185,7 +187,7 @@ public class Game implements IScene {
         
         Player player = new Player(world, camera);
         
-        Birch birch1 = new Birch(world, new Vector3f(384, world.getTerrainHeight(384, 384), 384));
+        Birch birch1 = new Birch(world, new Vector3f(384, world.getTerrainHeight(384, 374), 374));
         Birch birch2 = new Birch(world, new Vector3f(420, world.getTerrainHeight(420, 384), 384));
         Birch birch3 = new Birch(world, new Vector3f(394, world.getTerrainHeight(394, 400), 400));
         
@@ -195,11 +197,7 @@ public class Game implements IScene {
         Shroom shroom = new Shroom(world);
         shroom.position.set(384, world.getTerrainHeight(384, 400), 400);
         
-        Bar healthBar = new Bar(world, "HealthBar", ResourceManager.getTexture("ui_health"), new Color(1.0f, 0.2f, 0.1f));
-        healthBar.position.set(20, 10);
-        
-        Bar hungerBar = new Bar(world, "HungerBar", ResourceManager.getTexture("ui_hunger"), new Color(1.0f, 0.5f, 0.1f));
-        hungerBar.position.set(20, 40);
+        gui = new GUI(world);
         
         GameTime.setTime(12, 00);
         
@@ -209,7 +207,8 @@ public class Game implements IScene {
 	@Override
 	public void update(float dt) throws Exception {
 		world.update(dt);
-		world.render();
+		gui.update(dt);
+		world.render(gui);
 	}
 
 	@Override

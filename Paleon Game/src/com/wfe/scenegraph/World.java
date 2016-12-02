@@ -25,6 +25,7 @@ import com.wfe.graph.render.WaterRenderer;
 import com.wfe.graph.transform.Transform;
 import com.wfe.graph.water.WaterFrameBuffers;
 import com.wfe.graph.water.WaterTile;
+import com.wfe.gui.GUI;
 import com.wfe.input.Key;
 import com.wfe.input.Keyboard;
 import com.wfe.math.Vector4f;
@@ -184,7 +185,7 @@ public class World {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
     }
 
-    public void render() {
+    public void render(GUI gui) {
     
     	GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
     	
@@ -222,6 +223,8 @@ public class World {
         for(Behaviour bh : behaviours)
         	if(bh.active)
         		bh.onGUI();
+        
+        gui.render();
         
         GUIRenderer.endRender();
         

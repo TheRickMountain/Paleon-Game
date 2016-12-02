@@ -3,10 +3,12 @@ package com.wfe.behaviours;
 import com.wfe.graph.Camera;
 import com.wfe.input.Key;
 import com.wfe.input.Keyboard;
+import com.wfe.input.Mouse;
 import com.wfe.math.Vector3f;
 import com.wfe.physics.CollisionPacket;
 import com.wfe.physics.FPlane;
 import com.wfe.scenegraph.World;
+import com.wfe.utils.TimeUtil;
 
 public class ControllingBh extends Behaviour {
 
@@ -22,8 +24,11 @@ public class ControllingBh extends Behaviour {
 	
 	CollisionPacket colPackage;
 	
+	private TimeUtil time;
+	
 	public ControllingBh(Camera camera) {
 		this.camera = camera;
+		this.time = new TimeUtil();
 	}
 	
 	@Override
@@ -97,6 +102,10 @@ public class ControllingBh extends Behaviour {
 			anim.walkAnim(dt);	
 		} else {
 			anim.idleAnim(dt);
+		}
+		
+		if(Mouse.isButtonDown(0)) {
+			
 		}
 	}
 	

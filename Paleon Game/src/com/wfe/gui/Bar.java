@@ -1,4 +1,4 @@
-package com.wfe.inventorySystem;
+package com.wfe.gui;
 
 import com.wfe.behaviours.BarBh;
 import com.wfe.graph.Texture;

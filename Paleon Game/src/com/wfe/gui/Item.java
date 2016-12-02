@@ -1,4 +1,4 @@
-package com.wfe.inventorySystem;
+package com.wfe.gui;
 
 import com.wfe.core.ResourceManager;
 import com.wfe.graph.Texture;
@@ -18,7 +18,11 @@ public class Item {
 		WEAPON,
 		CONSUMABLE,
 		ITEM,
-		BUILDING
+		BUILDING,
+		CAP,
+		TUNIC,
+		PANTS, 
+		BOOTS
 	}
 	
 	public Item() {
