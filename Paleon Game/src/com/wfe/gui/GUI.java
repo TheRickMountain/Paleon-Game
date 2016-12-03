@@ -6,7 +6,6 @@ import com.wfe.core.ResourceManager;
 import com.wfe.graph.render.GUIRenderer;
 import com.wfe.input.Mouse;
 import com.wfe.scenegraph.World;
-import com.wfe.utils.Color;
 
 public class GUI {
 	
@@ -16,30 +15,25 @@ public class GUI {
 	public Item draggedItem;
 	public int draggedItemCount;
 	
+	public HUD hud;
 	public Equipment equipment;
 	public Inventory inventory;
 	
 	
 	public GUI(World world) {
-		/*** Health and Starvation bars ***/
-		Bar healthBar = new Bar(world, "Health Bar", ResourceManager.getTexture("ui_health"), new Color(1.0f, 0.2f, 0.1f));
-        healthBar.position.set(20, 10);
-        
-        Bar hungerBar = new Bar(world, "Hunger Bar", ResourceManager.getTexture("ui_hunger"), new Color(1.0f, 0.5f, 0.1f));
-        hungerBar.position.set(20, 40);
-        /*** *** ***/
-		
 		equipmentButton = new Button(world, "Equipment Button", ResourceManager.getTexture("ui_character"));
 		equipmentButton.scale.set(50, 50);
 		equipmentButton.position.x = Display.getWidth() - 50;
 		equipmentButton.position.y = Display.getHeight() / 2;
 		equipmentButtonBh = equipmentButton.getBehaviour(ButtonBh.class);
 		
+		hud = new HUD(world);
 		equipment = new Equipment(world);
 		inventory = new Inventory(world);
 	}
 	
 	public void update(float dt) {
+		hud.update(dt);
 		equipment.update(dt);
 		inventory.update(dt);
 		

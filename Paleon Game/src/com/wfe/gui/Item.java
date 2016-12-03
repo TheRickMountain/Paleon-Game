@@ -15,14 +15,16 @@ public class Item {
 	public int stack;
 	
 	public enum ItemType {
-		WEAPON,
-		CONSUMABLE,
-		ITEM,
-		BUILDING,
 		CAP,
 		TUNIC,
 		PANTS, 
-		BOOTS
+		BOOTS,
+		WEAPON,
+		AMULET,
+		BACKPACK,
+		CONSUMABLE,
+		ITEM,
+		BUILDING,
 	}
 	
 	public Item() {

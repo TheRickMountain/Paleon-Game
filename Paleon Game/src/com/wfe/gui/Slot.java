@@ -8,7 +8,7 @@ import com.wfe.utils.MathUtils;
 
 public class Slot {
 	
-	private Item item;
+	private Item slotItem;
 	
 	private Texture slotTexture;
 	
@@ -26,13 +26,13 @@ public class Slot {
 	}
 	
 	public boolean addItem(Item item) {	
-		if(this.item != null) {
-			if(this.item.itemID == item.itemID) {
+		if(this.slotItem != null) {
+			if(this.slotItem.itemID == item.itemID) {
 				itemsCount++;
 				return true;
 			}
-		} else if(this.item == null) {
-			this.item = item;
+		} else {
+			this.slotItem = item;
 			itemsCount++;
 			return true;
 		} 
@@ -41,22 +41,30 @@ public class Slot {
 	}
 	
 	public void removeItem() {
-		item = null;
+		slotItem = null;
 		itemsCount = 0;
 	}
 	
 	public void removeItem(int count) {
-		itemsCount -= count;
+		if(count > itemsCount)
+			itemsCount = 0;
+		else
+			itemsCount -= count;
 	}
 	
-	public Item getItem() {
-		return item;
+	public Item getSlotItem() {
+		return slotItem;
+	}
+	
+	public void setPosition(float x, float y) {
+		this.xPos = x;
+		this.yPos = y;
 	}
 	
 	public void render(Text text) {
 		GUIRenderer.render(xPos, yPos, xScale, yScale, slotTexture);
-		if(item != null) {
-			GUIRenderer.render(xPos, yPos, xScale, yScale, item.itemIcon);
+		if(slotItem != null) {
+			GUIRenderer.render(xPos, yPos, xScale, yScale, slotItem.itemIcon);
 			text.setText("x" + itemsCount);
 			GUIRenderer.render(xPos, yPos, text);
 		}
@@ -64,8 +72,8 @@ public class Slot {
 	
 	public void render() {
 		GUIRenderer.render(xPos, yPos, xScale, yScale, slotTexture);
-		if(item != null) {
-			GUIRenderer.render(xPos, yPos, xScale, yScale, item.itemIcon);
+		if(slotItem != null) {
+			GUIRenderer.render(xPos, yPos, xScale, yScale, slotItem.itemIcon);
 		}
 	}
 	

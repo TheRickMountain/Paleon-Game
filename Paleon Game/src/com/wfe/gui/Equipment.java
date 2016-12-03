@@ -74,8 +74,8 @@ public class Equipment {
 						
 						if(Game.gui.draggedItem != null) {
 							
-							if(slot.getItem() != null) {
-								Item temp = slot.getItem();
+							if(slot.getSlotItem() != null) {
+								Item temp = slot.getSlotItem();
 								Game.gui.draggedItemCount = slot.getItemsCount();
 								slot.removeItem();
 								slot.addItem(Game.gui.draggedItem);
@@ -83,9 +83,9 @@ public class Equipment {
 								
 								player.removeWeapon();
 								
-								if(slot.getItem().itemName.equals("axe")) {
+								if(slot.getSlotItem().itemName.equals("axe")) {
 									player.addWeapon(new Axe(world));
-								} else if(slot.getItem().itemName.equals("hummer")) {
+								} else if(slot.getSlotItem().itemName.equals("hummer")) {
 									player.addWeapon(new Hummer(world));
 								}
 							} else {
@@ -93,12 +93,12 @@ public class Equipment {
 								Game.gui.draggedItem = null;
 							}
 						} else {
-							if(slot.getItem() != null) {
-								if(slot.getItem().itemType.equals(Item.ItemType.WEAPON)) {
+							if(slot.getSlotItem() != null) {
+								if(slot.getSlotItem().itemType.equals(Item.ItemType.WEAPON)) {
 									player.removeWeapon();
 								}
 								
-								Game.gui.draggedItem = slot.getItem();
+								Game.gui.draggedItem = slot.getSlotItem();
 								Game.gui.draggedItemCount = 1;
 								slot.removeItem();
 							}
@@ -136,38 +136,38 @@ public class Equipment {
 		
 	}
 	
-	public void addItem(Item item) {
+	public void addItem(Item item) {		
 		if(item.itemType.equals(Item.ItemType.CAP)) {
-			if(capSlot.getItem() != null) {
-				Game.gui.inventory.addItem(capSlot.getItem().itemID);
+			if(capSlot.getSlotItem() != null) {
+				Game.gui.inventory.addItem(capSlot.getSlotItem().itemID);
 				capSlot.removeItem();
 			}
 				
 			capSlot.addItem(item);
 		} else if(item.itemType.equals(Item.ItemType.TUNIC)) {
-			if(tunicSlot.getItem() != null) {
-				Game.gui.inventory.addItem(tunicSlot.getItem().itemID);
+			if(tunicSlot.getSlotItem() != null) {
+				Game.gui.inventory.addItem(tunicSlot.getSlotItem().itemID);
 				tunicSlot.removeItem();
 			}
 			
 			tunicSlot.addItem(item);
 		} else if(item.itemType.equals(Item.ItemType.PANTS)) {
-			if(pantsSlot.getItem() != null) {
-				Game.gui.inventory.addItem(pantsSlot.getItem().itemID);
+			if(pantsSlot.getSlotItem() != null) {
+				Game.gui.inventory.addItem(pantsSlot.getSlotItem().itemID);
 				pantsSlot.removeItem();
 			}
 			
 			pantsSlot.addItem(item);
 		} else if(item.itemType.equals(Item.ItemType.BOOTS)) {
-			if(bootsSlot.getItem() != null) {
-				Game.gui.inventory.addItem(bootsSlot.getItem().itemID);
+			if(bootsSlot.getSlotItem() != null) {
+				Game.gui.inventory.addItem(bootsSlot.getSlotItem().itemID);
 				bootsSlot.removeItem();
 			}
 			
 			bootsSlot.addItem(item);
 		} else if(item.itemType.equals(Item.ItemType.WEAPON)) {
-			if(weaponSlot.getItem() != null) {
-				Game.gui.inventory.addItem(weaponSlot.getItem().itemID);
+			if(weaponSlot.getSlotItem() != null) {
+				Game.gui.inventory.addItem(weaponSlot.getSlotItem().itemID);
 				weaponSlot.removeItem();
 				player.removeWeapon();
 			}
