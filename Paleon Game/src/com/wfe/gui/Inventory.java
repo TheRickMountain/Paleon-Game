@@ -79,6 +79,7 @@ public class Inventory {
 			quickSlots.get(5).addItem(ItemDatabase.getItem(ItemDatabase.LOG_WALL));
 		
 		quickSlots.get(6).addItem(ItemDatabase.getItem(ItemDatabase.AXE));
+		quickSlots.get(7).addItem(ItemDatabase.getItem(ItemDatabase.HUMMER));
 	}
 
 	
