@@ -40,8 +40,6 @@ public class Inventory {
 	public Inventory(World world) {	
 		this.world = world;
 		
-		ItemDatabase.init();
-		
 		countText = new Text("test", GUIRenderer.primitiveFont, 1.1f, Color.WHITE);			
 		
 		player = world.getEntityByName("Player");
@@ -56,19 +54,6 @@ public class Inventory {
 		Slot slot2 = slots.get(slots.size() - 1);
 		rect = new Rect(slot1.xPos, slot1.yPos,
 				slot2.xPos + slot2.xScale, slot2.yPos + slot2.yScale);
-		
-		addItem(ItemDatabase.APPLE);
-		addItem(ItemDatabase.APPLE);
-		addItem(ItemDatabase.CAP);
-		addItem(ItemDatabase.PANTS);
-		addItem(ItemDatabase.TUNIC);
-		addItem(ItemDatabase.BOOTS);
-		
-		for(int i = 0; i < 21; i++)
-			addItem(ItemDatabase.LOG_WALL);
-	
-		addItem(ItemDatabase.HUMMER);
-		addItem(ItemDatabase.AXE);
 	}
 
 	
@@ -207,6 +192,7 @@ public class Inventory {
 	
 	public boolean addItem(int id) {
 		
+		// Trying to find the same items in the inventory
 		for(Slot slot : slots) {
 			if(slot.getSlotItem() != null) {
 				if(slot.getSlotItem().itemID == id) {
@@ -218,6 +204,7 @@ public class Inventory {
 			
 		}
 		
+		// If the same item isn't exist, adds item to the first empty slot
 		for(Slot slot : slots) {
 			if(slot.addItem(ItemDatabase.getItem(id)))
 				return true;

@@ -44,6 +44,9 @@ public class PlayerBh extends Behaviour {
 	}
 	
 	public void addWeapon(Entity weapon) {
+		if(this.weapon != null)
+			removeWeapon();
+		
 		this.weapon = weapon;
 		anim.addWeapon(weapon);
 	}

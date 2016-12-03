@@ -16,9 +16,6 @@ public class Equipment {
 
 	private List<Slot> slots;
 	
-	private Slot capSlot, tunicSlot, pantsSlot, bootsSlot, 
-		backpackSlot, weaponSlot, amulet1Slot, amulet2Slot;
-	
 	public boolean opened = false;
 	
 	private PlayerBh player;
@@ -31,39 +28,30 @@ public class Equipment {
 		player = world.getEntityByName("Player").getBehaviour(PlayerBh.class);
 		
 		slots = new ArrayList<Slot>(8);
+			
+		slots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
+				Display.getWidth() - 170, Display.getHeight() / 2 - 120, 50, 50, Slot.SlotType.CAP));
 		
+		slots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
+				Display.getWidth() - 170, Display.getHeight() / 2 - 60, 50, 50, Slot.SlotType.TUNIC));
 		
-		capSlot = new Slot(ResourceManager.getTexture("ui_slot"), 
-				Display.getWidth() - 170, Display.getHeight() / 2 - 120, 50, 50);
-		slots.add(capSlot);
+		slots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
+				Display.getWidth() - 170, Display.getHeight() / 2, 50, 50, Slot.SlotType.PANTS));
 		
-		tunicSlot = new Slot(ResourceManager.getTexture("ui_slot"), 
-				Display.getWidth() - 170, Display.getHeight() / 2 - 60, 50, 50);
-		slots.add(tunicSlot);
+		slots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
+				Display.getWidth() - 170, Display.getHeight() / 2 + 60, 50, 50, Slot.SlotType.BOOTS));
 		
-		pantsSlot = new Slot(ResourceManager.getTexture("ui_slot"), 
-				Display.getWidth() - 170, Display.getHeight() / 2, 50, 50);
-		slots.add(pantsSlot);
+		slots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
+				Display.getWidth() - 110, Display.getHeight() / 2 - 85, 50, 50, Slot.SlotType.BACKPACK));
 		
-		bootsSlot = new Slot(ResourceManager.getTexture("ui_slot"), 
-				Display.getWidth() - 170, Display.getHeight() / 2 + 60, 50, 50);
-		slots.add(bootsSlot);
+		slots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
+				Display.getWidth() - 230, Display.getHeight() / 2 - 85, 50, 50, Slot.SlotType.WEAPON));
 		
-		backpackSlot = new Slot(ResourceManager.getTexture("ui_slot"), 
-				Display.getWidth() - 110, Display.getHeight() / 2 - 85, 50, 50);
-		slots.add(backpackSlot);
+		slots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
+				Display.getWidth() - 110, Display.getHeight() / 2 - 25, 50, 50, Slot.SlotType.AMULET));
 		
-		weaponSlot = new Slot(ResourceManager.getTexture("ui_slot"), 
-				Display.getWidth() - 230, Display.getHeight() / 2 - 85, 50, 50);
-		slots.add(weaponSlot);
-		
-		amulet1Slot = new Slot(ResourceManager.getTexture("ui_slot"), 
-				Display.getWidth() - 110, Display.getHeight() / 2 - 25, 50, 50);
-		slots.add(amulet1Slot);
-		
-		amulet2Slot = new Slot(ResourceManager.getTexture("ui_slot"), 
-				Display.getWidth() - 230, Display.getHeight() / 2 - 25, 50, 50);
-		slots.add(amulet2Slot);
+		slots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
+				Display.getWidth() - 230, Display.getHeight() / 2 - 25, 50, 50, Slot.SlotType.AMULET));
 	}
 
 	public void update(float dt) {
@@ -109,74 +97,40 @@ public class Equipment {
 		}
 		
 		if(Display.wasResized()) {
-			capSlot.xPos = Display.getWidth() - 170;
-			capSlot.yPos = Display.getHeight() / 2 - 120;
-			
-			tunicSlot.xPos = Display.getWidth() - 170;
-			tunicSlot.yPos = Display.getHeight() / 2 - 60;
-			
-			pantsSlot.xPos = Display.getWidth() - 170;
-			pantsSlot.yPos = Display.getHeight() / 2;
-			
-			bootsSlot.xPos = Display.getWidth() - 170;
-			bootsSlot.yPos = Display.getHeight() / 2 + 60;
-			
-			backpackSlot.xPos = Display.getWidth() - 110;
-			backpackSlot.yPos = Display.getHeight() / 2 - 85;
-			
-			weaponSlot.xPos = Display.getWidth() - 230;
-			weaponSlot.yPos = Display.getHeight() / 2 - 85;
-			
-			amulet1Slot.xPos = Display.getWidth() - 110;
-			amulet1Slot.yPos = Display.getHeight() / 2 - 25;
-			
-			amulet2Slot.xPos = Display.getWidth() - 230;
-			amulet2Slot.yPos = Display.getHeight() / 2 - 25;
+			slots.get(0).setPosition(Display.getWidth() - 170, Display.getHeight() / 2 - 120);
+			slots.get(1).setPosition(Display.getWidth() - 170, Display.getHeight() / 2 - 60);
+			slots.get(2).setPosition(Display.getWidth() - 170, Display.getHeight() / 2);
+			slots.get(3).setPosition(Display.getWidth() - 170, Display.getHeight() / 2 + 60);
+			slots.get(4).setPosition(Display.getWidth() - 110, Display.getHeight() / 2 - 85);
+			slots.get(5).setPosition(Display.getWidth() - 230, Display.getHeight() / 2 - 85);
+			slots.get(6).setPosition(Display.getWidth() - 110, Display.getHeight() / 2 - 25);
+			slots.get(7).setPosition(Display.getWidth() - 230, Display.getHeight() / 2 - 25);
 		}
 		
 	}
 	
-	public void addItem(Item item) {		
-		if(item.itemType.equals(Item.ItemType.CAP)) {
-			if(capSlot.getSlotItem() != null) {
-				Game.gui.inventory.addItem(capSlot.getSlotItem().itemID);
-				capSlot.removeItem();
-			}
+	public void addItem(Item item) {
+		boolean added = false;
+		for(Slot slot : slots) {
+			if(slot.slotType.ordinal() == item.itemType.ordinal()) {
+				if(slot.getSlotItem() == null) {
+					slot.addItem(item);
+					added = true;
+				} else {
+					Game.gui.inventory.addItem(slot.getSlotItem().itemID);
+					slot.removeItem();
+					slot.addItem(item);
+					added = true;
+				}
 				
-			capSlot.addItem(item);
-		} else if(item.itemType.equals(Item.ItemType.TUNIC)) {
-			if(tunicSlot.getSlotItem() != null) {
-				Game.gui.inventory.addItem(tunicSlot.getSlotItem().itemID);
-				tunicSlot.removeItem();
-			}
-			
-			tunicSlot.addItem(item);
-		} else if(item.itemType.equals(Item.ItemType.PANTS)) {
-			if(pantsSlot.getSlotItem() != null) {
-				Game.gui.inventory.addItem(pantsSlot.getSlotItem().itemID);
-				pantsSlot.removeItem();
-			}
-			
-			pantsSlot.addItem(item);
-		} else if(item.itemType.equals(Item.ItemType.BOOTS)) {
-			if(bootsSlot.getSlotItem() != null) {
-				Game.gui.inventory.addItem(bootsSlot.getSlotItem().itemID);
-				bootsSlot.removeItem();
-			}
-			
-			bootsSlot.addItem(item);
-		} else if(item.itemType.equals(Item.ItemType.WEAPON)) {
-			if(weaponSlot.getSlotItem() != null) {
-				Game.gui.inventory.addItem(weaponSlot.getSlotItem().itemID);
-				weaponSlot.removeItem();
-				player.removeWeapon();
-			}
-			
-			weaponSlot.addItem(item);
-			if(item.itemName.equals("axe")) {
-				player.addWeapon(new Axe(world));
-			} else if(item.itemName.equals("hummer")) {
-				player.addWeapon(new Hummer(world));
+				if(added) {
+					if(item.itemName.equals("axe")) {
+						player.addWeapon(new Axe(world));
+					} else if(item.itemName.equals("hummer")) {
+						player.addWeapon(new Hummer(world));
+					}
+				}
+				
 			}
 		}
 	}

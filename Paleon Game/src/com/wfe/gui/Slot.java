@@ -16,13 +16,31 @@ public class Slot {
 	
 	private int itemsCount;
 	
+	public SlotType slotType = SlotType.ALL;
+	
+	public enum SlotType {
+		CAP,
+		TUNIC,
+		PANTS, 
+		BOOTS,
+		WEAPON,
+		AMULET,
+		BACKPACK,
+		ALL
+	}
+	
 	public Slot(Texture slotTexture, int xPos, int yPos, int xScale, int yScale) {
+		this(slotTexture, xPos, yPos, xScale, yScale, SlotType.ALL);
+	}
+	
+	public Slot(Texture slotTexture, int xPos, int yPos, int xScale, int yScale, SlotType type) {
 		this.slotTexture = slotTexture;
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.xScale = xScale;
 		this.yScale = yScale;
 		this.itemsCount = 0;
+		this.slotType = type;
 	}
 	
 	public boolean addItem(Item item) {	
@@ -65,8 +83,10 @@ public class Slot {
 		GUIRenderer.render(xPos, yPos, xScale, yScale, slotTexture);
 		if(slotItem != null) {
 			GUIRenderer.render(xPos, yPos, xScale, yScale, slotItem.itemIcon);
-			text.setText("x" + itemsCount);
-			GUIRenderer.render(xPos, yPos, text);
+			if(itemsCount >= 2) {
+				text.setText("x" + itemsCount);
+				GUIRenderer.render(xPos, yPos, text);
+			}
 		}
 	}
 	

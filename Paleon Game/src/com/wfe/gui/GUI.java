@@ -27,9 +27,25 @@ public class GUI {
 		equipmentButton.position.y = Display.getHeight() / 2;
 		equipmentButtonBh = equipmentButton.getBehaviour(ButtonBh.class);
 		
+		ItemDatabase.init();
 		hud = new HUD(world);
 		equipment = new Equipment(world);
 		inventory = new Inventory(world);
+		
+		/*** *** ***/
+		inventory.addItem(ItemDatabase.APPLE);
+		inventory.addItem(ItemDatabase.APPLE);
+		inventory.addItem(ItemDatabase.CAP);
+		inventory.addItem(ItemDatabase.PANTS);
+		inventory.addItem(ItemDatabase.TUNIC);
+		inventory.addItem(ItemDatabase.BOOTS);
+		
+		for(int i = 0; i < 21; i++)
+			inventory.addItem(ItemDatabase.LOG_WALL);
+	
+		inventory.addItem(ItemDatabase.HUMMER);
+		inventory.addItem(ItemDatabase.AXE);
+		/*** *** ***/
 	}
 	
 	public void update(float dt) {
@@ -53,8 +69,10 @@ public class GUI {
 		
 		if(draggedItem != null) {
 			GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, 50, 50, draggedItem.itemIcon);
-			inventory.countText.setText("x" + draggedItemCount);
-			GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, inventory.countText);
+			if(draggedItemCount >= 2) {
+				inventory.countText.setText("x" + draggedItemCount);
+				GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, inventory.countText);
+			}
 		}
 	}
 	
