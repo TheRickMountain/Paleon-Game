@@ -10,6 +10,7 @@ import com.wfe.utils.Color;
 
 public class GUI {
 	
+	private Button equipmentButton;
 	private ButtonBh equipmentButtonBh;
 	
 	public Item draggedItem;
@@ -28,7 +29,7 @@ public class GUI {
         hungerBar.position.set(20, 40);
         /*** *** ***/
 		
-		Button equipmentButton = new Button(world, "Equipment Button", ResourceManager.getTexture("ui_character"));
+		equipmentButton = new Button(world, "Equipment Button", ResourceManager.getTexture("ui_character"));
 		equipmentButton.scale.set(50, 50);
 		equipmentButton.position.x = Display.getWidth() - 50;
 		equipmentButton.position.y = Display.getHeight() / 2;
@@ -44,6 +45,11 @@ public class GUI {
 		
 		if(equipmentButtonBh.isPressedDown(0)) {
 			equipment.opened = !equipment.opened;
+		}
+		
+		if(Display.wasResized()) {
+			equipmentButton.position.x =  Display.getWidth() - 50;
+			equipmentButton.position.y =  Display.getHeight() / 2;
 		}
 	}
 	

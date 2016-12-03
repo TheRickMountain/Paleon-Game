@@ -22,10 +22,10 @@ public class Camera {
     public static final float Z_NEAR = 0.1f;
     public static final float Z_FAR = 1000.f;
 
-    private static final float MIN_DISTANCE = 20;
+    private static final float MIN_DISTANCE = 15;
     private static final float MAX_DISTANCE = 60;
 
-    private float distanceFromPlayer = 60;
+    private float distanceFromPlayer = 25;
     private float angleAroundPlayer = 180;
     private float zoomSpeed = 50;
 
@@ -38,7 +38,7 @@ public class Camera {
 
     private final Vector3f position;
 
-    private float pitch = 45;
+    private float pitch = 25;
 
     private float yaw = 0;
 

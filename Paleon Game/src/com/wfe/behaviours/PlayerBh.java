@@ -105,7 +105,7 @@ public class PlayerBh extends Behaviour {
 		
 		parent.position.set(colPackage.getR3Position());
 		camera.playerPosition.set(parent.position);
-		camera.playerPosition.y += 1.1f;
+		camera.playerPosition.y += 3.9f;
 		
 		if(move) {
 			anim.walkAnim(dt);	

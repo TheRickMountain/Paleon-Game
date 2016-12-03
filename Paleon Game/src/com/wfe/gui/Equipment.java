@@ -87,10 +87,35 @@ public class Equipment {
 						}
 					}
 				}
-			}
-			
-			
+			}	
 		}
+		
+		if(Display.wasResized()) {
+			capSlot.xPos = Display.getWidth() - 170;
+			capSlot.yPos = Display.getHeight() / 2 - 120;
+			
+			tunicSlot.xPos = Display.getWidth() - 170;
+			tunicSlot.yPos = Display.getHeight() / 2 - 60;
+			
+			pantsSlot.xPos = Display.getWidth() - 170;
+			pantsSlot.yPos = Display.getHeight() / 2;
+			
+			bootsSlot.xPos = Display.getWidth() - 170;
+			bootsSlot.yPos = Display.getHeight() / 2 + 60;
+			
+			backpackSlot.xPos = Display.getWidth() - 110;
+			backpackSlot.yPos = Display.getHeight() / 2 - 85;
+			
+			weaponSlot.xPos = Display.getWidth() - 230;
+			weaponSlot.yPos = Display.getHeight() / 2 - 85;
+			
+			amulet1Slot.xPos = Display.getWidth() - 110;
+			amulet1Slot.yPos = Display.getHeight() / 2 - 25;
+			
+			amulet2Slot.xPos = Display.getWidth() - 230;
+			amulet2Slot.yPos = Display.getHeight() / 2 - 25;
+		}
+		
 	}
 	
 	public void addItem(Item item) {
