@@ -9,19 +9,30 @@ public class EmptyState implements IState {
     public void loadResources() {
 
     }
+    
+    @Override
+    public void changeState(StateMachine gGameMode)  throws Exception {
+    	
+    }
 
     @Override
     public void onEnter() throws Exception {
 
     }
-
+    
     @Override
     public void update(float dt) {
 
     }
 
     @Override
+	public void render() throws Exception {
+		
+	}
+    
+    @Override
     public void onExit() {
 
     }
+    
 }

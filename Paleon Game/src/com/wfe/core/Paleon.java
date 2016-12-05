@@ -1,5 +1,6 @@
 package com.wfe.core;
 
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
 import com.wfe.core.input.Keyboard;
@@ -15,6 +16,12 @@ public class Paleon implements Runnable {
     public static Display display;
     
     private final StateMachine gGameMode;
+    
+    private boolean running;
+    
+    private float frameTime = 1.0f / 60.0f;
+    
+    public static double lastTime;
 
     public Paleon() {
         gameLoopThread = new Thread(this, "GAME_LOOP_THREAD");
@@ -51,41 +58,88 @@ public class Paleon implements Runnable {
     }
 
     public void initScenes() throws Exception {
-        gGameMode.add("menu", new MenuState(gGameMode));
-        gGameMode.add("game", new GameState(gGameMode));
+        gGameMode.add("menu", new MenuState());
+        gGameMode.add("game", new GameState());
         gGameMode.change("menu");
+    }
+    
+    public void stop() {
+        if (running)
+            running = false;
     }
 
     public void gameLoop() throws Exception {
-        while (!display.isCloseRequested()) {
-            Keyboard.startEventFrame();
+    	running = true;
+    	
+    	lastTime = GLFW.glfwGetTime();
+    	double unprocessedTime = 0;
+    	
+    	while(running) {
+    		boolean render = false;
+    		
+    		double startTime = GLFW.glfwGetTime();
+    		double passedTime = startTime - lastTime;
+    		lastTime = startTime;
+    		unprocessedTime += passedTime;
+    		
+    		while(unprocessedTime > frameTime) {
+    			if(display.isCloseRequested())
+    				stop();
+    			
+    			Keyboard.startEventFrame();
+                Mouse.startEventFrame();
+    			
+                gGameMode.changeState(gGameMode);
+    			gGameMode.update(frameTime);
+    			
+    			Keyboard.clearEventFrame();
+    			Mouse.clearEventFrame();
+    			
+    			unprocessedTime -= frameTime;
+    			
+    			render = true;
+    		}
+    		
+    		if(render)
+    			render();
+    	}
+    	
+        /*while (!display.isCloseRequested()) {
+        	
+        	Keyboard.startEventFrame();
             Mouse.startEventFrame();
-
-            float deltaTime = Timer.getDeltaTime();
-
-            if (deltaTime >= 1) {
-                deltaTime = 0;
-            }
-
-            update(deltaTime);
-
+            
+            gGameMode.changeState(gGameMode);
+            gGameMode.update(frameTime);
+            
             Keyboard.clearEventFrame();
             Mouse.clearEventFrame();
+            
+            render();
 
             if (display.wasResized()) {
                 GL11.glViewport(0, 0, display.getWidth(), display.getHeight());
                 display.setResized(false);
             }
+        }*/
+    	
+    	if (display.wasResized()) {
+            GL11.glViewport(0, 0, display.getWidth(), display.getHeight());
+            display.setResized(false);
         }
     }
 
     protected void update(float deltaTime) throws Exception {
-        display.pollEvents();
         gGameMode.update(deltaTime);
-        display.swapBuffers();
-        Timer.update();
     }
 
+    protected void render() throws Exception {
+    	gGameMode.render();
+    	display.pollEvents();
+        display.swapBuffers();
+        //calculateDelta();
+    }
+    
     public void dispose() {
         try {
             gGameMode.change(null);
@@ -95,6 +149,30 @@ public class Paleon implements Runnable {
         display.destroy();
     }
     
+    /*private double getTime() {
+        return System.nanoTime() / 1_000_000.0;
+    }
+    
+    private void calculateDelta() {
+		double time = getTime();
+		double difference = time - lastFrame;
+		float value = ((float) difference) / DELTA_FACTOR;
+		delta = updateRollingAverage(value);
+		lastFrame = time;
+
+	}
+    
+    private static float updateRollingAverage(float value) {
+		previousTimes.add(0, value);
+		if (previousTimes.size() > ROLLING_AVERAGE_LENGTH) {
+			previousTimes.remove(ROLLING_AVERAGE_LENGTH);
+		}
+		if (previousTimes.size() < ROLLING_AVERAGE_LENGTH) {
+			return value;
+		}
+		return Utils.getAverageOfList(previousTimes);
+	}
+    */
     public static void main(String[] args) {
 		new Paleon().start();
 	}

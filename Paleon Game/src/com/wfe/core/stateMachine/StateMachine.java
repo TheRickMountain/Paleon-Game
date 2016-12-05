@@ -3,6 +3,10 @@ package com.wfe.core.stateMachine;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.lwjgl.glfw.GLFW;
+
+import com.wfe.core.Paleon;
+
 /**
  * Created by Rick on 06.10.2016.
  */
@@ -27,6 +31,7 @@ public class StateMachine implements IState {
         currentState = mStates.get(name);
         currentState.loadResources();
         currentState.onEnter();
+        Paleon.lastTime = GLFW.glfwGetTime();
     }
 
     @Override
@@ -38,11 +43,21 @@ public class StateMachine implements IState {
     public void onEnter() throws Exception {
         currentState.onEnter();
     }
-
+    
+    @Override
+	public void changeState(StateMachine gGameMode) throws Exception {
+    	currentState.changeState(gGameMode);
+	}
+    
     @Override
     public void update(float dt) throws Exception {
         currentState.update(dt);
     }
+    
+    @Override
+	public void render() throws Exception {
+		currentState.render();
+	}
 
     @Override
     public void onExit() {

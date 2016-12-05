@@ -23,19 +23,15 @@ import com.wfe.utils.GameTime;
 
 public class GameState implements IState {
 	
-	private StateMachine gGameMode;
-	
 	private World world;
 	
 	public static State state = GameState.State.GAME;
 	
+	public static GUI gui;
+	
 	public enum State {
 		GAME,
 		GUI
-	}
-	
-	public GameState(StateMachine gameMode) {
-		this.gGameMode = gameMode;
 	}
 	
 	@Override
@@ -149,8 +145,6 @@ public class GameState implements IState {
         ResourceManager.loadTexture("models/shroom/shroom", "shroom");
         /*** *** ***/
 	}
-	
-	public static GUI gui;
 
 	@Override
 	public void onEnter() throws Exception {
@@ -226,12 +220,23 @@ public class GameState implements IState {
         GameTime.setTime(12, 00);
         
         world.init();
+        
+        System.out.println("On Enter Completed");
 	}
-
+	
+	@Override
+	public void changeState(StateMachine gameMode) throws Exception {
+		
+	}
+	
 	@Override
 	public void update(float dt) throws Exception {
 		world.update(dt);
 		gui.update(dt);
+	}
+	
+	@Override
+	public void render() throws Exception {
 		world.render(gui);
 	}
 
