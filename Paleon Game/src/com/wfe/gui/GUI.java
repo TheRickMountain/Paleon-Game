@@ -1,10 +1,10 @@
 package com.wfe.gui;
 
 import com.wfe.behaviours.ButtonBh;
-import com.wfe.core.Display;
+import com.wfe.core.Paleon;
 import com.wfe.core.ResourceManager;
+import com.wfe.core.input.Mouse;
 import com.wfe.graph.render.GUIRenderer;
-import com.wfe.input.Mouse;
 import com.wfe.scenegraph.World;
 
 public class GUI {
@@ -23,8 +23,8 @@ public class GUI {
 	public GUI(World world) {
 		equipmentButton = new Button(world, "Equipment Button", ResourceManager.getTexture("ui_character"));
 		equipmentButton.scale.set(50, 50);
-		equipmentButton.position.x = Display.getWidth() - 50;
-		equipmentButton.position.y = Display.getHeight() / 2;
+		equipmentButton.position.x = Paleon.display.getWidth() - 50;
+		equipmentButton.position.y = Paleon.display.getHeight() / 2;
 		equipmentButtonBh = equipmentButton.getBehaviour(ButtonBh.class);
 		
 		ItemDatabase.init();
@@ -57,9 +57,9 @@ public class GUI {
 			equipment.opened = !equipment.opened;
 		}
 		
-		if(Display.wasResized()) {
-			equipmentButton.position.x =  Display.getWidth() - 50;
-			equipmentButton.position.y =  Display.getHeight() / 2;
+		if(Paleon.display.wasResized()) {
+			equipmentButton.position.x =  Paleon.display.getWidth() - 50;
+			equipmentButton.position.y =  Paleon.display.getHeight() / 2;
 		}
 	}
 	

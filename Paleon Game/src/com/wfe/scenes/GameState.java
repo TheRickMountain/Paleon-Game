@@ -2,9 +2,9 @@ package com.wfe.scenes;
 
 import java.util.Random;
 
-import com.wfe.core.IState;
 import com.wfe.core.ResourceManager;
-import com.wfe.core.StateMachine;
+import com.wfe.core.stateMachine.IState;
+import com.wfe.core.stateMachine.StateMachine;
 import com.wfe.entities.Birch;
 import com.wfe.entities.Flint;
 import com.wfe.entities.Grass;

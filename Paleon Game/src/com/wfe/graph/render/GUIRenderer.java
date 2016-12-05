@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL30;
 import com.wfe.components.Component;
 import com.wfe.components.Image;
 import com.wfe.components.Text;
-import com.wfe.core.Display;
+import com.wfe.core.Paleon;
 import com.wfe.core.ResourceManager;
 import com.wfe.graph.Mesh;
 import com.wfe.graph.Texture;
@@ -49,7 +49,8 @@ public class GUIRenderer {
 
         shader.setUniform("image", 0);
 
-        MathUtils.getOrtho2DProjectionMatrix(projectionMatrix, 0, Display.getWidth(), Display.getHeight(), 0);
+        MathUtils.getOrtho2DProjectionMatrix(projectionMatrix, 0, 
+        		Paleon.display.getWidth(), Paleon.display.getHeight(), 0);
 
         primitiveFont = new FontType("primitive_font");
     }
@@ -60,8 +61,9 @@ public class GUIRenderer {
         OpenglUtils.alphaBlending(true);
         OpenglUtils.depthTest(false);
 
-        if(Display.wasResized()) {
-            MathUtils.getOrtho2DProjectionMatrix(projectionMatrix, 0, Display.getWidth(), Display.getHeight(), 0);
+        if(Paleon.display.wasResized()) {
+            MathUtils.getOrtho2DProjectionMatrix(projectionMatrix, 0, 
+            		Paleon.display.getWidth(), Paleon.display.getHeight(), 0);
         }
     }
 
@@ -103,8 +105,8 @@ public class GUIRenderer {
 	                shader.setUniform("mode", 2);
 	
 	                shader.setUniform("MP",
-	                        MathUtils.getModelMatrix(modelMatrix, (parent.position.x / Display.getWidth()) * 2.0f,
-	                                (-parent.position.y / Display.getHeight()) * 2.0f,
+	                        MathUtils.getModelMatrix(modelMatrix, (parent.position.x / Paleon.display.getWidth()) * 2.0f,
+	                                (-parent.position.y / Paleon.display.getHeight()) * 2.0f,
 	                                parent.rotation.z,
 	                                parent.scale.x, parent.scale.y));
 	
@@ -182,8 +184,8 @@ public class GUIRenderer {
          shader.setUniform("mode", 2);
 
          shader.setUniform("MP",
-                 MathUtils.getModelMatrix(modelMatrix, (xPos / Display.getWidth()) * 2.0f,
-                         (-yPos / Display.getHeight()) * 2.0f, 0, 1, 1));
+                 MathUtils.getModelMatrix(modelMatrix, (xPos / Paleon.display.getWidth()) * 2.0f,
+                         (-yPos / Paleon.display.getHeight()) * 2.0f, 0, 1, 1));
 
          shader.setUniform("spriteColor", text.color);
 

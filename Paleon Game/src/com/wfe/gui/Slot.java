@@ -1,9 +1,9 @@
 package com.wfe.gui;
 
 import com.wfe.components.Text;
+import com.wfe.core.input.Mouse;
 import com.wfe.graph.Texture;
 import com.wfe.graph.render.GUIRenderer;
-import com.wfe.input.Mouse;
 import com.wfe.utils.MathUtils;
 
 public class Slot {

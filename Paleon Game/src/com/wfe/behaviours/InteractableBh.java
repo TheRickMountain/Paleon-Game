@@ -1,7 +1,7 @@
 package com.wfe.behaviours;
 
+import com.wfe.core.input.Mouse;
 import com.wfe.gui.ItemDatabase;
-import com.wfe.input.Mouse;
 import com.wfe.scenegraph.Entity;
 import com.wfe.scenes.GameState;
 import com.wfe.utils.MathUtils;

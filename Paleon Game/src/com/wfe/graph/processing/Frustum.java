@@ -1,6 +1,6 @@
 package com.wfe.graph.processing;
 
-import com.wfe.core.Display;
+import com.wfe.core.Paleon;
 import com.wfe.graph.Camera;
 import com.wfe.graph.water.WaterTile;
 import com.wfe.math.Matrix4f;
@@ -28,7 +28,7 @@ public class Frustum {
 		frustum = new Plane[2];
 		farDistance = Camera.Z_FAR;
 		heightFar = (float) (2 * Math.tan((Camera.FOV / 2) * MathUtils.DEGREES_TO_RADIANS) * farDistance);
-		widthFar = heightFar * (Display.getWidth() / Display.getHeight());
+		widthFar = heightFar * (Paleon.display.getWidth() / Paleon.display.getHeight());
 		this.camera = camera;
 	}
 	

@@ -1,7 +1,7 @@
 package com.wfe.scenes;
 
-import com.wfe.core.IState;
-import com.wfe.core.StateMachine;
+import com.wfe.core.stateMachine.IState;
+import com.wfe.core.stateMachine.StateMachine;
 
 public class MenuState implements IState {
 

@@ -32,39 +32,34 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 import static org.lwjgl.opengl.GL11.GL_TRUE;
-import static org.lwjgl.opengl.GL11.GL_VERSION;
-import static org.lwjgl.opengl.GL11.glGetString;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
-import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 
-import com.wfe.input.Keyboard;
-import com.wfe.input.Mouse;
+import com.wfe.core.input.Keyboard;
+import com.wfe.core.input.Mouse;
 
 /**
  * Created by Rick on 06.10.2016.
  */
 public class Display {
 
-    private static long window;
+    private long mWindow;
+    private String mTitle = "";
+    private boolean mFullscreen;
+    private boolean mResized;
+    private int mWidth;
+    private int mHeight;
 
-    private static String title;
-    private static int width;
-    private static int height;
-    private static boolean fullscreen;
-
-    private static boolean resized;
-
-    public Display(String t, int w, int h, boolean f) {
-        title = t;
-    	width = w;
-        height = h;
-        fullscreen = f;
+    public Display(String title, int width, int height, boolean fullscreen) {
+        this.mTitle = title;
+    	this.mWidth = width;
+        this.mHeight = height;
+        this.mFullscreen = fullscreen;
     }
         
     public void init() {
@@ -81,48 +76,49 @@ public class Display {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-        if(fullscreen)
-        	window = glfwCreateWindow(width, height, title, GLFW.glfwGetPrimaryMonitor(), NULL);
-        else
-        	window = glfwCreateWindow(width, height, title, NULL, NULL);
+        if(!mFullscreen) {
+        	mWindow = glfwCreateWindow(mWidth, mHeight, mTitle, NULL, NULL);
         
-        if ( window == NULL )
+	        GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	        glfwSetWindowPos(
+	                mWindow,
+	                (vidmode.width() - mWidth) / 2,
+	                (vidmode.height() - mHeight) / 2);
+        } else {
+        	mWindow = glfwCreateWindow(mWidth, mHeight, mTitle, GLFW.glfwGetPrimaryMonitor(), NULL);
+        }
+        
+        if ( mWindow == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
-        glfwSetWindowSizeCallback(window, new GLFWWindowSizeCallback() {
+        glfwMakeContextCurrent(mWindow);
+        glfwSwapInterval(1);
+
+        glfwShowWindow(mWindow);
+
+        GL.createCapabilities();
+        
+        glfwSetWindowSizeCallback(mWindow, new GLFWWindowSizeCallback() {
             @Override
             public void invoke(long window, int width, int height) {
-                Display.width = width;
-                Display.height = height;
-                setResized(true);
+                resize(width, height);
             }
         });
 
-        glfwSetKeyCallback(window, new Keyboard());
-        glfwSetMouseButtonCallback(window, new Mouse());
-        glfwSetCursorPosCallback(window, new Mouse.Cursor());
-        glfwSetScrollCallback(window, new Mouse.Scroll());
-
-        GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        glfwSetWindowPos(
-                window,
-                (vidmode.width() - width) / 2,
-                (vidmode.height() - height) / 2);
-
-        glfwMakeContextCurrent(window);
-        glfwSwapInterval(1);
-
-        glfwShowWindow(window);
-
-        GL.createCapabilities();
-
-        System.out.println("LWJGL " + Version.getVersion());
-        System.out.println("OpenGL " + glGetString(GL_VERSION));
-        System.out.println(System.getProperty("os.name"));
+        glfwSetKeyCallback(mWindow, new Keyboard());
+        glfwSetMouseButtonCallback(mWindow, new Mouse());
+        glfwSetCursorPosCallback(mWindow, new Mouse.Cursor());
+        glfwSetScrollCallback(mWindow, new Mouse.Scroll());
+    }
+    
+    public void resize(int width, int height) {
+    	this.mWidth = width;
+    	this.mHeight = height;
+    	setResized(true);
     }
 
     public boolean isCloseRequested() {
-        return glfwWindowShouldClose(window);
+        return glfwWindowShouldClose(mWindow);
     }
 
     public void pollEvents() {
@@ -130,32 +126,32 @@ public class Display {
     }
 
     public void swapBuffers() {
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(mWindow);
     }
 
-    public static int getWidth() {
-        return width;
+    public int getWidth() {
+        return mWidth;
     }
 
-    public static int getHeight() {
-        return height;
+    public int getHeight() {
+        return mHeight;
     }
 
-    public static boolean wasResized() {
-        return resized;
+    public boolean wasResized() {
+        return mResized;
     }
 
-    public static void setResized(boolean r) {
-        resized = r;
+    public void setResized(boolean resized) {
+        this.mResized = resized;
     }
 
-    public static long getWindow() {
-        return window;
+    public long getWindow() {
+        return mWindow;
     }
 
     public void destroy() {
-        glfwFreeCallbacks(window);
-        glfwDestroyWindow(window);
+        glfwFreeCallbacks(mWindow);
+        glfwDestroyWindow(mWindow);
         glfwTerminate();
         glfwSetErrorCallback(null).free();
     }

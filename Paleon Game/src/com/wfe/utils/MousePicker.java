@@ -1,7 +1,7 @@
 package com.wfe.utils;
 
+import com.wfe.core.input.Mouse;
 import com.wfe.graph.Camera;
-import com.wfe.input.Mouse;
 import com.wfe.math.Matrix4f;
 import com.wfe.math.Vector2f;
 import com.wfe.math.Vector3f;

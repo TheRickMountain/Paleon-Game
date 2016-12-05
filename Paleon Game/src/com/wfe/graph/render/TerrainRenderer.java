@@ -6,7 +6,7 @@ import java.util.Map;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL32;
 
-import com.wfe.core.Display;
+import com.wfe.core.Paleon;
 import com.wfe.core.ResourceManager;
 import com.wfe.graph.Camera;
 import com.wfe.graph.DirectionalLight;
@@ -69,7 +69,7 @@ public class TerrainRenderer {
 
     public void render(Map<Terrain, List<TerrainBlock>> terrainBatches, DirectionalLight light, Camera camera, Color fogColor,
     		Vector4f plane) {
-        if(Display.wasResized()) {
+        if(Paleon.display.wasResized()) {
             shader.setUniform("projection", this.camera.getProjectionMatrix(), true);
         }
 

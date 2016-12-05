@@ -1,8 +1,8 @@
 package com.wfe.behaviours;
 
+import com.wfe.core.input.Key;
+import com.wfe.core.input.Keyboard;
 import com.wfe.graph.Camera;
-import com.wfe.input.Key;
-import com.wfe.input.Keyboard;
 import com.wfe.math.Vector3f;
 import com.wfe.physics.CollisionPacket;
 import com.wfe.physics.FPlane;

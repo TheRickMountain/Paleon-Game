@@ -1,4 +1,4 @@
-package com.wfe.input;
+package com.wfe.core.input;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
 

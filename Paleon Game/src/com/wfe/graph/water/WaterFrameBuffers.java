@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL32;
 
-import com.wfe.core.Display;
+import com.wfe.core.Paleon;
  
 public class WaterFrameBuffers {
  
@@ -49,7 +49,7 @@ public class WaterFrameBuffers {
      
     public void unbindCurrentFrameBuffer() {//call to switch to default frame buffer
         GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
-        GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
+        GL11.glViewport(0, 0, Paleon.display.getWidth(), Paleon.display.getHeight());
     }
  
     public int getReflectionTexture() {//get the resulting texture

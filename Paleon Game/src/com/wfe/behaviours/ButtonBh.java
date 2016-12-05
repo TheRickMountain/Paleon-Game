@@ -1,6 +1,6 @@
 package com.wfe.behaviours;
 
-import com.wfe.input.Mouse;
+import com.wfe.core.input.Mouse;
 
 public class ButtonBh extends Behaviour {
 

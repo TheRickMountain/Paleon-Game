@@ -1,4 +1,4 @@
-package com.wfe.input;
+package com.wfe.core.input;
 
 import static org.lwjgl.glfw.GLFW.*;
 

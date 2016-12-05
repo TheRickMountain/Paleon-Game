@@ -5,13 +5,13 @@ import java.util.List;
 
 import com.wfe.components.Collider;
 import com.wfe.components.Text;
-import com.wfe.core.Display;
+import com.wfe.core.Paleon;
 import com.wfe.core.ResourceManager;
+import com.wfe.core.input.Key;
+import com.wfe.core.input.Keyboard;
+import com.wfe.core.input.Mouse;
 import com.wfe.entities.Wall;
 import com.wfe.graph.render.GUIRenderer;
-import com.wfe.input.Key;
-import com.wfe.input.Keyboard;
-import com.wfe.input.Mouse;
 import com.wfe.math.Vector2f;
 import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.Entity;
@@ -46,7 +46,7 @@ public class Inventory {
 		
 		for(int i = 0; i < 8; i++) {
 			slots.add(new Slot(ResourceManager.getTexture("ui_slot"), 
-					(Display.getWidth() / 2) - 235 + (i * 60), Display.getHeight() - 50, 50, 50));
+					(Paleon.display.getWidth() / 2) - 235 + (i * 60), Paleon.display.getHeight() - 50, 50, 50));
 			
 		}
 		
@@ -128,10 +128,10 @@ public class Inventory {
 			}
 		}
 		
-		if(Display.wasResized()) {
+		if(Paleon.display.wasResized()) {
 			for(int i = 0; i < 8; i++) {
-				slots.get(i).xPos = (Display.getWidth() / 2) - 235 + (i * 60);
-				slots.get(i).yPos = Display.getHeight() - 50;
+				slots.get(i).xPos = (Paleon.display.getWidth() / 2) - 235 + (i * 60);
+				slots.get(i).yPos = Paleon.display.getHeight() - 50;
 			}
 			
 			Slot slot1 = slots.get(0);

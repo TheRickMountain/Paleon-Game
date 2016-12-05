@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import com.wfe.core.Display;
+import com.wfe.core.Paleon;
 import com.wfe.core.ResourceManager;
 import com.wfe.graph.Camera;
 import com.wfe.graph.Mesh;
@@ -152,7 +152,7 @@ public class SkyboxRenderer {
 	}
     
     public void render(Camera camera, Color fogColor) {
-        if(Display.wasResized()) {
+        if(Paleon.display.wasResized()) {
             shader.setUniform("projection", this.camera.getProjectionMatrix(), true);
         }
 

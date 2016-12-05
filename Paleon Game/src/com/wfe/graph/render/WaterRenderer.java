@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import com.wfe.core.Display;
+import com.wfe.core.Paleon;
 import com.wfe.core.ResourceManager;
 import com.wfe.graph.Camera;
 import com.wfe.graph.DirectionalLight;
@@ -103,7 +103,7 @@ public class WaterRenderer {
 	private void prepareRender(DirectionalLight sun, Color fogColor){
 		shader.bind();
 		
-		if(Display.wasResized()) {
+		if(Paleon.display.wasResized()) {
 			shader.setUniform("projectionMatrix", camera.getProjectionMatrix());
 		}
 		

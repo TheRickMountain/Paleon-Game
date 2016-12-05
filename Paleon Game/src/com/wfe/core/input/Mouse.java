@@ -1,4 +1,4 @@
-package com.wfe.input;
+package com.wfe.core.input;
 
 import static org.lwjgl.glfw.GLFW.GLFW_CURSOR;
 import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_DISABLED;
@@ -25,7 +25,7 @@ import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWScrollCallback;
 
-import com.wfe.core.Display;
+import com.wfe.core.Paleon;
 
 /**
  * Created by Rick on 06.10.2016.
@@ -76,11 +76,11 @@ public class Mouse extends GLFWMouseButtonCallback {
         }
 
         public static float getNX() {
-            return (2.0f * getX()) / Display.getWidth() - 1.0f;
+            return (2.0f * getX()) / Paleon.display.getWidth() - 1.0f;
         }
         
         public static float getNY() {
-            return 1.0f - (2.0f * getY()) / Display.getHeight();
+            return 1.0f - (2.0f * getY()) / Paleon.display.getHeight();
         }
 
         @Override
@@ -187,12 +187,12 @@ public class Mouse extends GLFWMouseButtonCallback {
     }
 
     public static void show() {
-        glfwSetInputMode(Display.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        glfwSetInputMode(Paleon.display.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         grabbed = false;
     }
 
     public static void hide() {
-        glfwSetInputMode(Display.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(Paleon.display.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         grabbed = true;
     }
 

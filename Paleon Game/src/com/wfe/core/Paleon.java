@@ -2,22 +2,25 @@ package com.wfe.core;
 
 import org.lwjgl.opengl.GL11;
 
-import com.wfe.input.Keyboard;
-import com.wfe.input.Mouse;
+import com.wfe.core.input.Keyboard;
+import com.wfe.core.input.Mouse;
+import com.wfe.core.stateMachine.StateMachine;
 import com.wfe.scenes.GameState;
 import com.wfe.scenes.MenuState;
 
-public class WFEngine implements Runnable {
+public class Paleon implements Runnable {
 
 	private final Thread gameLoopThread;
+	
+    public static Display display;
+    
+    private final StateMachine gGameMode;
 
-    private Display display;
-
-    private StateMachine gGameMode;
-
-    public WFEngine() {
+    public Paleon() {
         gameLoopThread = new Thread(this, "GAME_LOOP_THREAD");
         display = new Display("Winter Fox Engine", 1152, 648, false);
+        /*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        display = new Display("Winter Fox Engine", (int)screenSize.getWidth(), (int)screenSize.getHeight(), true);*/
         gGameMode = new StateMachine();
     }
 
@@ -69,9 +72,9 @@ public class WFEngine implements Runnable {
             Keyboard.clearEventFrame();
             Mouse.clearEventFrame();
 
-            if (Display.wasResized()) {
-                GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
-                Display.setResized(false);
+            if (display.wasResized()) {
+                GL11.glViewport(0, 0, display.getWidth(), display.getHeight());
+                display.setResized(false);
             }
         }
     }
@@ -93,7 +96,7 @@ public class WFEngine implements Runnable {
     }
     
     public static void main(String[] args) {
-		new WFEngine().start();
+		new Paleon().start();
 	}
 	
 }

@@ -1,4 +1,4 @@
-package com.wfe.core;
+package com.wfe.core.stateMachine;
 
 /**
  * Created by Rick on 06.10.2016.

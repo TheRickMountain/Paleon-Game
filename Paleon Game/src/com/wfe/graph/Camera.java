@@ -1,11 +1,11 @@
 package com.wfe.graph;
 
-import com.wfe.core.Display;
+import com.wfe.core.Paleon;
+import com.wfe.core.input.Key;
+import com.wfe.core.input.Keyboard;
+import com.wfe.core.input.Mouse;
 import com.wfe.graph.processing.Frustum;
 import com.wfe.graph.water.WaterTile;
-import com.wfe.input.Key;
-import com.wfe.input.Keyboard;
-import com.wfe.input.Mouse;
 import com.wfe.math.Matrix4f;
 import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.Entity;
@@ -57,7 +57,8 @@ public class Camera {
         projectionMatrix = new Matrix4f();
         viewMatrix = new Matrix4f();
 
-        MathUtils.getPerspProjectionMatrix(projectionMatrix, FOV, Display.getWidth(), Display.getHeight(), Z_NEAR, Z_FAR);
+        MathUtils.getPerspProjectionMatrix(projectionMatrix, FOV, 
+        		Paleon.display.getWidth(), Paleon.display.getHeight(), Z_NEAR, Z_FAR);
     }
 
     public Vector3f getPosition() {
@@ -69,8 +70,9 @@ public class Camera {
     }
     
     public void update() {
-        if(Display.wasResized()) {
-            MathUtils.getPerspProjectionMatrix(projectionMatrix, FOV, Display.getWidth(), Display.getHeight(), Z_NEAR, Z_FAR);
+        if(Paleon.display.wasResized()) {
+            MathUtils.getPerspProjectionMatrix(projectionMatrix, FOV, 
+            		Paleon.display.getWidth(), Paleon.display.getHeight(), Z_NEAR, Z_FAR);
         }
         
         frustum.updatePlanes();

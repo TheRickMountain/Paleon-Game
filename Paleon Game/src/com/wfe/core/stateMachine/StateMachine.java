@@ -1,4 +1,4 @@
-package com.wfe.core;
+package com.wfe.core.stateMachine;
 
 import java.util.HashMap;
 import java.util.Map;
