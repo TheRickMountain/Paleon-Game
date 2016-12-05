@@ -1,6 +1,6 @@
 package com.wfe.behaviours;
 
-import com.wfe.core.input.Key;
+import com.wfe.core.input.Keys;
 import com.wfe.core.input.Keyboard;
 import com.wfe.graph.Camera;
 import com.wfe.math.Vector3f;
@@ -71,42 +71,42 @@ public class PlayerBh extends Behaviour {
 		float yaw = camera.getYaw();
 		colPackage.setR3toESpaceVelocity(0, 0, 0);
 		
-		if(Keyboard.isKey(Key.W) && Keyboard.isKey(Key.A)) {
+		if(Keyboard.isKey(Keys.KEY_W) && Keyboard.isKey(Keys.KEY_A)) {
 			colPackage.setR3toESpaceVelocity((float)Math.sin(Math.toRadians(yaw + 135)) * -1.0f * speed * dt, 
 					0, (float)Math.cos(Math.toRadians(yaw + 135)) * speed * dt);
 			parent.rotation.y = -yaw + 45;
 			move = true;
-		} else if(Keyboard.isKey(Key.W) && Keyboard.isKey(Key.D)) {
+		} else if(Keyboard.isKey(Keys.KEY_W) && Keyboard.isKey(Keys.KEY_D)) {
 			colPackage.setR3toESpaceVelocity((float)Math.sin(Math.toRadians(yaw - 135)) * -1.0f * speed * dt, 
 					0, (float)Math.cos(Math.toRadians(yaw - 135)) * speed * dt);
 			parent.rotation.y = -yaw - 45;
 			move = true;
-		} else if(Keyboard.isKey(Key.S) && Keyboard.isKey(Key.D)) {
+		} else if(Keyboard.isKey(Keys.KEY_S) && Keyboard.isKey(Keys.KEY_D)) {
 			colPackage.setR3toESpaceVelocity((float)Math.sin(Math.toRadians(yaw - 45)) * -1.0f * speed * dt, 
 					0, (float)Math.cos(Math.toRadians(yaw -45)) * speed * dt);
 			parent.rotation.y = -yaw - 135;
 			move = true;
-		} else if(Keyboard.isKey(Key.S) && Keyboard.isKey(Key.A)) {
+		} else if(Keyboard.isKey(Keys.KEY_S) && Keyboard.isKey(Keys.KEY_A)) {
 			colPackage.setR3toESpaceVelocity((float)Math.sin(Math.toRadians(yaw + 45)) * -1.0f * speed * dt, 
 					0, (float)Math.cos(Math.toRadians(yaw + 45)) * speed * dt);
 			parent.rotation.y = -yaw + 135;
 			move = true;
-		} else if(Keyboard.isKey(Key.W)) {
+		} else if(Keyboard.isKey(Keys.KEY_W)) {
 			colPackage.setR3toESpaceVelocity((float)Math.sin(Math.toRadians(yaw)) * -1.0f * -speed * dt, 
 					0, (float)Math.cos(Math.toRadians(yaw)) * -speed * dt);
 			parent.rotation.y = -yaw;
 			move = true;
-		} else if(Keyboard.isKey(Key.S)) {
+		} else if(Keyboard.isKey(Keys.KEY_S)) {
 			colPackage.setR3toESpaceVelocity((float)Math.sin(Math.toRadians(yaw)) * -1.0f * speed * dt, 
 					0, (float)Math.cos(Math.toRadians(yaw)) * speed * dt);
 			parent.rotation.y = -yaw + 180;
 			move = true;
-		} else if(Keyboard.isKey(Key.A)) {
+		} else if(Keyboard.isKey(Keys.KEY_A)) {
 			colPackage.setR3toESpaceVelocity((float)Math.sin(Math.toRadians(yaw + 90)) * -1.0f * speed * dt, 
 					0, (float)Math.cos(Math.toRadians(yaw + 90)) * speed * dt);
 			parent.rotation.y = -yaw + 90;
 			move = true;
-		} else if(Keyboard.isKey(Key.D)) {
+		} else if(Keyboard.isKey(Keys.KEY_D)) {
 			colPackage.setR3toESpaceVelocity((float)Math.sin(Math.toRadians(yaw - 90)) * -1.0f * speed * dt,
 					0, (float)Math.cos(Math.toRadians(yaw - 90)) * speed * dt);
 			parent.rotation.y = -yaw - 90;

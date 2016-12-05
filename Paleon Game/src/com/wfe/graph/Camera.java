@@ -1,7 +1,7 @@
 package com.wfe.graph;
 
 import com.wfe.core.Paleon;
-import com.wfe.core.input.Key;
+import com.wfe.core.input.Keys;
 import com.wfe.core.input.Keyboard;
 import com.wfe.core.input.Mouse;
 import com.wfe.graph.processing.Frustum;
@@ -107,15 +107,15 @@ public class Camera {
         float offsetY = 0;
         float offsetZ = 0;
 
-        if(Keyboard.isKey(Key.W)) {
+        if(Keyboard.isKey(Keys.KEY_W)) {
             offsetZ = -speed * dt;
-        } else if(Keyboard.isKey(Key.S)) {
+        } else if(Keyboard.isKey(Keys.KEY_S)) {
             offsetZ = speed * dt;
         }
 
-        if(Keyboard.isKey(Key.A)) {
+        if(Keyboard.isKey(Keys.KEY_A)) {
             offsetX = -speed * dt;
-        } else if(Keyboard.isKey(Key.D)) {
+        } else if(Keyboard.isKey(Keys.KEY_D)) {
             offsetX = speed * dt;
         }
 

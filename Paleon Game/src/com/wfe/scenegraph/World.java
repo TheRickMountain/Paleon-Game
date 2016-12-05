@@ -15,7 +15,7 @@ import com.wfe.components.Image;
 import com.wfe.components.Model;
 import com.wfe.components.Text;
 import com.wfe.core.ResourceManager;
-import com.wfe.core.input.Key;
+import com.wfe.core.input.Keys;
 import com.wfe.core.input.Keyboard;
 import com.wfe.graph.Camera;
 import com.wfe.graph.Mesh;
@@ -174,7 +174,7 @@ public class World {
             transformsToRemove.clear();
         }
         
-        if(Keyboard.isKeyDown(Key.F5)) {
+        if(Keyboard.isKeyDown(Keys.KEY_F5)) {
             wireframeMode = !wireframeMode;
             OpenglUtils.wireframeMode(wireframeMode);
         }

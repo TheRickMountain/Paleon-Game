@@ -45,7 +45,7 @@ public class Keyboard extends GLFWKeyCallback {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
             glfwSetWindowShouldClose(window, true);
 
-        for (int mod : Key.MODIFIERS)
+        for (int mod : Keys.MODIFIERS)
             if ((mods & mod) == mod)
                 Keyboard.setKey(mod, action != GLFW_RELEASE);
     }

@@ -7,7 +7,7 @@ import com.wfe.components.Collider;
 import com.wfe.components.Text;
 import com.wfe.core.Paleon;
 import com.wfe.core.ResourceManager;
-import com.wfe.core.input.Key;
+import com.wfe.core.input.Keys;
 import com.wfe.core.input.Keyboard;
 import com.wfe.core.input.Mouse;
 import com.wfe.entities.Wall;
@@ -174,7 +174,7 @@ public class Inventory {
 						}
 					}
 					
-					if(Keyboard.isKeyDown(Key.R)) {
+					if(Keyboard.isKeyDown(Keys.KEY_R)) {
 						currentEntityRotation += 90;
 						if(currentEntityRotation == 360)
 							currentEntityRotation = 0;
