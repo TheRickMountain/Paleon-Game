@@ -1,7 +1,10 @@
 package com.wfe.scenes;
 
-import com.wfe.core.IScene;
+import java.util.Random;
+
+import com.wfe.core.IState;
 import com.wfe.core.ResourceManager;
+import com.wfe.core.StateMachine;
 import com.wfe.entities.Birch;
 import com.wfe.entities.Flint;
 import com.wfe.entities.Grass;
@@ -18,20 +21,29 @@ import com.wfe.terrain.TexturePack;
 import com.wfe.utils.CellInfo;
 import com.wfe.utils.GameTime;
 
-public class Game implements IScene {
+public class GameState implements IState {
+	
+	private StateMachine gGameMode;
 	
 	private World world;
 	
-	public static State state = Game.State.GAME;
+	public static State state = GameState.State.GAME;
 	
 	public enum State {
 		GAME,
 		GUI
 	}
 	
+	public GameState(StateMachine gameMode) {
+		this.gGameMode = gameMode;
+	}
+	
 	@Override
 	public void loadResources() {
 		ResourceManager.loadTexture("gui/slot", "ui_slot");
+		
+		ResourceManager.loadTexture("models/helmet/helmet", "helmet");
+		ResourceManager.loadMesh("models/helmet/helmet", "helmet");
 		
 		ResourceManager.loadTexture("gui/icons/flint", "ui_flint");
 		ResourceManager.loadTexture("gui/icons/log wall", "ui_log wall");
@@ -85,9 +97,6 @@ public class Game implements IScene {
 		ResourceManager.loadMesh("models/settler/rightForearm", "leftForearm");
 		ResourceManager.loadMesh("models/settler/hip", "hip");
 		ResourceManager.loadMesh("models/settler/shin", "shin");
-
-		ResourceManager.loadTexture("models/settler/eyes", "eyes");
-		ResourceManager.loadMesh("models/settler/eyes", "eyes");
 		/*** *** ***/
 		
 		/*** Conifer ***/
@@ -144,7 +153,7 @@ public class Game implements IScene {
 	public static GUI gui;
 
 	@Override
-	public void init() throws Exception {
+	public void onEnter() throws Exception {
 		Camera camera = new Camera(new Vector3f(0, 0, 0));
 		world = new World(camera);
 		
@@ -182,20 +191,29 @@ public class Game implements IScene {
 			}
 		}
         
-        Grass grass = new Grass(world);
-        grass.position.set(400, world.getTerrainHeight(400, 400), 400);
-        grass.textureIndex = 2;
-        
-        Grass grass2 = new Grass(world);
-        grass2.position.set(400, world.getTerrainHeight(400, 400), 400);
-        grass2.textureIndex = 0;
-        grass2.rotation.y = 45;   
-        
         Player player = new Player(world, camera);
         
-        Birch birch1 = new Birch(world, new Vector3f(384, world.getTerrainHeight(384, 374), 374));
-        Birch birch2 = new Birch(world, new Vector3f(420, world.getTerrainHeight(420, 384), 384));
-        Birch birch3 = new Birch(world, new Vector3f(394, world.getTerrainHeight(394, 400), 400));
+        Random rand = new Random();
+        
+        for(int i = 0; i < 100; i++) {
+        	float x = rand.nextFloat() * 768;
+        	float z = rand.nextFloat() * 768;
+        	float y = world.getTerrainHeight(x, z);
+        	if(y >= 3)
+        		new Birch(world, new Vector3f(x, y, z));
+        }
+        
+        for(int i = 0; i < 50; i++) {
+        	float x = rand.nextFloat() * 768;
+        	float z = rand.nextFloat() * 768;
+        	float y = world.getTerrainHeight(x, z);
+        	if(y >= 3) {
+        		Grass grass = new Grass(world);
+        		grass.position.set(x, y, z);
+        		grass.textureIndex = rand.nextInt(3);
+        		grass.rotation.y = rand.nextFloat() * 360;
+        	}	
+        }
         
         Flint flint = new Flint(world);
         flint.position.set(384, world.getTerrainHeight(384, 384), 384);
@@ -218,7 +236,7 @@ public class Game implements IScene {
 	}
 
 	@Override
-	public void cleanup() {
+	public void onExit() {
 		world.cleanup();
 	}
 

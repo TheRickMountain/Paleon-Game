@@ -7,10 +7,11 @@ import com.wfe.behaviours.PlayerBh;
 import com.wfe.core.Display;
 import com.wfe.core.ResourceManager;
 import com.wfe.entities.Axe;
+import com.wfe.entities.Helmet;
 import com.wfe.entities.Hummer;
 import com.wfe.input.Mouse;
 import com.wfe.scenegraph.World;
-import com.wfe.scenes.Game;
+import com.wfe.scenes.GameState;
 
 public class Equipment {
 
@@ -60,14 +61,14 @@ public class Equipment {
 				for(Slot slot : slots) {
 					if(slot.overMouse()) {
 						
-						if(Game.gui.draggedItem != null) {
+						if(GameState.gui.draggedItem != null) {
 							
 							if(slot.getSlotItem() != null) {
 								Item temp = slot.getSlotItem();
-								Game.gui.draggedItemCount = slot.getItemsCount();
+								GameState.gui.draggedItemCount = slot.getItemsCount();
 								slot.removeItem();
-								slot.addItem(Game.gui.draggedItem);
-								Game.gui.draggedItem = temp;
+								slot.addItem(GameState.gui.draggedItem);
+								GameState.gui.draggedItem = temp;
 								
 								player.removeWeapon();
 								
@@ -77,8 +78,8 @@ public class Equipment {
 									player.addWeapon(new Hummer(world));
 								}
 							} else {
-								addItem(Game.gui.draggedItem);
-								Game.gui.draggedItem = null;
+								addItem(GameState.gui.draggedItem);
+								GameState.gui.draggedItem = null;
 							}
 						} else {
 							if(slot.getSlotItem() != null) {
@@ -86,8 +87,8 @@ public class Equipment {
 									player.removeWeapon();
 								}
 								
-								Game.gui.draggedItem = slot.getSlotItem();
-								Game.gui.draggedItemCount = 1;
+								GameState.gui.draggedItem = slot.getSlotItem();
+								GameState.gui.draggedItemCount = 1;
 								slot.removeItem();
 							}
 						}
@@ -117,20 +118,25 @@ public class Equipment {
 					slot.addItem(item);
 					added = true;
 				} else {
-					Game.gui.inventory.addItem(slot.getSlotItem().itemID);
+					GameState.gui.inventory.addItem(slot.getSlotItem().itemID);
 					slot.removeItem();
 					slot.addItem(item);
 					added = true;
 				}
 				
 				if(added) {
-					if(item.itemName.equals("axe")) {
+					switch(item.itemName) {
+					case "axe":
 						player.addWeapon(new Axe(world));
-					} else if(item.itemName.equals("hummer")) {
+						break;
+					case "hummer":
 						player.addWeapon(new Hummer(world));
+						break;
+					case "cap":
+						player.addHelmet(new Helmet(world));
+						break;
 					}
-				}
-				
+				}		
 			}
 		}
 	}

@@ -16,7 +16,7 @@ import com.wfe.utils.ReflectionUtils;
  */
 public class Entity {
 
-    public Vector3f position;
+    public final Vector3f position;
     public final Vector3f rotation;
     public final Vector3f scale;
     

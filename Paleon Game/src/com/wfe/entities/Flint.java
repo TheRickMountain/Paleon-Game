@@ -1,7 +1,7 @@
 package com.wfe.entities;
 
 import com.wfe.behaviours.BoundingBoxBh;
-import com.wfe.behaviours.CollectableBh;
+import com.wfe.behaviours.InteractableBh;
 import com.wfe.components.Material;
 import com.wfe.components.Model;
 import com.wfe.core.ResourceManager;
@@ -21,7 +21,7 @@ public class Flint extends Entity {
 		setTransform(new Transform3D());
 		
 		addBehaviour(new BoundingBoxBh(new Vector3f(-1, 0, -1), new Vector3f(1, 1, 1)));
-		addBehaviour(new CollectableBh());
+		addBehaviour(new InteractableBh());
 		
 		scale.scale(0.4f);
 	}

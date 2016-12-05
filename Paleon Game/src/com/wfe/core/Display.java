@@ -56,16 +56,18 @@ public class Display {
     private static String title;
     private static int width;
     private static int height;
+    private static boolean fullscreen;
 
     private static boolean resized;
 
-    public Display(String t, int w, int h) {
+    public Display(String t, int w, int h, boolean f) {
         title = t;
     	width = w;
         height = h;
+        fullscreen = f;
     }
         
-    public void init(boolean foolscreen) {
+    public void init() {
         GLFWErrorCallback.createPrint(System.err).set();
 
         if(!glfwInit())
@@ -79,7 +81,7 @@ public class Display {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-        if(foolscreen)
+        if(fullscreen)
         	window = glfwCreateWindow(width, height, title, GLFW.glfwGetPrimaryMonitor(), NULL);
         else
         	window = glfwCreateWindow(width, height, title, NULL, NULL);

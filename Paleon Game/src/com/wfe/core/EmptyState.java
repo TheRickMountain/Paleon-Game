@@ -3,7 +3,7 @@ package com.wfe.core;
 /**
  * Created by Rick on 06.10.2016.
  */
-public class Scene implements IScene {
+public class EmptyState implements IState {
 
     @Override
     public void loadResources() {
@@ -11,7 +11,7 @@ public class Scene implements IScene {
     }
 
     @Override
-    public void init() throws Exception {
+    public void onEnter() throws Exception {
 
     }
 
@@ -21,7 +21,7 @@ public class Scene implements IScene {
     }
 
     @Override
-    public void cleanup() {
+    public void onExit() {
 
     }
 }

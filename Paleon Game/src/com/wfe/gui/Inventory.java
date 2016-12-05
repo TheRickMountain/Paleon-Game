@@ -16,7 +16,7 @@ import com.wfe.math.Vector2f;
 import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.Entity;
 import com.wfe.scenegraph.World;
-import com.wfe.scenes.Game;
+import com.wfe.scenes.GameState;
 import com.wfe.utils.Color;
 import com.wfe.utils.MathUtils;
 import com.wfe.utils.MousePicker;
@@ -61,34 +61,34 @@ public class Inventory {
 		building();
 		
 		if(MathUtils.point2DBoxIntersection(Mouse.getX(), Mouse.getY(), rect)) {
-			Game.state = Game.State.GUI;
+			GameState.state = GameState.State.GUI;
 		} else {
-			Game.state = Game.State.GAME;
+			GameState.state = GameState.State.GAME;
 		}
 		
 		if(Mouse.isButtonDown(0)) {
 			for(Slot slot : slots) {
 				if(slot.overMouse()) {
-					if(Game.gui.draggedItem != null) {
+					if(GameState.gui.draggedItem != null) {
 						if(slot.getSlotItem() == null) {
-							slot.addItem(Game.gui.draggedItem);
-							slot.setItemsCount(Game.gui.draggedItemCount);
-							Game.gui.draggedItem = null;
+							slot.addItem(GameState.gui.draggedItem);
+							slot.setItemsCount(GameState.gui.draggedItemCount);
+							GameState.gui.draggedItem = null;
 						} else {
-							if(slot.getSlotItem().itemID == Game.gui.draggedItem.itemID) {
-								slot.addItem(Game.gui.draggedItem);
-								Game.gui.draggedItem = null;
+							if(slot.getSlotItem().itemID == GameState.gui.draggedItem.itemID) {
+								slot.addItem(GameState.gui.draggedItem);
+								GameState.gui.draggedItem = null;
 							} else {
 								Item temp = slot.getSlotItem();
-								Game.gui.draggedItemCount = slot.getItemsCount();
+								GameState.gui.draggedItemCount = slot.getItemsCount();
 								slot.removeItem();
-								slot.addItem(Game.gui.draggedItem);
-								Game.gui.draggedItem = temp;
+								slot.addItem(GameState.gui.draggedItem);
+								GameState.gui.draggedItem = temp;
 							}
 						}
 					} else if(slot.getSlotItem() != null) {
-						Game.gui.draggedItemCount = slot.getItemsCount();
-						Game.gui.draggedItem = slot.getSlotItem();
+						GameState.gui.draggedItemCount = slot.getItemsCount();
+						GameState.gui.draggedItem = slot.getSlotItem();
 						slot.removeItem();
 					}
 				}
@@ -101,26 +101,26 @@ public class Inventory {
 					if(slot.getSlotItem() != null) {
 						if(slot.getSlotItem().itemType.equals(Item.ItemType.CONSUMABLE)) {
 							if(slot.getItemsCount() > 1) {
-								Game.gui.hud.hunger.increase(slot.getSlotItem().itemStarvation);
+								GameState.gui.hud.hunger.increase(slot.getSlotItem().itemStarvation);
 								slot.removeItem(1);
 							} else {
-								Game.gui.hud.hunger.increase(slot.getSlotItem().itemStarvation);
+								GameState.gui.hud.hunger.increase(slot.getSlotItem().itemStarvation);
 								slot.removeItem();
 							}
 						} else if(slot.getSlotItem().itemType.equals(Item.ItemType.CAP)) {
-							Game.gui.equipment.addItem(slot.getSlotItem());
+							GameState.gui.equipment.addItem(slot.getSlotItem());
 							slot.removeItem();
 						} else if(slot.getSlotItem().itemType.equals(Item.ItemType.TUNIC)) {
-							Game.gui.equipment.addItem(slot.getSlotItem());
+							GameState.gui.equipment.addItem(slot.getSlotItem());
 							slot.removeItem();
 						} else if(slot.getSlotItem().itemType.equals(Item.ItemType.PANTS)) {
-							Game.gui.equipment.addItem(slot.getSlotItem());
+							GameState.gui.equipment.addItem(slot.getSlotItem());
 							slot.removeItem();
 						} else if(slot.getSlotItem().itemType.equals(Item.ItemType.BOOTS)) {
-							Game.gui.equipment.addItem(slot.getSlotItem());
+							GameState.gui.equipment.addItem(slot.getSlotItem());
 							slot.removeItem();
 						} else if(slot.getSlotItem().itemType.equals(Item.ItemType.WEAPON)) {
-							Game.gui.equipment.addItem(slot.getSlotItem());
+							GameState.gui.equipment.addItem(slot.getSlotItem());
 							slot.removeItem();
 						}
 					}
@@ -142,11 +142,11 @@ public class Inventory {
 	}
 	
 	public void building() {
-		if(Game.gui.draggedItemCount == 0)
-			Game.gui.draggedItem = null;
+		if(GameState.gui.draggedItemCount == 0)
+			GameState.gui.draggedItem = null;
 		
-		if(Game.gui.draggedItem != null) {			
-			if(Game.gui.draggedItem.itemType.equals(Item.ItemType.BUILDING)) {
+		if(GameState.gui.draggedItem != null) {			
+			if(GameState.gui.draggedItem.itemType.equals(Item.ItemType.BUILDING)) {
 				if(building != null) {
 					Vector2f point = MousePicker.getGridPoint();
 					
@@ -155,7 +155,7 @@ public class Inventory {
 					}
 					
 					if(Mouse.isButtonDown(0)) {
-						if(Game.state.equals(Game.State.GUI)) {
+						if(GameState.state.equals(GameState.State.GUI)) {
 							building.remove();
 							building = null;
 						}
@@ -170,7 +170,7 @@ public class Inventory {
 									new Vector3f(0, building.rotation.y, 0), new Vector3f(1.5f, 1.5f, 1.5f)));
 							building = null;
 							
-							Game.gui.draggedItemCount--;
+							GameState.gui.draggedItemCount--;
 						}
 					}
 					

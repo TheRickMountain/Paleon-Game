@@ -9,7 +9,7 @@ import com.wfe.input.Mouse;
 import com.wfe.math.Matrix4f;
 import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.Entity;
-import com.wfe.scenes.Game;
+import com.wfe.scenes.GameState;
 import com.wfe.terrain.TerrainBlock;
 import com.wfe.utils.MathUtils;
 
@@ -77,7 +77,7 @@ public class Camera {
     }
 
     public void rotate(float dt) {
-    	if(Game.state.equals(Game.State.GAME)) {
+    	if(GameState.state.equals(GameState.State.GAME)) {
 	        if(Mouse.isButton(2)) {
 	            calculateAngleAroundPlayer(dt);
 	            calculatePitch(dt);

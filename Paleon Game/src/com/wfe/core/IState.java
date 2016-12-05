@@ -1,13 +1,13 @@
 package com.wfe.core;
 
-public interface IScene {
+public interface IState {
 
     void loadResources();
 
-    void init() throws Exception;
+    void onEnter() throws Exception;
 
     void update(float dt) throws Exception;
 
-    void cleanup();
+    void onExit();
 
 }

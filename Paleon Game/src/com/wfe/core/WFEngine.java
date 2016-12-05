@@ -4,8 +4,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.wfe.input.Keyboard;
 import com.wfe.input.Mouse;
-import com.wfe.scenes.Game;
-import com.wfe.scenes.Menu;
+import com.wfe.scenes.GameState;
+import com.wfe.scenes.MenuState;
 
 public class WFEngine implements Runnable {
 
@@ -13,12 +13,12 @@ public class WFEngine implements Runnable {
 
     private Display display;
 
-    private SceneManager scene;
+    private StateMachine gGameMode;
 
     public WFEngine() {
         gameLoopThread = new Thread(this, "GAME_LOOP_THREAD");
-        display = new Display("Winter Fox Engine", 1152, 648);
-        scene = new SceneManager();
+        display = new Display("Winter Fox Engine", 1152, 648, false);
+        gGameMode = new StateMachine();
     }
 
     public void start() {
@@ -43,14 +43,14 @@ public class WFEngine implements Runnable {
     }
 
     protected void init() throws Exception {
-        display.init(false);
+        display.init();
         initScenes();
     }
 
     public void initScenes() throws Exception {
-        SceneManager.add("Menu", new Menu());
-        SceneManager.add("Game", new Game());
-        SceneManager.change("Menu");
+        gGameMode.add("menu", new MenuState(gGameMode));
+        gGameMode.add("game", new GameState(gGameMode));
+        gGameMode.change("menu");
     }
 
     public void gameLoop() throws Exception {
@@ -58,7 +58,7 @@ public class WFEngine implements Runnable {
             Keyboard.startEventFrame();
             Mouse.startEventFrame();
 
-            float deltaTime = Time.getDeltaTime();
+            float deltaTime = Timer.getDeltaTime();
 
             if (deltaTime >= 1) {
                 deltaTime = 0;
@@ -78,14 +78,14 @@ public class WFEngine implements Runnable {
 
     protected void update(float deltaTime) throws Exception {
         display.pollEvents();
-        scene.update(deltaTime);
+        gGameMode.update(deltaTime);
         display.swapBuffers();
-        Time.update();
+        Timer.update();
     }
 
     public void dispose() {
         try {
-            SceneManager.change(null);
+            gGameMode.change(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

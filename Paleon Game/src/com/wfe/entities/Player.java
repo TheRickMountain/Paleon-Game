@@ -31,14 +31,6 @@ public class Player extends Entity {
         head.localPosition.set(0, 0.85f, 0);
         addChild(head);
 
-        Entity eyes = new Entity(world, "Eyes");
-        eyes.addComponent(new Model(ResourceManager.getMesh("eyes")));
-        eyes.addComponent(eyesMat);
-        eyes.setTransform(new Transform3D());
-        eyes.localPosition.set(0, -0.1f, 0);
-        eyes.localRotation.set(0, 180, 0);
-        addChild(eyes);
-
         Entity rightArm = new Entity(world, "Right Arm");
         rightArm.addComponent(new Model(ResourceManager.getMesh("rightArm")));
         rightArm.addComponent(skinMat);

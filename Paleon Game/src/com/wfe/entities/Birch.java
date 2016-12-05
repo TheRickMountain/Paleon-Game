@@ -1,5 +1,7 @@
 package com.wfe.entities;
 
+import com.wfe.behaviours.BoundingBoxBh;
+import com.wfe.behaviours.InteractableBh;
 import com.wfe.components.Collider;
 import com.wfe.components.Material;
 import com.wfe.components.Model;
@@ -12,12 +14,14 @@ import com.wfe.scenegraph.World;
 public class Birch extends Entity {
 
 	public Birch(World world, Vector3f position) {
-		super(world, "Birch");
+		super(world, "birch");
 		
 		addComponent(new Model(ResourceManager.getMesh("birch_trunk")));
 		addComponent(new Material(ResourceManager.getTexture("birch_trunk")));
 		addComponent(new Collider(ResourceManager.getColliderMesh("box"), 
 				new Vector3f(position), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1)));
+		addBehaviour(new BoundingBoxBh(new Vector3f(-1, 0, -1), new Vector3f(1, 10, 1)));
+		addBehaviour(new InteractableBh());
 		setTransform(new Transform3D());
 		scale.set(2.5f);
 		

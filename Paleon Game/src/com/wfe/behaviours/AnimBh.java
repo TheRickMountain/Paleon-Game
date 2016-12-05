@@ -7,6 +7,7 @@ import com.wfe.scenegraph.Entity;
  */
 public class AnimBh extends Behaviour {
 
+	private Entity head;
     private Entity rightArm;
     private Entity leftArm;
     private Entity rightHip;
@@ -16,6 +17,7 @@ public class AnimBh extends Behaviour {
     private Entity leftShin;
     private Entity rightShin;
     private Entity weapon;
+    private Entity helmet;
 
     private boolean extremitiesState = false;
 
@@ -23,6 +25,7 @@ public class AnimBh extends Behaviour {
 
     @Override
     public void start() {
+    	head = parent.getChildByName("Head");
         rightArm = parent.getChildByName("Right Arm");
         leftArm = parent.getChildByName("Left Arm");
         rightHip = parent.getChildByName("Right Hip");
@@ -104,6 +107,16 @@ public class AnimBh extends Behaviour {
         } else {
             entity.localRotation.x = 0;
         }
+    }
+    
+    public void addHelmet(Entity helmet) {
+    	this.helmet = helmet;
+    	head.addChild(helmet);
+    }
+    
+    public void removeHelmet() {
+    	head.removeChild(helmet);
+    	helmet = null;
     }
     
     public void addWeapon(Entity weapon) {

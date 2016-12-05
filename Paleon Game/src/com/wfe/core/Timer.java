@@ -8,7 +8,7 @@ import com.wfe.utils.Utils;
 /**
  * Created by Rick on 06.10.2016.
  */
-public class Time {
+public class Timer {
 
     private static float delta = 0;
     private static long lastFrame = 0;

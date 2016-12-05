@@ -3,12 +3,12 @@ package com.wfe.behaviours;
 import com.wfe.graph.Camera;
 import com.wfe.input.Key;
 import com.wfe.input.Keyboard;
-import com.wfe.input.Mouse;
 import com.wfe.math.Vector3f;
 import com.wfe.physics.CollisionPacket;
 import com.wfe.physics.FPlane;
 import com.wfe.scenegraph.Entity;
 import com.wfe.scenegraph.World;
+import com.wfe.utils.TimeUtil;
 
 public class PlayerBh extends Behaviour {
 
@@ -26,8 +26,13 @@ public class PlayerBh extends Behaviour {
 	
 	private Entity weapon;
 	
+	private TimeUtil time;
+	
+	private boolean chopping = false;
+	
 	public PlayerBh(Camera camera) {
 		this.camera = camera;
+		this.time = new TimeUtil();
 	}
 	
 	@Override
@@ -41,6 +46,10 @@ public class PlayerBh extends Behaviour {
 	@Override
 	public void update(float dt) {			
 		moving(dt);
+	}
+	
+	public void addHelmet(Entity helmet) {
+		anim.addHelmet(helmet);
 	}
 	
 	public void addWeapon(Entity weapon) {
@@ -108,18 +117,34 @@ public class PlayerBh extends Behaviour {
 		
 		parent.position.set(colPackage.getR3Position());
 		camera.playerPosition.set(parent.position);
-		camera.playerPosition.y += 3.2f;
+		camera.playerPosition.y += 3.9f;
 		
 		if(move) {
 			anim.walkAnim(dt);	
 		} else {
-			anim.idleAnim(dt);
+			if(!chopping)
+				anim.idleAnim(dt);
+			else
+				anim.choppingAnim(dt);
 		}
+
+		if(chopping) {
+			if(time.getTime() >= 5) {
+				chopping = false;
+				time.reset();
+			}
+		}
+		
 	}
 	
 	@Override
 	public void onGUI() {
 		
+	}
+	
+	public void chop() {
+		if(!chopping)
+			chopping = true;
 	}
 	
 	private int collisionRecursionDepth = 0;

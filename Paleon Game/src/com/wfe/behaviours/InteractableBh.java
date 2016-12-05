@@ -3,18 +3,20 @@ package com.wfe.behaviours;
 import com.wfe.gui.ItemDatabase;
 import com.wfe.input.Mouse;
 import com.wfe.scenegraph.Entity;
-import com.wfe.scenes.Game;
+import com.wfe.scenes.GameState;
 import com.wfe.utils.MathUtils;
 
-public class CollectableBh extends Behaviour {
+public class InteractableBh extends Behaviour {
 
 	BoundingBoxBh bb;
 	Entity player;
+	PlayerBh playerBh;
 	
 	@Override
 	public void start() {
 		bb = parent.getBehaviour(BoundingBoxBh.class);
 		player = parent.getWorld().getEntityByName("Player");
+		playerBh = player.getBehaviour(PlayerBh.class);
 	}
 
 	@Override
@@ -24,13 +26,15 @@ public class CollectableBh extends Behaviour {
 					parent.position.x, parent.position.z) <= 5) {
 				if(bb.intersect()) {
 					if(parent.name.equals("flint")) {
-						if(Game.gui.inventory.addItem(ItemDatabase.FLINT)) {
+						if(GameState.gui.inventory.addItem(ItemDatabase.FLINT)) {
 							parent.remove();
 						}
 					} else if(parent.name.equals("shroom")) {
-						if(Game.gui.inventory.addItem(ItemDatabase.SHROOM)) {
+						if(GameState.gui.inventory.addItem(ItemDatabase.SHROOM)) {
 							parent.remove();
 						}
+					} else if(parent.name.equals("birch")) {
+						playerBh.chop();
 					}
 				}
 			}
