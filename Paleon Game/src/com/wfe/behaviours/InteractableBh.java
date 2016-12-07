@@ -21,9 +21,9 @@ public class InteractableBh extends Behaviour {
 
 	@Override
 	public void update(float deltaTime) {
-		if(Mouse.isButtonDown(0)) {
+		if(Mouse.isButtonDown(1)) {
 			if(MathUtils.getDistanceBetweenPoints(player.position.x, player.position.z, 
-					parent.position.x, parent.position.z) <= 5) {
+					parent.position.x, parent.position.z) <= 10) {
 				if(bb.intersect()) {
 					if(parent.name.equals("flint")) {
 						if(GameState.gui.inventory.addItem(ItemDatabase.FLINT)) {
@@ -34,7 +34,7 @@ public class InteractableBh extends Behaviour {
 							parent.remove();
 						}
 					} else if(parent.name.equals("birch")) {
-						playerBh.chop();
+						playerBh.addMiningEntity(parent, 5);
 					}
 				}
 			}

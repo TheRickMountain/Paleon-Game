@@ -36,13 +36,6 @@ public class GUI {
 		inventory.addItem(ItemDatabase.APPLE);
 		inventory.addItem(ItemDatabase.APPLE);
 		inventory.addItem(ItemDatabase.CAP);
-		inventory.addItem(ItemDatabase.PANTS);
-		inventory.addItem(ItemDatabase.TUNIC);
-		inventory.addItem(ItemDatabase.BOOTS);
-		
-		for(int i = 0; i < 21; i++)
-			inventory.addItem(ItemDatabase.LOG_WALL);
-	
 		inventory.addItem(ItemDatabase.HUMMER);
 		inventory.addItem(ItemDatabase.AXE);
 		/*** *** ***/

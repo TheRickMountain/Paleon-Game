@@ -48,6 +48,7 @@ public class GameState implements IState {
 		ResourceManager.loadTexture("gui/icons/character", "ui_character");
 		ResourceManager.loadTexture("gui/icons/axe", "ui_axe");
 		ResourceManager.loadTexture("gui/icons/hummer", "ui_hummer");
+		ResourceManager.loadTexture("gui/icons/log", "ui_log");
 		
 		ResourceManager.loadTexture("models/axe/axe", "axe");
 		ResourceManager.loadMesh("models/axe/axe", "axe");
@@ -185,7 +186,7 @@ public class GameState implements IState {
 			}
 		}
         
-        Player player = new Player(world, camera);
+        new Player(world, camera);
         
         Random rand = new Random();
         
@@ -220,8 +221,6 @@ public class GameState implements IState {
         GameTime.setTime(12, 00);
         
         world.init();
-        
-        System.out.println("On Enter Completed");
 	}
 	
 	@Override

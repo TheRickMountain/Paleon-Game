@@ -104,25 +104,6 @@ public class Paleon implements Runnable {
     			render();
     	}
     	
-        /*while (!display.isCloseRequested()) {
-        	
-        	Keyboard.startEventFrame();
-            Mouse.startEventFrame();
-            
-            gGameMode.changeState(gGameMode);
-            gGameMode.update(frameTime);
-            
-            Keyboard.clearEventFrame();
-            Mouse.clearEventFrame();
-            
-            render();
-
-            if (display.wasResized()) {
-                GL11.glViewport(0, 0, display.getWidth(), display.getHeight());
-                display.setResized(false);
-            }
-        }*/
-    	
     	if (display.wasResized()) {
             GL11.glViewport(0, 0, display.getWidth(), display.getHeight());
             display.setResized(false);
@@ -137,7 +118,6 @@ public class Paleon implements Runnable {
     	gGameMode.render();
     	display.pollEvents();
         display.swapBuffers();
-        //calculateDelta();
     }
     
     public void dispose() {
@@ -148,31 +128,7 @@ public class Paleon implements Runnable {
         }
         display.destroy();
     }
-    
-    /*private double getTime() {
-        return System.nanoTime() / 1_000_000.0;
-    }
-    
-    private void calculateDelta() {
-		double time = getTime();
-		double difference = time - lastFrame;
-		float value = ((float) difference) / DELTA_FACTOR;
-		delta = updateRollingAverage(value);
-		lastFrame = time;
-
-	}
-    
-    private static float updateRollingAverage(float value) {
-		previousTimes.add(0, value);
-		if (previousTimes.size() > ROLLING_AVERAGE_LENGTH) {
-			previousTimes.remove(ROLLING_AVERAGE_LENGTH);
-		}
-		if (previousTimes.size() < ROLLING_AVERAGE_LENGTH) {
-			return value;
-		}
-		return Utils.getAverageOfList(previousTimes);
-	}
-    */
+  
     public static void main(String[] args) {
 		new Paleon().start();
 	}

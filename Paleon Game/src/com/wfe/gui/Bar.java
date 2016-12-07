@@ -9,10 +9,10 @@ import com.wfe.utils.Color;
 
 public class Bar extends Entity {
 
-	public Bar(World world, String name, Texture icon, Color color) {
+	public Bar(World world, String name, Texture icon, Color color, boolean showText, int length) {
 		super(world, name);
         setTransform(new Transform2D());
-        addBehaviour(new BarBh(icon, color));
+        addBehaviour(new BarBh(icon, color, showText, length));
 	}
 
 }

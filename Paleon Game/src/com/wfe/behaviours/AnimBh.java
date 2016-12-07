@@ -7,7 +7,6 @@ import com.wfe.scenegraph.Entity;
  */
 public class AnimBh extends Behaviour {
 
-	private Entity head;
     private Entity rightArm;
     private Entity leftArm;
     private Entity rightHip;
@@ -16,8 +15,6 @@ public class AnimBh extends Behaviour {
     private Entity rightForearm;
     private Entity leftShin;
     private Entity rightShin;
-    private Entity weapon;
-    private Entity helmet;
 
     private boolean extremitiesState = false;
 
@@ -25,7 +22,6 @@ public class AnimBh extends Behaviour {
 
     @Override
     public void start() {
-    	head = parent.getChildByName("Head");
         rightArm = parent.getChildByName("Right Arm");
         leftArm = parent.getChildByName("Left Arm");
         rightHip = parent.getChildByName("Right Hip");
@@ -70,13 +66,13 @@ public class AnimBh extends Behaviour {
     }
     
     boolean rightArmState = false;
-    public void choppingAnim(float dt) {
+    public void miningAnim(float dt) {
     	rightForearm.localRotation.x = 45;
     	
     	if(!rightArmState)
-    		rightArm.localRotation.x += animSpeed * dt;
+    		rightArm.localRotation.x += animSpeed * dt * 1.5f;
     	else
-    		rightArm.localRotation.x -= animSpeed * dt * 3;
+    		rightArm.localRotation.x -= animSpeed * dt * 4.5f;
     	
     	if(rightArm.localRotation.x >= 135) {
     		rightArmState = true;
@@ -107,26 +103,6 @@ public class AnimBh extends Behaviour {
         } else {
             entity.localRotation.x = 0;
         }
-    }
-    
-    public void addHelmet(Entity helmet) {
-    	this.helmet = helmet;
-    	head.addChild(helmet);
-    }
-    
-    public void removeHelmet() {
-    	head.removeChild(helmet);
-    	helmet = null;
-    }
-    
-    public void addWeapon(Entity weapon) {
-    	this.weapon = weapon;
-    	rightForearm.addChild(weapon);
-    }
-    
-    public void removeWeapon() {
-    	rightForearm.removeChild(weapon);
-    	weapon = null;
     }
 
     @Override

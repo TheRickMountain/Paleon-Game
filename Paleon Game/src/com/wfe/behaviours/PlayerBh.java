@@ -1,13 +1,18 @@
 package com.wfe.behaviours;
 
-import com.wfe.core.input.Keys;
 import com.wfe.core.input.Keyboard;
+import com.wfe.core.input.Keys;
+import com.wfe.core.input.Mouse;
 import com.wfe.graph.Camera;
+import com.wfe.gui.GUI;
+import com.wfe.gui.ItemDatabase;
 import com.wfe.math.Vector3f;
 import com.wfe.physics.CollisionPacket;
 import com.wfe.physics.FPlane;
 import com.wfe.scenegraph.Entity;
 import com.wfe.scenegraph.World;
+import com.wfe.scenes.GameState;
+import com.wfe.utils.MathUtils;
 import com.wfe.utils.TimeUtil;
 
 public class PlayerBh extends Behaviour {
@@ -24,15 +29,19 @@ public class PlayerBh extends Behaviour {
 	
 	private CollisionPacket colPackage;
 	
+	private Entity helmet;
 	private Entity weapon;
 	
-	private TimeUtil time;
+	private Entity head;
+	private Entity rightForearm;
 	
-	private boolean chopping = false;
+	private TimeUtil time;
+	private Entity miningEntity;
+	private int miningTime = 0;
+	private boolean mining = false;
 	
 	public PlayerBh(Camera camera) {
 		this.camera = camera;
-		this.time = new TimeUtil();
 	}
 	
 	@Override
@@ -40,16 +49,58 @@ public class PlayerBh extends Behaviour {
 		this.anim = parent.getBehaviour(AnimBh.class);
 		this.world = parent.getWorld();
 		
+		this.time = new TimeUtil();
+
 		colPackage = new CollisionPacket(new Vector3f(1, 2, 1), new Vector3f(400, world.getTerrainHeight(400, 400) + 2.2f, 400));
+	
+		head = parent.getChildByName("Head");
+		rightForearm = parent.getChildByName("Right Arm").getChildByName("Right Forearm");
 	}
 
 	@Override
-	public void update(float dt) {			
-		moving(dt);
+	public void update(float dt) {	
+		if(Mouse.isButton(1)) {
+			if(mining) {
+				float currTime = (float) time.getTime();
+				if(currTime <= miningTime) {
+					anim.miningAnim(dt);
+					GameState.gui.hud.miningProgress.setCurrentValue((currTime * 100) / miningTime);
+				} else {
+					mining = false;
+					time.reset();
+					miningEntity.remove();
+					miningEntity = null;
+					GameState.gui.hud.miningProgress.setCurrentValue(0);
+					for(int i = 0; i < 10; i++)
+						GameState.gui.inventory.addItem(ItemDatabase.LOG);
+				}
+			}
+		}
+		
+		if(Mouse.isButtonUp(1)) {
+			mining = false;
+			time.reset();
+			miningEntity = null;
+			GameState.gui.hud.miningProgress.setCurrentValue(0);
+		}
+		
+		if(!mining)
+			moving(dt);
 	}
 	
 	public void addHelmet(Entity helmet) {
-		anim.addHelmet(helmet);
+		if(this.helmet != null)
+			removeHelmet();
+		
+		this.helmet = helmet;
+		head.addChild(helmet);
+	}
+	
+	public void removeHelmet() {
+		if(helmet != null) {
+			head.removeChild(helmet);
+			this.helmet = null;
+		}
 	}
 	
 	public void addWeapon(Entity weapon) {
@@ -57,12 +108,29 @@ public class PlayerBh extends Behaviour {
 			removeWeapon();
 		
 		this.weapon = weapon;
-		anim.addWeapon(weapon);
+		rightForearm.addChild(weapon);
 	}
 	
 	public void removeWeapon() {
-		this.weapon = null;
-		anim.removeWeapon();
+		if(weapon != null) {
+			rightForearm.removeChild(weapon);
+			this.weapon = null;
+		}
+	}
+	
+	public void addMiningEntity(Entity entity, int miningTime) {
+		if(weapon != null) {
+			if(weapon.name.equals("axe")) {
+				parent.rotation.y = MathUtils.getRotationBetweenPoints(entity.position, parent.position) + 90;
+				this.miningEntity = entity;
+				this.miningTime = miningTime;
+				this.mining = true;
+			} else {
+				System.out.println("I don't have necessary tools");
+			}
+		} else {
+			System.out.println("I don't have necessary tools");
+		}
 	}
 
 	public void moving(float dt) {
@@ -117,22 +185,12 @@ public class PlayerBh extends Behaviour {
 		
 		parent.position.set(colPackage.getR3Position());
 		camera.playerPosition.set(parent.position);
-		camera.playerPosition.y += 3.9f;
+		camera.playerPosition.y += 1.1f;
 		
 		if(move) {
 			anim.walkAnim(dt);	
 		} else {
-			if(!chopping)
-				anim.idleAnim(dt);
-			else
-				anim.choppingAnim(dt);
-		}
-
-		if(chopping) {
-			if(time.getTime() >= 5) {
-				chopping = false;
-				time.reset();
-			}
+			anim.idleAnim(dt);
 		}
 		
 	}
@@ -140,11 +198,6 @@ public class PlayerBh extends Behaviour {
 	@Override
 	public void onGUI() {
 		
-	}
-	
-	public void chop() {
-		if(!chopping)
-			chopping = true;
 	}
 	
 	private int collisionRecursionDepth = 0;

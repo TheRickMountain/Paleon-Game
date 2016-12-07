@@ -116,11 +116,13 @@ public class World {
     }
     
     public void init() {
-    	for(Behaviour bh : behaviours)
-        	if(bh.active)
-        		bh.start();
+    	for(int i = 0; i < behaviours.size(); i++) {
+    		Behaviour bh = behaviours.get(i);
+    		if(bh.active)
+    			bh.start();
+    	}
          
-         inGame = true;
+        inGame = true;
     }
 
     public void update(float dt) {

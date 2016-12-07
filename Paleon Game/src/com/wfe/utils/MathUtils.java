@@ -141,6 +141,10 @@ public class MathUtils {
 		return distance;
 	}
 	
+	public static float getRotationBetweenPoints(Vector3f player, Vector3f target){
+		return (float) -((Math.atan2(target.z - player.z, target.x - player.x)) * RADIANS_TO_DEGREES);
+	}
+	
 	public static void checkTriangle(CollisionPacket colPackage, Triangle triangle) {
 		Plane trianglePlane = new Plane(triangle);
 		if(trianglePlane.isFrontFacingTo(colPackage.getNormalizedVelocity())) {

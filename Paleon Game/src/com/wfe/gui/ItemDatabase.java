@@ -15,6 +15,7 @@ public class ItemDatabase {
 	public static final int BOOTS = 8;
 	public static final int AXE = 9;
 	public static final int HUMMER = 10;
+	public static final int LOG = 11;
 	
 	private static List<Item> items = new ArrayList<Item>();
 	
@@ -30,6 +31,7 @@ public class ItemDatabase {
 		items.add(new Item("boots", BOOTS, "", 0, 0, Item.ItemType.BOOTS, 1));
 		items.add(new Item("axe", AXE, "", 0, 0, Item.ItemType.WEAPON, 1));
 		items.add(new Item("hummer", HUMMER, "", 0, 0, Item.ItemType.WEAPON, 1));
+		items.add(new Item("log", LOG, "", 0, 0, Item.ItemType.ITEM, 1));
 	}
 	
 	public static Item getItem(int id) {
