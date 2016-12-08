@@ -3,7 +3,6 @@
 in vec2 UV;
 in vec3 FragPos;
 in vec3 Normal;
-in float Visibility;
 
 uniform sampler2D image;
 uniform vec4 color;
@@ -12,8 +11,6 @@ uniform vec4 lightColor;
 uniform vec3 lightPosition;
 
 uniform vec3 viewPosition;
-
-uniform vec4 fogColor;
 
 uniform int useFakeLighting;
 uniform int transparency;
@@ -55,5 +52,4 @@ void main() {
     }
 
     out_Color = vec4(result, 1.0f) * objectColor * color;
-    out_Color = mix(fogColor, out_Color, Visibility);
 }

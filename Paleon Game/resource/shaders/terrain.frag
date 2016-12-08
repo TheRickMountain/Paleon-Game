@@ -3,7 +3,6 @@
 in vec2 UV;
 in vec3 FragPos;
 in vec3 Normal;
-in float Visibility;
 
 uniform sampler2D blendMap;
 uniform sampler2D aTexture;
@@ -13,7 +12,6 @@ uniform sampler2D bTexture;
 
 uniform vec4 lightColor;
 uniform vec3 lightPosition;
-uniform vec4 fogColor;
 
 out vec4 out_Color;
 
@@ -44,5 +42,4 @@ void main() {
 
     vec4 result = vec4(ambient + diffuse, 1.0f);
     out_Color = result * totalColor;
-    out_Color = mix(fogColor, out_Color, Visibility);
 }

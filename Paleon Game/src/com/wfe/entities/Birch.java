@@ -1,7 +1,7 @@
 package com.wfe.entities;
 
 import com.wfe.behaviours.BoundingBoxBh;
-import com.wfe.behaviours.InteractableBh;
+import com.wfe.behaviours.TreeBh;
 import com.wfe.components.Collider;
 import com.wfe.components.Material;
 import com.wfe.components.Model;
@@ -21,7 +21,7 @@ public class Birch extends Entity {
 		addComponent(new Collider(ResourceManager.getColliderMesh("box"), 
 				new Vector3f(position), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1)));
 		addBehaviour(new BoundingBoxBh(new Vector3f(-1, 0, -1), new Vector3f(1, 10, 1)));
-		addBehaviour(new InteractableBh());
+		addBehaviour(new TreeBh());
 		setTransform(new Transform3D());
 		scale.set(2.5f);
 		

@@ -38,6 +38,7 @@ public class Entity {
     private final List<Behaviour> behaviours;
     private final List<Entity> children;
 
+    public int guiID = 0;
     public int textureIndex = 0;
     
     private float furthestPoint = 0;

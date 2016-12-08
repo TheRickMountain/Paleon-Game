@@ -7,16 +7,12 @@ layout (location = 2) in vec3 normal;
 out vec2 UV;
 out vec3 FragPos;
 out vec3 Normal;
-out float Visibility;
 
 uniform mat4 projection;
 uniform mat4 view;
 uniform mat4 model;
 
 uniform vec4 plane;
-
-const float density = 0.003f;
-const float gradient = 5.0f;
 
 void main() {
 
@@ -29,8 +25,4 @@ void main() {
     UV = uv;
     FragPos = vec3(mPos);
     Normal = mat3(transpose(inverse(model))) * normal;
-
-	float distance = length(mvPos.xyz);
-	Visibility = exp(-pow((distance * density), gradient));
-	Visibility = clamp(Visibility, 0.0f, 1.0f);
 }

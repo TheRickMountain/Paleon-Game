@@ -18,8 +18,6 @@ uniform vec3 lightColor;
 
 uniform float moveFactor;
 
-uniform vec4 fogColor;
-
 const float waveStrength = 0.04f;
 const float shineDamper = 20.0f;
 const float reflectivity = 0.5f;
@@ -71,10 +69,4 @@ void main(void) {
 	out_Color = mix(reflectColor, refractColor, refractiveFactor);
 	out_Color = mix(out_Color, vec4(0.3f, 0.3f, 0.4f, 1.0f), 0.2f) + vec4(specularHighlights, 0.0f);
 	out_Color.a = clamp(waterDepth / 5.0f, 0.0f, 1.0f);
-	
-	float distance = length(mvPos.xyz);
-	float visibility = exp(-pow((distance * density), gradient));
-	visibility = clamp(visibility, 0.0f, 1.0f);
-	
-	out_Color = mix(fogColor, out_Color, visibility);
 }

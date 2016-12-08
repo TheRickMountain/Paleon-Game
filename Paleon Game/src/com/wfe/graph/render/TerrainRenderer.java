@@ -18,7 +18,6 @@ import com.wfe.math.Vector4f;
 import com.wfe.terrain.Terrain;
 import com.wfe.terrain.TerrainBlock;
 import com.wfe.terrain.TexturePack;
-import com.wfe.utils.Color;
 import com.wfe.utils.MathUtils;
 import com.wfe.utils.OpenglUtils;
 
@@ -51,8 +50,6 @@ public class TerrainRenderer {
         shader.createUniform("lightPosition");
         shader.createUniform("lightColor");
         
-        shader.createUniform("fogColor");
-        
         shader.createUniform("plane");
 
         shader.bind();
@@ -67,15 +64,13 @@ public class TerrainRenderer {
         modelMatrix = new Matrix4f();
     }
 
-    public void render(Map<Terrain, List<TerrainBlock>> terrainBatches, DirectionalLight light, Camera camera, Color fogColor,
+    public void render(Map<Terrain, List<TerrainBlock>> terrainBatches, DirectionalLight light, Camera camera,
     		Vector4f plane) {
         if(Paleon.display.wasResized()) {
             shader.setUniform("projection", this.camera.getProjectionMatrix(), true);
         }
 
         shader.bind();
-        
-        shader.setUniform("fogColor", fogColor);
         
         shader.setUniform("plane", plane);
 

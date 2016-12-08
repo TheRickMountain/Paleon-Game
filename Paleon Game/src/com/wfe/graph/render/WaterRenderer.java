@@ -18,7 +18,6 @@ import com.wfe.graph.water.WaterFrameBuffers;
 import com.wfe.graph.water.WaterTile;
 import com.wfe.math.Matrix4f;
 import com.wfe.math.Vector3f;
-import com.wfe.utils.Color;
 import com.wfe.utils.MathUtils;
 import com.wfe.utils.OpenglUtils;
 
@@ -66,8 +65,6 @@ public class WaterRenderer {
 		shader.createUniform("lightPosition");
 		shader.createUniform("lightColor");
 		
-		shader.createUniform("fogColor");
-		
 		shader.bind();
 		shader.setUniform("reflectionTexture", 0);
 		shader.setUniform("refractionTexture", 1);
@@ -86,8 +83,8 @@ public class WaterRenderer {
 		moveFactor %= 1;
 	}
 
-	public void render(List<WaterTile> water, DirectionalLight sun, Color fogColor) {
-		prepareRender(sun, fogColor);	
+	public void render(List<WaterTile> water, DirectionalLight sun) {
+		prepareRender(sun);	
 		for (WaterTile tile : water) {
 			if(camera.testWaterInView(tile)) {
 				MathUtils.getEulerModelMatrix(modelMatrix,
@@ -100,14 +97,12 @@ public class WaterRenderer {
 		unbind();
 	}
 	
-	private void prepareRender(DirectionalLight sun, Color fogColor){
+	private void prepareRender(DirectionalLight sun){
 		shader.bind();
 		
 		if(Paleon.display.wasResized()) {
 			shader.setUniform("projectionMatrix", camera.getProjectionMatrix());
 		}
-		
-		shader.setUniform("fogColor", fogColor);
 		
 		shader.setUniform("cameraPosition", camera.getPosition());
 		

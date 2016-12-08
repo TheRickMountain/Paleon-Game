@@ -5,12 +5,10 @@ import com.wfe.utils.Color;
 public class WeatherFrame {
 
 	private float time;
-	private Color fogColor;
 	private Color sunLightColor;
 	
-	public WeatherFrame(float time, Color fogColor, Color sunLightColor) {
+	public WeatherFrame(float time, Color sunLightColor) {
 		this.time = time;
-		this.fogColor = fogColor;
 		this.sunLightColor = sunLightColor;
 	}
 	
@@ -18,10 +16,6 @@ public class WeatherFrame {
 		float full = frame2.time - frame1.time;
 		float progress = currentTime - frame1.time;
 		return progress/full;
-	}
-	
-	protected static Color getInterpolatedFogColor(WeatherFrame frame1, WeatherFrame frame2, float timeFactor) {
-		return interpolateColor(frame1.fogColor, frame2.fogColor, timeFactor);
 	}
 	
 	protected static Color getInterpolatedSunLightColour(WeatherFrame frame1, WeatherFrame frame2, float timeFactor){

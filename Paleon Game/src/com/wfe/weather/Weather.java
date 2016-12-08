@@ -15,22 +15,21 @@ public class Weather {
 	
 	
 	public final DirectionalLight sun;
-	private Color fogColor;
 	
 	public Weather() {
 		sun = new DirectionalLight(new Vector3f(384, 1000, 1500), new Color(255, 255, 200));
 	}
 	
 	private WeatherFrame[] weatherFrames = {
-			new WeatherFrame(0, new Color(0.05f, 0.05f, 0.1f), new Color(0f, 0f, 0.26f)),
-			new WeatherFrame(2500, new Color(0.05f, 0.05f, 0.1f), new Color(0f, 0f, 0.26f)),
-			new WeatherFrame(3500, new Color(0.77f, 0.58f, 0.6f), new Color(1.0f, 0.4f, 0.6f)),
-			new WeatherFrame(7500, new Color(1f, 0.9f, 0.6f), new Color(1f, 0.9f, 0.6f)),
-			new WeatherFrame(12000, new Color(0.9f, 0.9f, 1.0f), new Color(1.0f, 0.9f, 0.7f)),
-			new WeatherFrame(16500, new Color(1f, 0.9f, 0.6f), new Color(1f, 0.9f, 0.6f)),
-			new WeatherFrame(21000, new Color(0.77f, 0.58f, 0.6f), new Color(1.0f, 0.4f, 0.6f)),
-			new WeatherFrame(23500, new Color(0.05f, 0.05f, 0.1f), new Color(0f, 0f, 0.26f)),
-			new WeatherFrame(24001, new Color(0.05f, 0.05f, 0.1f), new Color(0f, 0f, 0.26f)),
+			new WeatherFrame(0, new Color(0f, 0f, 0.26f)),
+			new WeatherFrame(2500, new Color(0f, 0f, 0.26f)),
+			new WeatherFrame(3500, new Color(1.0f, 0.4f, 0.6f)),
+			new WeatherFrame(7500, new Color(1f, 0.9f, 0.6f)),
+			new WeatherFrame(12000, new Color(1.0f, 0.9f, 0.7f)),
+			new WeatherFrame(16500, new Color(1f, 0.9f, 0.6f)),
+			new WeatherFrame(21000, new Color(1.0f, 0.4f, 0.6f)),
+			new WeatherFrame(23500, new Color(0f, 0f, 0.26f)),
+			new WeatherFrame(24001, new Color(0f, 0f, 0.26f)),
 	};
 	
 	public void updateWeather(float time) {
@@ -51,7 +50,6 @@ public class Weather {
 			}
 		}
 		float timeFactor = WeatherFrame.getTimeFactor(frame1, frame2, time);
-		updateFogVariables(timeFactor, frame1, frame2);
 		updateSunVariables(timeFactor, frame1, frame2);
 	}
 	
@@ -64,17 +62,8 @@ public class Weather {
 		sun.position.set(x, y, z);
 	}
 	
-	private void updateFogVariables(float timeFactor, WeatherFrame frame1, WeatherFrame frame2) {
-		fogColor = WeatherFrame.getInterpolatedFogColor(frame1, frame2, timeFactor);
-	}
-	
 	private void updateSunVariables(float timeFactor, WeatherFrame frame1, WeatherFrame frame2) {	
 		sun.color = WeatherFrame.getInterpolatedSunLightColour(frame1, frame2, timeFactor);
 	}
-	
-	public Color getFogColor() {
-		return fogColor;
-	}
-
 	
 }
