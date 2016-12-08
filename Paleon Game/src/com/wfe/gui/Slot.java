@@ -8,15 +8,15 @@ import com.wfe.utils.MathUtils;
 
 public class Slot {
 	
-	private Item slotItem;
+	private Item item;
 	
 	private Texture slotTexture;
 	
 	public float xPos, yPos, xScale, yScale;
 	
-	private int itemsCount;
+	private int itemCount;
 	
-	public SlotType slotType = SlotType.ALL;
+	public SlotType type = SlotType.ALL;
 	
 	public enum SlotType {
 		CAP,
@@ -39,19 +39,19 @@ public class Slot {
 		this.yPos = yPos;
 		this.xScale = xScale;
 		this.yScale = yScale;
-		this.itemsCount = 0;
-		this.slotType = type;
+		this.itemCount = 0;
+		this.type = type;
 	}
 	
 	public boolean addItem(Item item) {	
-		if(this.slotItem != null) {
-			if(this.slotItem.itemID == item.itemID) {
-				itemsCount++;
+		if(this.item != null) {
+			if(this.item.itemID == item.itemID) {
+				itemCount++;
 				return true;
 			}
 		} else {
-			this.slotItem = item;
-			itemsCount++;
+			this.item = item;
+			itemCount++;
 			return true;
 		} 
 		
@@ -59,19 +59,19 @@ public class Slot {
 	}
 	
 	public void removeItem() {
-		slotItem = null;
-		itemsCount = 0;
+		item = null;
+		itemCount = 0;
 	}
 	
 	public void removeItem(int count) {
-		if(count > itemsCount)
-			itemsCount = 0;
+		if(count > itemCount)
+			itemCount = 0;
 		else
-			itemsCount -= count;
+			itemCount -= count;
 	}
 	
 	public Item getSlotItem() {
-		return slotItem;
+		return item;
 	}
 	
 	public void setPosition(float x, float y) {
@@ -81,10 +81,10 @@ public class Slot {
 	
 	public void render(Text text) {
 		GUIRenderer.render(xPos, yPos, xScale, yScale, slotTexture);
-		if(slotItem != null) {
-			GUIRenderer.render(xPos, yPos, xScale, yScale, slotItem.itemIcon);
-			if(itemsCount >= 2) {
-				text.setText("x" + itemsCount);
+		if(item != null) {
+			GUIRenderer.render(xPos, yPos, xScale, yScale, item.itemIcon);
+			if(itemCount >= 2) {
+				text.setText("x" + itemCount);
 				GUIRenderer.render(xPos, yPos, text);
 			}
 		}
@@ -92,8 +92,8 @@ public class Slot {
 	
 	public void render() {
 		GUIRenderer.render(xPos, yPos, xScale, yScale, slotTexture);
-		if(slotItem != null) {
-			GUIRenderer.render(xPos, yPos, xScale, yScale, slotItem.itemIcon);
+		if(item != null) {
+			GUIRenderer.render(xPos, yPos, xScale, yScale, item.itemIcon);
 		}
 	}
 	
@@ -102,11 +102,23 @@ public class Slot {
 	}
 	
 	public int getItemsCount() {
-		return itemsCount;
+		return itemCount;
 	}
 	
 	public void setItemsCount(int itemsCount) {
-		this.itemsCount = itemsCount;
+		this.itemCount = itemsCount;
+	}
+	
+	public boolean isEmpty() {
+		return item == null;
+	}
+	
+	public void decreaseItem() {
+		itemCount--;
+		
+		if(itemCount == 0) {
+			item = null;
+		}
 	}
 
 }

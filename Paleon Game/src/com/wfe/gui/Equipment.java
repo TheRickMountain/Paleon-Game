@@ -113,7 +113,7 @@ public class Equipment {
 	public void addItem(Item item) {
 		boolean added = false;
 		for(Slot slot : slots) {
-			if(slot.slotType.ordinal() == item.itemType.ordinal()) {
+			if(slot.type.ordinal() == item.itemType.ordinal()) {
 				if(slot.getSlotItem() == null) {
 					slot.addItem(item);
 					added = true;

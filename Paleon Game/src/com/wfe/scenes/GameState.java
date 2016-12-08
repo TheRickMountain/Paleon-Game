@@ -7,6 +7,7 @@ import com.wfe.core.stateMachine.IState;
 import com.wfe.core.stateMachine.StateMachine;
 import com.wfe.entities.Birch;
 import com.wfe.entities.Flint;
+import com.wfe.entities.Furnace;
 import com.wfe.entities.Grass;
 import com.wfe.entities.Player;
 import com.wfe.entities.Shroom;
@@ -70,6 +71,11 @@ public class GameState implements IState {
 		
 		ResourceManager.loadTexture("clay", "clay");
 		ResourceManager.loadMesh("wall", "wall");
+		
+		/*** Furnace ***/
+		ResourceManager.loadMesh("models/furnace/furnace", "furnace");
+		ResourceManager.loadTexture("models/furnace/furnace", "furnace");
+		/*** *** ***/
 		
 		/*** Terrain Textures ***/
 		ResourceManager.loadTexture("terrain/dry_grass", "dry_grass");
@@ -210,8 +216,7 @@ public class GameState implements IState {
         Stone stone3 = new Stone(world);
         stone3.position.set(world.cells.get("130 129").position);
         
-        Stone stone4 = new Stone(world);
-        stone4.position.set(world.cells.get("130 130").position);
+        Furnace furnace = new Furnace(world, world.cells.get("130 130").position);
         
         world.init();
 	}
