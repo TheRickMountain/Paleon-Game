@@ -15,7 +15,7 @@ public class Wall extends Entity {
 		addComponent(new Material(ResourceManager.getTexture("clay")));
 		setTransform(new Transform3D());
 		
-		scale.set(1.5f);
+		scale.set(2f);
 	}
 
 	

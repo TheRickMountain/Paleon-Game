@@ -95,6 +95,20 @@ public class AnimBh extends Behaviour {
         resetRotationX(rightShin, dt);
     }
 
+    public void resetAnimation() {
+    	leftArm.localPosition.x = 0;
+    	leftForearm.localPosition.x = 0;
+    	
+    	rightArm.localPosition.x = 0;
+    	rightForearm.localPosition.x = 0;
+    	
+    	leftHip.localPosition.x = 0;
+    	leftShin.localPosition.x = 0;
+    	
+    	rightHip.localPosition.x = 0;
+    	rightShin.localPosition.x = 0;
+    }
+    
     private void resetRotationX(Entity entity, float dt) {
         if(entity.localRotation.x > 2) {
             entity.localRotation.x -= animSpeed * dt;

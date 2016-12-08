@@ -13,7 +13,7 @@ import java.nio.FloatBuffer;
  */
 public class Terrain {
 
-    public static final float SIZE = 768;
+    public static final float SIZE = 1024;
     public static final int NUM_OF_LODS = 6;
     public static final int TERRAIN_WIDTH = 256;
     public static final int BLOCK_WIDTH = (int)Math.pow(2, NUM_OF_LODS - 1);

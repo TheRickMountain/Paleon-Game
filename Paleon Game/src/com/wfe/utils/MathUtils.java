@@ -1,5 +1,7 @@
 package com.wfe.utils;
 
+import java.util.Random;
+
 import com.wfe.graph.Camera;
 import com.wfe.math.Matrix4f;
 import com.wfe.math.Vector2f;
@@ -21,7 +23,12 @@ public class MathUtils {
     public static final Vector3f AXIS_Z = new Vector3f(0, 0, 1);
     public static final Vector3f ZERO = new Vector3f(0, 0, 0);
     public static final Vector3f IDENTITY = new Vector3f(1, 1, 1);
-
+    public static Random rand = new Random();
+    
+    public static int random(int low, int high) {
+    	return rand.nextInt(high-low) + low; 
+    }
+    
     public static boolean point2DBoxIntersection(float x, float y, float xPos, float yPos, float xScale, float yScale) {
     	return x >= xPos && x <= xPos + xScale &&
 				y >= yPos && y <= yPos + yScale;

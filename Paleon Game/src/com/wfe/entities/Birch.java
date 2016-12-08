@@ -14,7 +14,7 @@ import com.wfe.scenegraph.World;
 public class Birch extends Entity {
 
 	public Birch(World world, Vector3f position) {
-		super(world, "birch");
+		super(world, "tree");
 		
 		addComponent(new Model(ResourceManager.getMesh("birch_trunk")));
 		addComponent(new Material(ResourceManager.getTexture("birch_trunk")));

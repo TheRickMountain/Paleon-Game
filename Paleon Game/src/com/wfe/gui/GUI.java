@@ -38,6 +38,10 @@ public class GUI {
 		inventory.addItem(ItemDatabase.CAP);
 		inventory.addItem(ItemDatabase.HUMMER);
 		inventory.addItem(ItemDatabase.AXE);
+		inventory.addItem(ItemDatabase.LOG_WALL);
+		inventory.addItem(ItemDatabase.LOG_WALL);
+		inventory.addItem(ItemDatabase.LOG_WALL);
+		inventory.addItem(ItemDatabase.LOG_WALL);
 		/*** *** ***/
 	}
 	

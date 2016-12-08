@@ -121,12 +121,9 @@ public class Display {
         return glfwWindowShouldClose(mWindow);
     }
 
-    public void pollEvents() {
-        glfwPollEvents();
-    }
-
-    public void swapBuffers() {
-        glfwSwapBuffers(mWindow);
+    public void update() {
+    	glfwPollEvents();
+    	glfwSwapBuffers(mWindow);
     }
 
     public int getWidth() {
@@ -149,7 +146,7 @@ public class Display {
         return mWindow;
     }
 
-    public void destroy() {
+    public void shutdown() {
         glfwFreeCallbacks(mWindow);
         glfwDestroyWindow(mWindow);
         glfwTerminate();

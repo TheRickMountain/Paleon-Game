@@ -39,16 +39,12 @@ public class MousePicker {
 	
 	public static Vector2f getGridPoint() {
 		if(currentTerrainPoint != null) {
-			currentTerrainPoint.x += 1.5f;
-			currentTerrainPoint.z += 1.5f;
-			currentTerrainPoint.x /= 3;
-			currentTerrainPoint.z /= 3;
+			currentTerrainPoint.x /= 4;
+			currentTerrainPoint.z /= 4;
 			currentTerrainPoint.x = (int) Math.round(currentTerrainPoint.x);
 			currentTerrainPoint.z = (int) Math.round(currentTerrainPoint.z);
-			currentTerrainPoint.x *= 3;
-			currentTerrainPoint.z *= 3;
-			currentTerrainPoint.x -= 1.5f;
-			currentTerrainPoint.z -= 1.5f;
+			currentTerrainPoint.x *= 4;
+			currentTerrainPoint.z *= 4;
 			
 			//currentGridPoint.x = ((int) currentTerrainPoint.x) / 3;
 			//currentGridPoint.y = ((int) currentTerrainPoint.z) / 3;

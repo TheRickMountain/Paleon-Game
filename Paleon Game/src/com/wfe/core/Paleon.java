@@ -116,8 +116,7 @@ public class Paleon implements Runnable {
 
     protected void render() throws Exception {
     	gGameMode.render();
-    	display.pollEvents();
-        display.swapBuffers();
+    	display.update();
     }
     
     public void dispose() {
@@ -126,7 +125,7 @@ public class Paleon implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        display.destroy();
+        display.shutdown();
     }
   
     public static void main(String[] args) {

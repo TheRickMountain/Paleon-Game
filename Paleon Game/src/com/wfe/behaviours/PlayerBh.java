@@ -51,7 +51,9 @@ public class PlayerBh extends Behaviour {
 		
 		this.time = new TimeUtil();
 
-		colPackage = new CollisionPacket(new Vector3f(1, 2, 1), new Vector3f(400, world.getTerrainHeight(400, 400) + 2.2f, 400));
+		Vector3f pos = new Vector3f(world.cells.get("129 129").position);
+		pos.y += 2.2f;
+		colPackage = new CollisionPacket(new Vector3f(1, 2, 1), pos);
 	
 		head = parent.getChildByName("Head");
 		rightForearm = parent.getChildByName("Right Arm").getChildByName("Right Forearm");
@@ -68,11 +70,24 @@ public class PlayerBh extends Behaviour {
 				} else {
 					mining = false;
 					time.reset();
-					miningEntity.remove();
-					miningEntity = null;
 					GameState.gui.hud.miningProgress.setCurrentValue(0);
-					for(int i = 0; i < 10; i++)
-						GameState.gui.inventory.addItem(ItemDatabase.LOG);
+					
+					switch(miningEntity.name) {
+					case "stone":
+						GameState.gui.inventory.addItem(ItemDatabase.FLINT);
+						miningEntity.getBehaviour(MineralBh.class).decrease();
+						if(miningEntity.getBehaviour(MineralBh.class).getCount() == 0) {
+							miningEntity = null;
+						}
+						break;
+					case "tree":
+						miningEntity.remove();
+						miningEntity = null;
+						
+						for(int i = 0; i < 10; i++)
+							GameState.gui.inventory.addItem(ItemDatabase.LOG);
+						break;
+					}
 				}
 			}
 		}

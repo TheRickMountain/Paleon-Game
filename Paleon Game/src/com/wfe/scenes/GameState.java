@@ -10,8 +10,8 @@ import com.wfe.entities.Flint;
 import com.wfe.entities.Grass;
 import com.wfe.entities.Player;
 import com.wfe.entities.Shroom;
+import com.wfe.entities.Stone;
 import com.wfe.graph.Camera;
-import com.wfe.graph.water.WaterTile;
 import com.wfe.gui.GUI;
 import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.World;
@@ -66,10 +66,10 @@ public class GameState implements IState {
 		ResourceManager.loadColliderMesh("wall", "wall");
 		
 		ResourceManager.loadTexture("rock", "rock");
+		ResourceManager.loadMesh("models/rock/stone", "rock");
 		
 		ResourceManager.loadTexture("clay", "clay");
 		ResourceManager.loadMesh("wall", "wall");
-		ResourceManager.loadMesh("corner_wall", "corner_wall");
 		
 		/*** Terrain Textures ***/
 		ResourceManager.loadTexture("terrain/dry_grass", "dry_grass");
@@ -112,28 +112,9 @@ public class GameState implements IState {
         ResourceManager.loadMesh("models/birch/leaves", "birch_leaves");
         /*** *** ***/
         
-        /*** Rock ***/
-        ResourceManager.loadMesh("models/rock/rock_1", "rock"); 
-        /*** *** ***/
-        
         /*** Grass ***/
         ResourceManager.loadTexture("models/grass/diffuse", "diffuse");
         ResourceManager.loadMesh("models/grass/grass", "grass");
-        /*** *** ***/
-        
-        /*** Desert House ***/
-        ResourceManager.loadTexture("models/desertHouse/desertHouse", "desertHouse");
-        ResourceManager.loadMesh("models/desertHouse/desertHouse", "desertHouse");
-        /*** *** ***/
-        
-        /*** Palm ***/
-        ResourceManager.loadTexture("models/palm/palm", "palm");
-        ResourceManager.loadMesh("models/palm/palm", "palm");
-        /*** *** ***/
-        
-        /*** Well ***/
-        ResourceManager.loadTexture("models/well/well", "well");
-        ResourceManager.loadMesh("models/well/well", "well");
         /*** *** ***/
         
         /*** Flint ***/
@@ -141,7 +122,7 @@ public class GameState implements IState {
         ResourceManager.loadTexture("models/flint/flint", "flint");
         /*** *** ***/
         
-        /*** Flint ***/
+        /*** Shroom ***/
         ResourceManager.loadMesh("models/shroom/shroom_1", "shroom");
         ResourceManager.loadTexture("models/shroom/shroom", "shroom");
         /*** *** ***/
@@ -167,7 +148,7 @@ public class GameState implements IState {
         
         for(int x = 0; x < 256; x++) {
             for(int z = 0; z < 256; z++) {
-                float height = world.getTerrainHeight((x * 3) + 1.5f, (z * 3) + 1.5f);
+                float height = world.getTerrainHeight((x * 4), (z * 4));
 
                 int cellState = 0;
 
@@ -175,16 +156,16 @@ public class GameState implements IState {
                     cellState = 1;
                 
                 world.cells.put(x + " " + z, 
-                		new CellInfo(new Vector3f(x * 3 + 1.5f, height, z * 3 + 1.5f), cellState));
+                		new CellInfo(new Vector3f(x * 4, height, z * 4), cellState));
             }
         }
         /*** *** ***/
 		
-		for(int i = 60; i < 840; i+= 120) {
+		/*for(int i = 60; i < 840; i+= 120) {
 			for(int j = 60; j < 840; j+= 120) {
 				world.addWaterTile(new WaterTile(j, i));
 			}
-		}
+		}*/
         
         new Player(world, camera);
         
@@ -219,6 +200,18 @@ public class GameState implements IState {
         gui = new GUI(world);
         
         GameTime.setTime(12, 00);
+        
+        Stone stone1 = new Stone(world);
+        stone1.position.set(world.cells.get("129 129").position);
+        
+        Stone stone2 = new Stone(world);
+        stone2.position.set(world.cells.get("129 130").position);
+        
+        Stone stone3 = new Stone(world);
+        stone3.position.set(world.cells.get("130 129").position);
+        
+        Stone stone4 = new Stone(world);
+        stone4.position.set(world.cells.get("130 130").position);
         
         world.init();
 	}

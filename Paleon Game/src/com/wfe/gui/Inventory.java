@@ -167,7 +167,7 @@ public class Inventory {
 							
 							building.addComponent(new Collider(ResourceManager.getColliderMesh("box"),
 									new Vector3f(building.position.x, building.position.y, building.position.z),
-									new Vector3f(0, building.rotation.y, 0), new Vector3f(1.5f, 1.5f, 1.5f)));
+									new Vector3f(0, building.rotation.y, 0), new Vector3f(2f, 2f, 2f)));
 							building = null;
 							
 							GameState.gui.draggedItemCount--;

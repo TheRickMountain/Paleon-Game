@@ -1,31 +1,46 @@
 package com.wfe.behaviours;
 
-import com.wfe.core.input.Keyboard;
-import com.wfe.core.input.Keys;
+import com.wfe.core.input.Mouse;
 import com.wfe.scenegraph.Entity;
-import com.wfe.scenes.GameState;
 import com.wfe.utils.MathUtils;
 
-public class GatherableBh extends Behaviour {
+public class MineralBh extends Behaviour {
 
 	BoundingBoxBh bb;
 	Entity player;
+	PlayerBh playerBh;
+	
+	int count;
 	
 	@Override
 	public void start() {
 		bb = parent.getBehaviour(BoundingBoxBh.class);
 		player = parent.getWorld().getEntityByName("Player");
+		playerBh = player.getBehaviour(PlayerBh.class);
+		
+		count = MathUtils.random(2, 5);
 	}
 
 	@Override
 	public void update(float deltaTime) {
-		if(Keyboard.isKeyDown(Keys.KEY_F)) {
+		if(Mouse.isButtonDown(1)) {
 			if(MathUtils.getDistanceBetweenPoints(player.position.x, player.position.z, 
 					parent.position.x, parent.position.z) <= 10) {
-				if(GameState.gui.inventory.addItem(parent.guiID)) {
-					parent.remove();
+				if(bb.intersect()) {
+					playerBh.addMiningEntity(parent, 10);
 				}
 			}
+		}
+	}
+	
+	public int getCount() {
+		return count;
+	}
+	
+	public void decrease() {
+		count--;
+		if(count == 0) {
+			parent.remove();
 		}
 	}
 
