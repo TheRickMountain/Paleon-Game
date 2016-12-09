@@ -1,1 +1,1 @@
-banana;3;banana is banana;10;0;CONSUMABLE;1
+banana;3;banana is banana;10;0;CONSUMABLE;false;1

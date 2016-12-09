@@ -1,1 +1,1 @@
-shroom;16;shroom is shroom;5;0;CONSUMABLE;1
+shroom;16;shroom is shroom;5;0;CONSUMABLE;false;1

@@ -7,7 +7,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.wfe.graph.Texture;
 import com.wfe.graph.TextureLoader;
@@ -17,7 +16,7 @@ public class ItemsImporter {
 	
 	private static final String PATH = "/items";
 	
-	public void importItems(Map<String, Item> items) throws Exception {
+	public void importItems(List<Item> items) throws Exception {
 		List<String> names = new ArrayList<String>();
 		
 		URL url =  ItemsImporter.class.getResource(PATH);
@@ -38,8 +37,7 @@ public class ItemsImporter {
 						
 			String[] parameters = reader.readLine().split("\\;");
 			
-			items.put(parameters[0], 
-					new Item(
+			items.add(new Item(
 							icon, 
 							parameters[0], 
 							Integer.parseInt(parameters[1]), 
@@ -47,7 +45,8 @@ public class ItemsImporter {
 							Integer.parseInt(parameters[3]), 
 							Integer.parseInt(parameters[4]), 
 							Item.Type.valueOf(parameters[5]), 
-							Integer.parseInt(parameters[6])));
+							Boolean.valueOf(parameters[6]),
+							Integer.parseInt(parameters[7])));
 			reader.close();
 		}
 		

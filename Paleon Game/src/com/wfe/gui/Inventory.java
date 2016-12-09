@@ -209,6 +209,23 @@ public class Inventory {
 		return false;
 	}
 	
+	public int containsItemAmount(String itemName) {
+		Item item = ItemDatabase.getItemByName(itemName);
+		
+		int temp = 0;
+		
+		for(Slot slot : slots) {
+			Item slotItem = slot.getItem();
+			if(slotItem != null) {
+				if(item.ID == slotItem.ID) {
+					temp += slot.getItemCount();
+				}
+			}
+		}
+		
+		return temp;
+	}
+	
 	public void render() {
 		for(Slot slot : slots)
 			slot.render(countText);

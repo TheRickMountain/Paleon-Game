@@ -1,13 +1,13 @@
 package com.wfe.gui;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.wfe.test.ItemsImporter;
 
 public class ItemDatabase {
 	
-	private static Map<String, Item> items = new HashMap<String, Item>();
+	public static List<Item> items = new ArrayList<Item>();
 	
 	public static void init() {
 		ItemsImporter importer = new ItemsImporter();
@@ -19,7 +19,21 @@ public class ItemDatabase {
 	}
 	
 	public static Item getItemByName(String name) {
-		return items.get(name);
+		for(Item item : items) {
+			if(item.name.equals(name)) {
+				return item;
+			}
+		}
+		return null;
+	}
+	
+	public static Item getItemByID(int id) {
+		for(Item item : items) {
+			if(item.ID == id) {
+				return item;
+			}
+		}
+		return null;
 	}
 
 }

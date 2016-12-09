@@ -4,14 +4,15 @@ import com.wfe.graph.Texture;
 
 public class Item {
 	
-	public Texture icon;
-	public String name;
-	public int ID;
-	public String desc;
-	public int starvation;
-	public int dehydration;
-	public Type type;
-	public int maxStackSize;
+	public final Texture icon;
+	public final String name;
+	public final int ID;
+	public final String desc;
+	public final int starvation;
+	public final int dehydration;
+	public final Type type;
+	public final boolean hasCrafting;
+	public final int maxStackSize;
 	
 	public enum Type {
 		HELMET,
@@ -25,7 +26,7 @@ public class Item {
 	}
 	
 	public Item(Texture itemIcon, String itemName, int itemId, String itemDesc, int itemStarvation, int itemDehydration,
-			Type itemType, int stackability) {
+			Type itemType, boolean hasCrafting, int stackability) {
 		this.name = itemName;
 		this.ID = itemId;
 		this.desc = itemDesc;
@@ -33,6 +34,7 @@ public class Item {
 		this.starvation = itemStarvation;
 		this.dehydration = itemDehydration;
 		this.type = itemType;
+		this.hasCrafting = hasCrafting;
 		this.maxStackSize = stackability;
 	}
 	
@@ -43,6 +45,7 @@ public class Item {
 				"starvation: " + starvation + "\n" +
 				"dehydration: " + dehydration + "\n" +
 				"type: " + type + "\n" +
+				"has crafting: " + hasCrafting + "\n" +
 				"stack: " + maxStackSize;
 	}
 

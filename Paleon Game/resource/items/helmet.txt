@@ -1,1 +1,1 @@
-cap;7;cap is cap;0;0;HELMET;1
+cap;7;cap is cap;0;0;HELMET;true;1

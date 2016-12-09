@@ -3,11 +3,13 @@ package com.wfe.gui;
 import com.wfe.behaviours.PlayerBh;
 import com.wfe.core.Paleon;
 import com.wfe.core.ResourceManager;
+import com.wfe.core.input.Mouse;
 import com.wfe.entities.Axe;
 import com.wfe.entities.Helmet;
 import com.wfe.entities.Player;
 import com.wfe.graph.Texture;
 import com.wfe.scenegraph.World;
+import com.wfe.scenes.GameState;
 
 public class Equipment {
 	
@@ -30,7 +32,15 @@ public class Equipment {
 	}
 
 	public void update(float dt) {
-		
+		if(Mouse.isButtonDown(0)) {
+			if(GameState.gui.draggedItem == null) {
+				if(handSlot.getItem() != null) {
+					GameState.gui.draggedItem = handSlot.getItem();
+					GameState.gui.draggedItemCount = 1;
+					handSlot.removeItem();
+				}
+			}
+		}
 	}
 	
 	public void render() {
@@ -47,10 +57,19 @@ public class Equipment {
 	public void addItem(Item item) {
 		switch(item.type) {
 		case HELMET:
-			helmetSlot.addItem(item);
-			player.addHelmet(new Helmet(world));
+			if(helmetSlot.isEmpty()) {
+				helmetSlot.addItem(item);
+				player.addHelmet(new Helmet(world));
+			} else {
+				GameState.gui.inventory.addItem(helmetSlot.getItem().name);
+				helmetSlot.removeItem();
+				helmetSlot.addItem(item);
+			}
 			break;
 		case ARMOR:
+			armorSlot.addItem(item);
+			GameState.gui.inventory.addItem(armorSlot.getItem().name);
+			armorSlot.removeItem();
 			armorSlot.addItem(item);
 			break;
 		case WEAPON:
