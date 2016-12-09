@@ -1,1 +1,0 @@
-pants;9;pants are pants;0;0;PANTS;1

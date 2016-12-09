@@ -125,7 +125,7 @@ public class FurnaceBh extends Behaviour {
 			if(currentProcessTime >= processTime) {
 				switch(resourceSlot.getItem().name) {
 				case "flint":
-					resultSlot.addItem(ItemDatabase.getItem("apple"));
+					resultSlot.addItem(ItemDatabase.getItemByName("apple"));
 					resourceSlot.decreaseItem();
 					break;
 				}

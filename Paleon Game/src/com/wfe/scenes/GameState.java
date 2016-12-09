@@ -42,23 +42,9 @@ public class GameState implements IState {
 		ResourceManager.loadTexture("models/helmet/helmet", "helmet");
 		ResourceManager.loadMesh("models/helmet/helmet", "helmet");
 		
-		ResourceManager.loadTexture("gui/icons/flint", "ui_flint");
-		ResourceManager.loadTexture("gui/icons/log wall", "ui_log wall");
-		ResourceManager.loadTexture("gui/icons/apple", "ui_apple");
-		ResourceManager.loadTexture("gui/icons/shroom", "ui_shroom");
-		ResourceManager.loadTexture("gui/icons/character", "ui_character");
-		ResourceManager.loadTexture("gui/icons/axe", "ui_axe");
-		ResourceManager.loadTexture("gui/icons/hummer", "ui_hummer");
-		ResourceManager.loadTexture("gui/icons/log", "ui_log");
-		
 		ResourceManager.loadTexture("models/axe/axe", "axe");
 		ResourceManager.loadMesh("models/axe/axe", "axe");
 		ResourceManager.loadMesh("models/hummer/hummer", "hummer");
-		
-		ResourceManager.loadTexture("gui/icons/cap", "ui_cap");
-		ResourceManager.loadTexture("gui/icons/tunic", "ui_tunic");
-		ResourceManager.loadTexture("gui/icons/pants", "ui_pants");
-		ResourceManager.loadTexture("gui/icons/boots", "ui_boots");
 		
 		ResourceManager.loadTexture("gui/bar/health", "ui_health");
 		ResourceManager.loadTexture("gui/bar/hunger", "ui_hunger");
@@ -173,9 +159,9 @@ public class GameState implements IState {
 			}
 		}*/
         
-        new Player(world, camera);
+        Player player = new Player(world, camera);
         
-        gui = new GUI(world);
+        gui = new GUI(world, player);
         
         Random rand = new Random();
         
@@ -216,7 +202,7 @@ public class GameState implements IState {
         Stone stone3 = new Stone(world);
         stone3.position.set(world.cells.get("130 129").position);
         
-        Furnace furnace = new Furnace(world, world.cells.get("130 130").position);
+        new Furnace(world, world.cells.get("130 130").position);
         
         world.init();
 	}

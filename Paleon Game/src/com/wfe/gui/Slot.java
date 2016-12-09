@@ -10,37 +10,19 @@ public class Slot {
 	
 	private Item item;
 	
-	private Texture slotTexture;
+	private Texture texture;
 	
 	public float xPos, yPos, xScale, yScale;
 	
 	private int itemCount;
 	
-	public SlotType type = SlotType.ALL;
-	
-	public enum SlotType {
-		CAP,
-		TUNIC,
-		PANTS, 
-		BOOTS,
-		WEAPON,
-		AMULET,
-		BACKPACK,
-		ALL
-	}
-	
-	public Slot(Texture slotTexture, int xPos, int yPos, int xScale, int yScale) {
-		this(slotTexture, xPos, yPos, xScale, yScale, SlotType.ALL);
-	}
-	
-	public Slot(Texture slotTexture, int xPos, int yPos, int xScale, int yScale, SlotType type) {
-		this.slotTexture = slotTexture;
+	public Slot(Texture texture, int xPos, int yPos, int xScale, int yScale) {
+		this.texture = texture;
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.xScale = xScale;
 		this.yScale = yScale;
 		this.itemCount = 0;
-		this.type = type;
 	}
 	
 	public boolean addItem(Item item) {	
@@ -95,7 +77,7 @@ public class Slot {
 	}
 	
 	public void render(Text text) {
-		GUIRenderer.render(xPos, yPos, xScale, yScale, slotTexture);
+		GUIRenderer.render(xPos, yPos, xScale, yScale, texture);
 		if(item != null) {
 			GUIRenderer.render(xPos, yPos, xScale, yScale, item.icon);
 			if(itemCount >= 2) {
@@ -106,7 +88,7 @@ public class Slot {
 	}
 	
 	public void render() {
-		GUIRenderer.render(xPos, yPos, xScale, yScale, slotTexture);
+		GUIRenderer.render(xPos, yPos, xScale, yScale, texture);
 		if(item != null) {
 			GUIRenderer.render(xPos, yPos, xScale, yScale, item.icon);
 		}

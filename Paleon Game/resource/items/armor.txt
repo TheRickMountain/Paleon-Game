@@ -1,0 +1,1 @@
+tunic;18;tunic is tunic;0;0;ARMOR;1

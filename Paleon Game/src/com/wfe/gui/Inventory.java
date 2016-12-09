@@ -99,7 +99,8 @@ public class Inventory {
 			for(Slot slot : slots) {
 				if(slot.overMouse()) {
 					if(slot.getItem() != null) {
-						if(slot.getItem().type.equals(Item.ItemType.CONSUMABLE)) {
+						switch(slot.getItem().type) {
+						case CONSUMABLE:
 							if(slot.getItemCount() > 1) {
 								GameState.gui.hud.hunger.increase(slot.getItem().starvation);
 								slot.removeItem(1);
@@ -107,21 +108,16 @@ public class Inventory {
 								GameState.gui.hud.hunger.increase(slot.getItem().starvation);
 								slot.removeItem();
 							}
-						} else if(slot.getItem().type.equals(Item.ItemType.CAP)) {
+							break;
+						case HELMET:
+						case ARMOR:
+						case WEAPON:
+						case TOOL:
 							GameState.gui.equipment.addItem(slot.getItem());
 							slot.removeItem();
-						} else if(slot.getItem().type.equals(Item.ItemType.TUNIC)) {
-							GameState.gui.equipment.addItem(slot.getItem());
-							slot.removeItem();
-						} else if(slot.getItem().type.equals(Item.ItemType.PANTS)) {
-							GameState.gui.equipment.addItem(slot.getItem());
-							slot.removeItem();
-						} else if(slot.getItem().type.equals(Item.ItemType.BOOTS)) {
-							GameState.gui.equipment.addItem(slot.getItem());
-							slot.removeItem();
-						} else if(slot.getItem().type.equals(Item.ItemType.WEAPON)) {
-							GameState.gui.equipment.addItem(slot.getItem());
-							slot.removeItem();
+							break;
+						default:
+							break;
 						}
 					}
 				}
@@ -146,7 +142,7 @@ public class Inventory {
 			GameState.gui.draggedItem = null;
 		
 		if(GameState.gui.draggedItem != null) {			
-			if(GameState.gui.draggedItem.type.equals(Item.ItemType.BUILDING)) {
+			if(GameState.gui.draggedItem.type.equals(Item.Type.BUILDING)) {
 				if(building != null) {
 					Vector2f point = MousePicker.getGridPoint();
 					
@@ -196,7 +192,7 @@ public class Inventory {
 		for(Slot slot : slots) {
 			if(slot.getItem() != null) {
 				if(slot.getItem().name.equals(name)) {
-					if(slot.addItem(ItemDatabase.getItem(name))) {
+					if(slot.addItem(ItemDatabase.getItemByName(name))) {
 						return true;	
 					}
 				}
@@ -206,7 +202,7 @@ public class Inventory {
 		
 		// If the same item isn't exist, adds item to the first empty slot
 		for(Slot slot : slots) {
-			if(slot.addItem(ItemDatabase.getItem(name)))
+			if(slot.addItem(ItemDatabase.getItemByName(name)))
 				return true;
 		}
 		

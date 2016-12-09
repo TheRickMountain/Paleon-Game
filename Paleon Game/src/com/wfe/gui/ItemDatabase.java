@@ -18,7 +18,7 @@ public class ItemDatabase {
 		}
 	}
 	
-	public static Item getItem(String name) {
+	public static Item getItemByName(String name) {
 		return items.get(name);
 	}
 

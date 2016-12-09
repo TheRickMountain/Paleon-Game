@@ -1,6 +1,5 @@
 package com.wfe.gui;
 
-import com.wfe.core.ResourceManager;
 import com.wfe.graph.Texture;
 
 public class Item {
@@ -11,42 +10,22 @@ public class Item {
 	public String desc;
 	public int starvation;
 	public int dehydration;
-	public ItemType type;
-	public int stack;
+	public Type type;
+	public int maxStackSize;
 	
-	public enum ItemType {
-		CAP,
-		TUNIC,
-		PANTS, 
-		BOOTS,
+	public enum Type {
+		HELMET,
+		ARMOR,
 		WEAPON,
-		AMULET,
-		BACKPACK,
+		TOOL,
 		CONSUMABLE,
-		ITEM,
+		MINERAL,
+		MATERIAL,
 		BUILDING,
 	}
 	
-	public Item() {
-		
-	}
-
-	public Item(String itemName, int itemId, String itemDesc, int itemStarvation, int itemDehydration,
-			ItemType itemType, int stackability) {
-		this.name = itemName;
-		this.ID = itemId;
-		this.desc = itemDesc;
-		if(!itemName.isEmpty()) {
-			this.icon = ResourceManager.getTexture("ui_" + itemName);
-		}
-		this.starvation = itemStarvation;
-		this.dehydration = itemDehydration;
-		this.type = itemType;
-		this.stack = stackability;
-	}
-	
 	public Item(Texture itemIcon, String itemName, int itemId, String itemDesc, int itemStarvation, int itemDehydration,
-			ItemType itemType, int stackability) {
+			Type itemType, int stackability) {
 		this.name = itemName;
 		this.ID = itemId;
 		this.desc = itemDesc;
@@ -54,7 +33,7 @@ public class Item {
 		this.starvation = itemStarvation;
 		this.dehydration = itemDehydration;
 		this.type = itemType;
-		this.stack = stackability;
+		this.maxStackSize = stackability;
 	}
 	
 	public String toString() {
@@ -64,7 +43,7 @@ public class Item {
 				"starvation: " + starvation + "\n" +
 				"dehydration: " + dehydration + "\n" +
 				"type: " + type + "\n" +
-				"stack: " + stack;
+				"stack: " + maxStackSize;
 	}
 
 }

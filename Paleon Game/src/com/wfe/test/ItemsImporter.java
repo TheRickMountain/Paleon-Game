@@ -46,7 +46,7 @@ public class ItemsImporter {
 							parameters[2], 
 							Integer.parseInt(parameters[3]), 
 							Integer.parseInt(parameters[4]), 
-							Item.ItemType.valueOf(parameters[5]), 
+							Item.Type.valueOf(parameters[5]), 
 							Integer.parseInt(parameters[6])));
 			reader.close();
 		}

@@ -1,1 +1,1 @@
-pineapple;212;pineapple is pineapple;20;0;CONSUMABLE;1
+pineapple;14;pineapple is pineapple;20;0;CONSUMABLE;1

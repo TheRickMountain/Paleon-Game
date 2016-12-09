@@ -1,1 +1,1 @@
-flint;5;flint is flint;0;0;ITEM;1
+flint;9;flint is flint;0;0;MATERIAL;1

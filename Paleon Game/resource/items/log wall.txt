@@ -1,1 +1,1 @@
-log wall;7;log wall is log wall;0;0;BUILDING;1
+log wall;11;log wall is log wall;0;0;BUILDING;1

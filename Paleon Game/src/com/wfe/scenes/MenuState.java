@@ -2,8 +2,6 @@ package com.wfe.scenes;
 
 import org.lwjgl.opengl.GL11;
 
-import com.wfe.core.input.Keyboard;
-import com.wfe.core.input.Keys;
 import com.wfe.core.stateMachine.IState;
 import com.wfe.core.stateMachine.StateMachine;
 
