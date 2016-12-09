@@ -6,7 +6,6 @@ import com.wfe.components.Material;
 import com.wfe.components.Model;
 import com.wfe.core.ResourceManager;
 import com.wfe.graph.transform.Transform3D;
-import com.wfe.gui.ItemDatabase;
 import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.Entity;
 import com.wfe.scenegraph.World;
@@ -25,7 +24,6 @@ public class Shroom extends Entity {
 		addBehaviour(new GatherableBh());
 		
 		scale.scale(0.4f);
-		guiID = ItemDatabase.SHROOM;
 	}
 
 }

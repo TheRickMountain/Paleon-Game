@@ -33,15 +33,15 @@ public class GUI {
 		inventory = new Inventory(world);
 		
 		/*** *** ***/
-		inventory.addItem(ItemDatabase.APPLE);
-		inventory.addItem(ItemDatabase.APPLE);
-		inventory.addItem(ItemDatabase.CAP);
-		inventory.addItem(ItemDatabase.HUMMER);
-		inventory.addItem(ItemDatabase.AXE);
-		inventory.addItem(ItemDatabase.LOG_WALL);
-		inventory.addItem(ItemDatabase.LOG_WALL);
-		inventory.addItem(ItemDatabase.LOG_WALL);
-		inventory.addItem(ItemDatabase.LOG_WALL);
+		inventory.addItem("apple");
+		inventory.addItem("pineapple");
+		inventory.addItem("banana");
+		inventory.addItem("cap");
+		inventory.addItem("axe");
+		inventory.addItem("log");
+		inventory.addItem("flint");
+		inventory.addItem("log");
+		inventory.addItem("flint");
 		/*** *** ***/
 	}
 	
@@ -65,7 +65,7 @@ public class GUI {
 		inventory.render();
 		
 		if(draggedItem != null) {
-			GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, 50, 50, draggedItem.itemIcon);
+			GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, 50, 50, draggedItem.icon);
 			if(draggedItemCount >= 2) {
 				inventory.countText.setText("x" + draggedItemCount);
 				GUIRenderer.render(Mouse.getX() - 25, Mouse.getY() - 25, inventory.countText);

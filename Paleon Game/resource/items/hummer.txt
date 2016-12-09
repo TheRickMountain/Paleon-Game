@@ -1,0 +1,1 @@
+hummer;6;hummer is hummer;0;0;WEAPON;1

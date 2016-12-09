@@ -63,18 +63,18 @@ public class Equipment {
 						
 						if(GameState.gui.draggedItem != null) {
 							
-							if(slot.getSlotItem() != null) {
-								Item temp = slot.getSlotItem();
-								GameState.gui.draggedItemCount = slot.getItemsCount();
+							if(slot.getItem() != null) {
+								Item temp = slot.getItem();
+								GameState.gui.draggedItemCount = slot.getItemCount();
 								slot.removeItem();
 								slot.addItem(GameState.gui.draggedItem);
 								GameState.gui.draggedItem = temp;
 								
 								player.removeWeapon();
 								
-								if(slot.getSlotItem().itemName.equals("axe")) {
+								if(slot.getItem().name.equals("axe")) {
 									player.addWeapon(new Axe(world));
-								} else if(slot.getSlotItem().itemName.equals("hummer")) {
+								} else if(slot.getItem().name.equals("hummer")) {
 									player.addWeapon(new Hummer(world));
 								}
 							} else {
@@ -82,12 +82,12 @@ public class Equipment {
 								GameState.gui.draggedItem = null;
 							}
 						} else {
-							if(slot.getSlotItem() != null) {
-								if(slot.getSlotItem().itemType.equals(Item.ItemType.WEAPON)) {
+							if(slot.getItem() != null) {
+								if(slot.getItem().type.equals(Item.ItemType.WEAPON)) {
 									player.removeWeapon();
 								}
 								
-								GameState.gui.draggedItem = slot.getSlotItem();
+								GameState.gui.draggedItem = slot.getItem();
 								GameState.gui.draggedItemCount = 1;
 								slot.removeItem();
 							}
@@ -113,19 +113,19 @@ public class Equipment {
 	public void addItem(Item item) {
 		boolean added = false;
 		for(Slot slot : slots) {
-			if(slot.type.ordinal() == item.itemType.ordinal()) {
-				if(slot.getSlotItem() == null) {
+			if(slot.type.ordinal() == item.type.ordinal()) {
+				if(slot.getItem() == null) {
 					slot.addItem(item);
 					added = true;
 				} else {
-					GameState.gui.inventory.addItem(slot.getSlotItem().itemID);
+					GameState.gui.inventory.addItem(slot.getItem().name);
 					slot.removeItem();
 					slot.addItem(item);
 					added = true;
 				}
 				
 				if(added) {
-					switch(item.itemName) {
+					switch(item.name) {
 					case "axe":
 						player.addWeapon(new Axe(world));
 						break;

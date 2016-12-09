@@ -22,7 +22,7 @@ public class GatherableBh extends Behaviour {
 		if(Keyboard.isKeyDown(Keys.KEY_F)) {
 			if(MathUtils.getDistanceBetweenPoints(player.position.x, player.position.z, 
 					parent.position.x, parent.position.z) <= 10) {
-				if(GameState.gui.inventory.addItem(parent.guiID)) {
+				if(GameState.gui.inventory.addItem(parent.name)) {
 					parent.remove();
 				}
 			}

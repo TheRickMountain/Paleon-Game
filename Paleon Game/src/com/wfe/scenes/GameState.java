@@ -175,6 +175,8 @@ public class GameState implements IState {
         
         new Player(world, camera);
         
+        gui = new GUI(world);
+        
         Random rand = new Random();
         
         for(int i = 0; i < 100; i++) {
@@ -198,13 +200,11 @@ public class GameState implements IState {
         }
         
         Flint flint = new Flint(world);
-        flint.position.set(384, world.getTerrainHeight(384, 384), 384);
+        flint.position.set(world.cells.get("128 128").position);
         
         Shroom shroom = new Shroom(world);
-        shroom.position.set(384, world.getTerrainHeight(384, 400), 400);
-        
-        gui = new GUI(world);
-        
+        shroom.position.set(world.cells.get("128 129").position);
+       
         GameTime.setTime(12, 00);
         
         Stone stone1 = new Stone(world);

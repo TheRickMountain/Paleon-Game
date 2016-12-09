@@ -45,13 +45,28 @@ public class Slot {
 	
 	public boolean addItem(Item item) {	
 		if(this.item != null) {
-			if(this.item.itemID == item.itemID) {
+			if(this.item.ID == item.ID) {
 				itemCount++;
 				return true;
 			}
 		} else {
 			this.item = item;
 			itemCount++;
+			return true;
+		} 
+		
+		return false;
+	}
+	
+	public boolean addItem(Item item, int count) {	
+		if(this.item != null) {
+			if(this.item.ID == item.ID) {
+				itemCount += count;
+				return true;
+			}
+		} else {
+			this.item = item;
+			itemCount = count;
 			return true;
 		} 
 		
@@ -70,7 +85,7 @@ public class Slot {
 			itemCount -= count;
 	}
 	
-	public Item getSlotItem() {
+	public Item getItem() {
 		return item;
 	}
 	
@@ -82,7 +97,7 @@ public class Slot {
 	public void render(Text text) {
 		GUIRenderer.render(xPos, yPos, xScale, yScale, slotTexture);
 		if(item != null) {
-			GUIRenderer.render(xPos, yPos, xScale, yScale, item.itemIcon);
+			GUIRenderer.render(xPos, yPos, xScale, yScale, item.icon);
 			if(itemCount >= 2) {
 				text.setText("x" + itemCount);
 				GUIRenderer.render(xPos, yPos, text);
@@ -93,7 +108,7 @@ public class Slot {
 	public void render() {
 		GUIRenderer.render(xPos, yPos, xScale, yScale, slotTexture);
 		if(item != null) {
-			GUIRenderer.render(xPos, yPos, xScale, yScale, item.itemIcon);
+			GUIRenderer.render(xPos, yPos, xScale, yScale, item.icon);
 		}
 	}
 	
@@ -101,7 +116,7 @@ public class Slot {
 		return MathUtils.point2DBoxIntersection(Mouse.getX(), Mouse.getY(), xPos, yPos, xScale, yScale);
 	}
 	
-	public int getItemsCount() {
+	public int getItemCount() {
 		return itemCount;
 	}
 	

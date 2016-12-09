@@ -81,17 +81,16 @@ public class FurnaceBh extends Behaviour {
 				Item item = GameState.gui.draggedItem;
 				if(item != null) {
 					if(resourceSlot.overMouse()) {
-						switch(item.itemID) {
-						case ItemDatabase.FLINT:
-							resourceSlot.addItem(item);
-							resourceSlot.setItemsCount(GameState.gui.draggedItemCount);
+						switch(item.name) {
+						case "flint":
+							resourceSlot.addItem(item, GameState.gui.draggedItemCount);
 							GameState.gui.draggedItem = null;
 							GameState.gui.draggedItemCount = 0;
 							break;
 						}
 					} else if(fuelSlot.overMouse()) {
-						switch(item.itemID) {
-						case ItemDatabase.LOG:
+						switch(item.name) {
+						case "log":
 							fuelSlot.addItem(item);
 							fuelSlot.setItemsCount(GameState.gui.draggedItemCount);
 							GameState.gui.draggedItem = null;
@@ -99,18 +98,34 @@ public class FurnaceBh extends Behaviour {
 							break;
 						}
 					}
-				}
+				} else {
+					if(resourceSlot.overMouse()) {
+						GameState.gui.draggedItem = resourceSlot.getItem();
+						GameState.gui.draggedItemCount = resourceSlot.getItemCount();
+						resourceSlot.removeItem();
+						
+						processBar.setCurrentValue(0);
+						processStarted = false;
+						time.reset();
+					} else if(resultSlot.overMouse()) {
+						if(!resultSlot.isEmpty()) {
+							GameState.gui.draggedItem = resultSlot.getItem();
+							GameState.gui.draggedItemCount = resultSlot.getItemCount();
+							resultSlot.removeItem();
+						}
+					}
+ 				}
 			}
 		}
 		
 		if(processStarted) {
 			/* If time more than processTime than ready result is 
 			 	going to the results slot */
-			float currentTime = (float) time.getTime();
-			if(currentTime >= processTime) {
-				switch(resourceSlot.getSlotItem().itemID) {
-				case ItemDatabase.FLINT:
-					resultSlot.addItem(ItemDatabase.getItem(ItemDatabase.APPLE));
+			float currentProcessTime = (float) time.getTime();
+			if(currentProcessTime >= processTime) {
+				switch(resourceSlot.getItem().name) {
+				case "flint":
+					resultSlot.addItem(ItemDatabase.getItem("apple"));
 					resourceSlot.decreaseItem();
 					break;
 				}
@@ -119,7 +134,7 @@ public class FurnaceBh extends Behaviour {
 				time.reset();
 				processBar.setCurrentValue(0);
 			} else {
-				processBar.setCurrentValue((currentTime * 100) / processTime);
+				processBar.setCurrentValue((currentProcessTime * 100) / processTime);
 			}
 		} else {
 			processBar.setCurrentValue(0);

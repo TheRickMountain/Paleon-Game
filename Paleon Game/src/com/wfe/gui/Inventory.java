@@ -70,25 +70,25 @@ public class Inventory {
 			for(Slot slot : slots) {
 				if(slot.overMouse()) {
 					if(GameState.gui.draggedItem != null) {
-						if(slot.getSlotItem() == null) {
+						if(slot.getItem() == null) {
 							slot.addItem(GameState.gui.draggedItem);
 							slot.setItemsCount(GameState.gui.draggedItemCount);
 							GameState.gui.draggedItem = null;
 						} else {
-							if(slot.getSlotItem().itemID == GameState.gui.draggedItem.itemID) {
+							if(slot.getItem().ID == GameState.gui.draggedItem.ID) {
 								slot.addItem(GameState.gui.draggedItem);
 								GameState.gui.draggedItem = null;
 							} else {
-								Item temp = slot.getSlotItem();
-								GameState.gui.draggedItemCount = slot.getItemsCount();
+								Item temp = slot.getItem();
+								GameState.gui.draggedItemCount = slot.getItemCount();
 								slot.removeItem();
 								slot.addItem(GameState.gui.draggedItem);
 								GameState.gui.draggedItem = temp;
 							}
 						}
-					} else if(slot.getSlotItem() != null) {
-						GameState.gui.draggedItemCount = slot.getItemsCount();
-						GameState.gui.draggedItem = slot.getSlotItem();
+					} else if(slot.getItem() != null) {
+						GameState.gui.draggedItemCount = slot.getItemCount();
+						GameState.gui.draggedItem = slot.getItem();
 						slot.removeItem();
 					}
 				}
@@ -98,29 +98,29 @@ public class Inventory {
 		if(Mouse.isButtonDown(1)) {
 			for(Slot slot : slots) {
 				if(slot.overMouse()) {
-					if(slot.getSlotItem() != null) {
-						if(slot.getSlotItem().itemType.equals(Item.ItemType.CONSUMABLE)) {
-							if(slot.getItemsCount() > 1) {
-								GameState.gui.hud.hunger.increase(slot.getSlotItem().itemStarvation);
+					if(slot.getItem() != null) {
+						if(slot.getItem().type.equals(Item.ItemType.CONSUMABLE)) {
+							if(slot.getItemCount() > 1) {
+								GameState.gui.hud.hunger.increase(slot.getItem().starvation);
 								slot.removeItem(1);
 							} else {
-								GameState.gui.hud.hunger.increase(slot.getSlotItem().itemStarvation);
+								GameState.gui.hud.hunger.increase(slot.getItem().starvation);
 								slot.removeItem();
 							}
-						} else if(slot.getSlotItem().itemType.equals(Item.ItemType.CAP)) {
-							GameState.gui.equipment.addItem(slot.getSlotItem());
+						} else if(slot.getItem().type.equals(Item.ItemType.CAP)) {
+							GameState.gui.equipment.addItem(slot.getItem());
 							slot.removeItem();
-						} else if(slot.getSlotItem().itemType.equals(Item.ItemType.TUNIC)) {
-							GameState.gui.equipment.addItem(slot.getSlotItem());
+						} else if(slot.getItem().type.equals(Item.ItemType.TUNIC)) {
+							GameState.gui.equipment.addItem(slot.getItem());
 							slot.removeItem();
-						} else if(slot.getSlotItem().itemType.equals(Item.ItemType.PANTS)) {
-							GameState.gui.equipment.addItem(slot.getSlotItem());
+						} else if(slot.getItem().type.equals(Item.ItemType.PANTS)) {
+							GameState.gui.equipment.addItem(slot.getItem());
 							slot.removeItem();
-						} else if(slot.getSlotItem().itemType.equals(Item.ItemType.BOOTS)) {
-							GameState.gui.equipment.addItem(slot.getSlotItem());
+						} else if(slot.getItem().type.equals(Item.ItemType.BOOTS)) {
+							GameState.gui.equipment.addItem(slot.getItem());
 							slot.removeItem();
-						} else if(slot.getSlotItem().itemType.equals(Item.ItemType.WEAPON)) {
-							GameState.gui.equipment.addItem(slot.getSlotItem());
+						} else if(slot.getItem().type.equals(Item.ItemType.WEAPON)) {
+							GameState.gui.equipment.addItem(slot.getItem());
 							slot.removeItem();
 						}
 					}
@@ -146,7 +146,7 @@ public class Inventory {
 			GameState.gui.draggedItem = null;
 		
 		if(GameState.gui.draggedItem != null) {			
-			if(GameState.gui.draggedItem.itemType.equals(Item.ItemType.BUILDING)) {
+			if(GameState.gui.draggedItem.type.equals(Item.ItemType.BUILDING)) {
 				if(building != null) {
 					Vector2f point = MousePicker.getGridPoint();
 					
@@ -190,13 +190,13 @@ public class Inventory {
 	}
 
 	
-	public boolean addItem(int id) {
+	public boolean addItem(String name) {
 		
 		// Trying to find the same items in the inventory
 		for(Slot slot : slots) {
-			if(slot.getSlotItem() != null) {
-				if(slot.getSlotItem().itemID == id) {
-					if(slot.addItem(ItemDatabase.getItem(id))) {
+			if(slot.getItem() != null) {
+				if(slot.getItem().name.equals(name)) {
+					if(slot.addItem(ItemDatabase.getItem(name))) {
 						return true;	
 					}
 				}
@@ -206,7 +206,7 @@ public class Inventory {
 		
 		// If the same item isn't exist, adds item to the first empty slot
 		for(Slot slot : slots) {
-			if(slot.addItem(ItemDatabase.getItem(id)))
+			if(slot.addItem(ItemDatabase.getItem(name)))
 				return true;
 		}
 		
