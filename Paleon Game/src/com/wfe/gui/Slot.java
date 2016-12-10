@@ -123,5 +123,13 @@ public class Slot {
 			item = null;
 		}
 	}
+	
+	public void decreaseItem(int amount) {
+		itemCount -= amount;
+		
+		if(itemCount == 0) {
+			item = null;
+		}
+	}
 
 }

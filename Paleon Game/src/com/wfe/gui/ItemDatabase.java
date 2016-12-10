@@ -33,10 +33,12 @@ public class ItemDatabase {
 				10, 0, Item.Type.CONSUMABLE, false, null, 64));
 		
 		items.add(new Item(ARMOR, TextureLoader.load(PATH + "armor.png"), "armor", "armor is armor", 
-				0, 0, Item.Type.ARMOR, true, new int[]{FLINT}, 64));
+				0, 0, Item.Type.ARMOR, true, 
+				new CraftingElement[]{new CraftingElement(FLINT, 4)}, 64));
 		
 		items.add(new Item(AXE, TextureLoader.load(PATH + "axe.png"), "axe", "axe is axe", 
-				0, 0, Item.Type.TOOL, true, new int[]{LOG, FLINT}, 64));
+				0, 0, Item.Type.TOOL, true, 
+				new CraftingElement[]{new CraftingElement(FLINT, 1), new CraftingElement(LOG, 1)}, 64));
 		
 		items.add(new Item(BANANA, TextureLoader.load(PATH + "banana.png"), "banana", "banana is banana", 
 				10, 0, Item.Type.CONSUMABLE, false, null, 64));
@@ -54,13 +56,16 @@ public class ItemDatabase {
 				0, 0, Item.Type.MATERIAL, false, null, 64));
 		
 		items.add(new Item(HELMET, TextureLoader.load(PATH + "helmet.png"), "helmet", "helmet is helmet", 
-				0, 0, Item.Type.HELMET, true, new int[]{FLINT}, 64));
+				0, 0, Item.Type.HELMET, true, 
+				new CraftingElement[]{new CraftingElement(FLINT, 2)}, 64));
 		
 		items.add(new Item(HUMMER, TextureLoader.load(PATH + "hummer.png"), "hummer", "hummer is hummer", 
-				0, 0, Item.Type.TOOL, true, new int[]{LOG, FLINT}, 64));
+				0, 0, Item.Type.TOOL, true, new CraftingElement[]{new CraftingElement(FLINT, 2),
+						new CraftingElement(LOG, 1)}, 64));
 		
 		items.add(new Item(LOG_WALL, TextureLoader.load(PATH + "log wall.png"), "log wall", "log wall is log wall", 
-				0, 0, Item.Type.BUILDING, true, new int[]{LOG}, 64));
+				0, 0, Item.Type.BUILDING, true, 
+				new CraftingElement[]{new CraftingElement(LOG, 6)}, 64));
 		
 		items.add(new Item(LOG, TextureLoader.load(PATH + "log.png"), "log", "log is log", 
 				0, 0, Item.Type.MATERIAL, false, null, 64));

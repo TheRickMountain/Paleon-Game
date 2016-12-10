@@ -119,13 +119,13 @@ public class PlayerBh extends Behaviour {
 	
 	public void addWeapon(Entity weapon) {
 		if(this.weapon != null)
-			removeWeapon();
+			removeHandEntity();
 		
 		this.weapon = weapon;
 		rightForearm.addChild(weapon);
 	}
 	
-	public void removeWeapon() {
+	public void removeHandEntity() {
 		if(weapon != null) {
 			rightForearm.removeChild(weapon);
 			this.weapon = null;

@@ -33,8 +33,8 @@ public class GUI {
 		inventory.addItem(ItemDatabase.APPLE, 4);
 		inventory.addItem(ItemDatabase.PINEAPPLE, 3);
 		inventory.addItem(ItemDatabase.BANANA, 2);
-		inventory.addItem(ItemDatabase.LOG, 6);
-		inventory.addItem(ItemDatabase.FLINT, 6);
+		inventory.addItem(ItemDatabase.LOG, 20);
+		inventory.addItem(ItemDatabase.FLINT, 15);
 		/*** *** ***/
 	}
 	

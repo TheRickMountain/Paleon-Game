@@ -34,10 +34,56 @@ public class Equipment {
 	public void update(float dt) {
 		if(Mouse.isButtonDown(0)) {
 			if(GameState.gui.draggedItem == null) {
-				if(handSlot.getItem() != null) {
-					GameState.gui.draggedItem = handSlot.getItem();
-					GameState.gui.draggedItemCount = 1;
-					handSlot.removeItem();
+				if(handSlot.overMouse()) {
+					if(handSlot.getItem() != null) {
+						GameState.gui.draggedItem = handSlot.getItem();
+						GameState.gui.draggedItemCount = 1;
+						handSlot.removeItem();
+						player.removeHandEntity();
+					}
+				} else if(helmetSlot.overMouse()) {
+					if(helmetSlot.getItem() != null) {
+						GameState.gui.draggedItem = helmetSlot.getItem();
+						GameState.gui.draggedItemCount = 1;
+						helmetSlot.removeItem();
+						player.removeHelmet();
+					}
+				} else if(armorSlot.overMouse()) {
+					if(armorSlot.getItem() != null) {
+						GameState.gui.draggedItem = armorSlot.getItem();
+						GameState.gui.draggedItemCount = 1;
+						armorSlot.removeItem();
+					}
+				}
+			} else {
+				if(handSlot.overMouse()) {
+					if(handSlot.getItem() != null) {
+						
+					} else {	
+						if(GameState.gui.draggedItem.type.equals(Item.Type.TOOL)) {
+							handSlot.addItem(GameState.gui.draggedItem, 1);
+							player.addWeapon(new Axe(world));
+							
+							if(GameState.gui.draggedItemCount > 1) {
+								GameState.gui.draggedItemCount--;
+							} else {
+								GameState.gui.draggedItem = null;
+								GameState.gui.draggedItemCount = 0;
+							}
+						}
+					}
+				} else if(helmetSlot.overMouse()) {
+					if(helmetSlot.getItem() != null) {
+						
+					} else {
+						
+					}
+				} else if(armorSlot.overMouse()) {
+					if(armorSlot.getItem() != null) {
+						
+					} else {
+						
+					}
 				}
 			}
 		}

@@ -250,7 +250,7 @@ public class Inventory {
 			Item item = slot.getItem();
 			if(item != null) {
 				if(item.ID == id) {
-					slot.decreaseItem();
+					slot.decreaseItem(amount);
 				}
 			}
 		}

@@ -13,6 +13,7 @@ import com.wfe.entities.Player;
 import com.wfe.entities.Shroom;
 import com.wfe.entities.Stone;
 import com.wfe.graph.Camera;
+import com.wfe.graph.water.WaterTile;
 import com.wfe.gui.GUI;
 import com.wfe.math.Vector3f;
 import com.wfe.scenegraph.World;
@@ -153,11 +154,11 @@ public class GameState implements IState {
         }
         /*** *** ***/
 		
-		/*for(int i = 60; i < 840; i+= 120) {
-			for(int j = 60; j < 840; j+= 120) {
+		for(int i = (int) WaterTile.TILE_SIZE; i < (int)(WaterTile.TILE_SIZE * 14); i+= (WaterTile.TILE_SIZE * 2)) {
+			for(int j = (int) WaterTile.TILE_SIZE; j < (int)(WaterTile.TILE_SIZE * 14); j+= (WaterTile.TILE_SIZE * 2)) {
 				world.addWaterTile(new WaterTile(j, i));
 			}
-		}*/
+		}
         
         Player player = new Player(world, camera);
         

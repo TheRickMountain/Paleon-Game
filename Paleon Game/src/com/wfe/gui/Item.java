@@ -12,7 +12,7 @@ public class Item {
 	public final int dehydration;
 	public final Type type;
 	public final boolean hasCrafting;
-	public final int[] craftingElements;
+	public final CraftingElement[] craftingElements;
 	public final int maxStackSize;
 	
 	public enum Type {
@@ -27,7 +27,7 @@ public class Item {
 	}
 	
 	public Item(int ID, Texture icon, String name, String desc, int starvation, 
-			int dehydration, Type type, boolean hasCrafting, int[] craftingElements, int maxStackSize) {
+			int dehydration, Type type, boolean hasCrafting, CraftingElement[] craftingElements, int maxStackSize) {
 		this.ID = ID;
 		this.name = name;
 		this.desc = desc;

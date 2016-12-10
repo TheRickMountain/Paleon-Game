@@ -13,7 +13,6 @@ import com.wfe.utils.Rect;
 
 public class Crafting {
 	
-	private World world;
 	private Inventory inventory;
 	
 	private Rect rect;
@@ -26,7 +25,6 @@ public class Crafting {
 	public boolean show = false;
 	
 	public Crafting(World world, Inventory inventory) {
-		this.world = world;
 		this.inventory = inventory;
 		
 		rect = new Rect(0, 0, 0, 0);
@@ -54,8 +52,10 @@ public class Crafting {
 					if(slot.overMouse()) {
 						Item item = slot.getItem();
 						if(!slot.ghostItem) {
-							for(int i = 0; i < item.craftingElements.length; i++) {
-								inventory.removeItem(item.craftingElements[i], 1);
+							CraftingElement[] ces = item.craftingElements;
+							for(int i = 0; i < ces.length; i++) {
+								CraftingElement ce = ces[i];
+								inventory.removeItem(ce.getId(), ce.getAmount());
 							}
 							
 							inventory.addItem(item.ID, 1);
@@ -77,9 +77,9 @@ public class Crafting {
 			Item item = slot.getItem();
 			boolean hasElements = true;
 			if(item != null) {
-				int[] craftingElements = item.craftingElements;
-				for(int i = 0; i < craftingElements.length; i++) {
-					if(inventory.containsItemAmount(craftingElements[i]) == 0) {
+				CraftingElement[] ces = item.craftingElements;
+				for(int i = 0; i < ces.length; i++) {
+					if(inventory.containsItemAmount(ces[i].getId()) < ces[i].getAmount()) {
 						hasElements = false;
 					}
 				}
