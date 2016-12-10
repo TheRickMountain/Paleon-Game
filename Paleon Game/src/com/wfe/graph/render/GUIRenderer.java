@@ -132,11 +132,11 @@ public class GUIRenderer {
         shader.unbind();
     }
     
-    public static void render(float xPos, float yPos, float xScale, float yScale, Texture texture) {
+    public static void render(float xPos, float yPos, float xScale, float yScale, Texture texture, float Af) {
         GL30.glBindVertexArray(mesh.getVAO());
         GL20.glEnableVertexAttribArray(0);
 
-        shader.setUniform("spriteColor", Color.WHITE);
+        shader.setUniform("spriteColor", 1.0f, 1.0f, 1.0f, Af);
         Matrix4f.mul(projectionMatrix, 
         		MathUtils.getModelMatrix(modelMatrix, xPos, yPos, 0, xScale, yScale), modelProjectionMatrix);
         shader.setUniform("MP", modelProjectionMatrix);
@@ -175,7 +175,11 @@ public class GUIRenderer {
     }
     
     public static void render(Rect rect, Texture texture) {
-    	render(rect.x, rect.y, rect.width, rect.height, texture);
+    	render(rect.x, rect.y, rect.width, rect.height, texture, 1.0f);
+    }
+    
+    public static void render(float xPos, float yPos, float xScale, float yScale, Texture texture) {
+    	render(xPos, yPos, xScale, yScale, texture, 1.0f);
     }
     
     public static void render(float xPos, float yPos, Text text) {

@@ -1,1 +1,0 @@
-potato;15;potato is potato;10;0;CONSUMABLE;false;1

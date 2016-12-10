@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.wfe.core.Paleon;
 import com.wfe.core.ResourceManager;
+import com.wfe.core.input.Mouse;
 import com.wfe.graph.Texture;
 import com.wfe.graph.render.GUIRenderer;
 import com.wfe.scenegraph.World;
@@ -47,23 +48,54 @@ public class Crafting {
 	}
 	
 	public void update() {
+		if(show) {
+			if(Mouse.isButtonDown(0)) {
+				for(Slot slot : slots) {
+					if(slot.overMouse()) {
+						Item item = slot.getItem();
+						if(!slot.ghostItem) {
+							for(int i = 0; i < item.craftingElements.length; i++) {
+								inventory.removeItem(item.craftingElements[i], 1);
+							}
+							
+							inventory.addItem(item.ID, 1);
+						}
+					}
+				}
+				
+				updateRecipes();
+			}
+		}
+		
 		if(Paleon.display.wasResized()) {
 			updatePosition();
-			
-			
 		}
 	}
 	
 	public void updateRecipes() {
-		
+		for(Slot slot : slots) {
+			Item item = slot.getItem();
+			boolean hasElements = true;
+			if(item != null) {
+				int[] craftingElements = item.craftingElements;
+				for(int i = 0; i < craftingElements.length; i++) {
+					if(inventory.containsItemAmount(craftingElements[i]) == 0) {
+						hasElements = false;
+					}
+				}
+				
+				slot.ghostItem = !hasElements;
+			}
+		}
 	}
 	
 	public void render() {
 		if(show) {
 			GUIRenderer.render(rect, texture);
 		
-			for(Slot slot : slots)
+			for(Slot slot : slots) {
 				slot.render();
+			}
 		}
 	}
 	
@@ -71,6 +103,7 @@ public class Crafting {
 		for(Slot slot : slots) {
 			if(slot.isEmpty()) {
 				slot.addItem(ItemDatabase.getItemByName(name));
+				slot.setItemsCount(0);
 				return;
 			}
 		}

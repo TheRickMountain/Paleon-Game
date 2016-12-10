@@ -4,6 +4,7 @@ import com.wfe.core.input.Keyboard;
 import com.wfe.core.input.Keys;
 import com.wfe.core.input.Mouse;
 import com.wfe.graph.Camera;
+import com.wfe.gui.ItemDatabase;
 import com.wfe.math.Vector3f;
 import com.wfe.physics.CollisionPacket;
 import com.wfe.physics.FPlane;
@@ -72,7 +73,7 @@ public class PlayerBh extends Behaviour {
 					
 					switch(miningEntity.name) {
 					case "stone":
-						GameState.gui.inventory.addItem("flint");
+						GameState.gui.inventory.addItem(ItemDatabase.FLINT, 1);
 						miningEntity.getBehaviour(MineralBh.class).decrease();
 						if(miningEntity.getBehaviour(MineralBh.class).getCount() == 0) {
 							miningEntity = null;
@@ -83,7 +84,7 @@ public class PlayerBh extends Behaviour {
 						miningEntity = null;
 						
 						for(int i = 0; i < 10; i++)
-							GameState.gui.inventory.addItem("log");
+							GameState.gui.inventory.addItem(ItemDatabase.LOG, 1);
 						break;
 					}
 				}

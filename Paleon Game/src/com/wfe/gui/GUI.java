@@ -19,21 +19,22 @@ public class GUI {
 	
 	
 	public GUI(World world, Player player) {
-		ItemDatabase.init();
+		try {
+			ItemDatabase.init();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		hud = new HUD(world);
 		equipment = new Equipment(world, player);
 		inventory = new Inventory(world);
 		crafting = new Crafting(world, inventory);
 		
 		/*** *** ***/
-		inventory.addItem("apple");
-		inventory.addItem("pineapple");
-		inventory.addItem("banana");
-		inventory.addItem("cap");
-		inventory.addItem("log");
-		inventory.addItem("flint");
-		inventory.addItem("log");
-		inventory.addItem("flint");
+		inventory.addItem(ItemDatabase.APPLE, 4);
+		inventory.addItem(ItemDatabase.PINEAPPLE, 3);
+		inventory.addItem(ItemDatabase.BANANA, 2);
+		inventory.addItem(ItemDatabase.LOG, 6);
+		inventory.addItem(ItemDatabase.FLINT, 6);
 		/*** *** ***/
 	}
 	

@@ -61,14 +61,14 @@ public class Equipment {
 				helmetSlot.addItem(item);
 				player.addHelmet(new Helmet(world));
 			} else {
-				GameState.gui.inventory.addItem(helmetSlot.getItem().name);
+				GameState.gui.inventory.addItem(helmetSlot.getItem().ID, 1);
 				helmetSlot.removeItem();
 				helmetSlot.addItem(item);
 			}
 			break;
 		case ARMOR:
 			armorSlot.addItem(item);
-			GameState.gui.inventory.addItem(armorSlot.getItem().name);
+			GameState.gui.inventory.addItem(armorSlot.getItem().ID, 1);
 			armorSlot.removeItem();
 			armorSlot.addItem(item);
 			break;

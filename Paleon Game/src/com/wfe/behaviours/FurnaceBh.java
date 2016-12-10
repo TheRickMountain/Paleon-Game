@@ -74,7 +74,7 @@ public class FurnaceBh extends Behaviour {
 		}
 		
 		if(showGUI) {
-			if(Keyboard.isKeyDown(Keys.KEY_TAB))
+			if(Keyboard.isKeyDown(Keys.KEY_E))
 				showGUI = false;
 			
 			if(Mouse.isButtonDown(0)) {
@@ -91,8 +91,7 @@ public class FurnaceBh extends Behaviour {
 					} else if(fuelSlot.overMouse()) {
 						switch(item.name) {
 						case "log":
-							fuelSlot.addItem(item);
-							fuelSlot.setItemsCount(GameState.gui.draggedItemCount);
+							fuelSlot.addItem(item, GameState.gui.draggedItemCount);
 							GameState.gui.draggedItem = null;
 							GameState.gui.draggedItemCount = 0;
 							break;
@@ -113,8 +112,14 @@ public class FurnaceBh extends Behaviour {
 							GameState.gui.draggedItemCount = resultSlot.getItemCount();
 							resultSlot.removeItem();
 						}
+					} else if(fuelSlot.overMouse()) {
+						if(!fuelSlot.isEmpty()) {
+							GameState.gui.draggedItem = fuelSlot.getItem();
+							GameState.gui.draggedItemCount = fuelSlot.getItemCount();
+							fuelSlot.removeItem();
+						}
 					}
- 				}
+  				}
 			}
 		}
 		

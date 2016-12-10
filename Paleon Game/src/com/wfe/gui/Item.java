@@ -12,6 +12,7 @@ public class Item {
 	public final int dehydration;
 	public final Type type;
 	public final boolean hasCrafting;
+	public final int[] craftingElements;
 	public final int maxStackSize;
 	
 	public enum Type {
@@ -25,17 +26,18 @@ public class Item {
 		BUILDING,
 	}
 	
-	public Item(Texture itemIcon, String itemName, int itemId, String itemDesc, int itemStarvation, int itemDehydration,
-			Type itemType, boolean hasCrafting, int stackability) {
-		this.name = itemName;
-		this.ID = itemId;
-		this.desc = itemDesc;
-		this.icon = itemIcon;
-		this.starvation = itemStarvation;
-		this.dehydration = itemDehydration;
-		this.type = itemType;
+	public Item(int ID, Texture icon, String name, String desc, int starvation, 
+			int dehydration, Type type, boolean hasCrafting, int[] craftingElements, int maxStackSize) {
+		this.ID = ID;
+		this.name = name;
+		this.desc = desc;
+		this.icon = icon;
+		this.starvation = starvation;
+		this.dehydration = dehydration;
+		this.type = type;
 		this.hasCrafting = hasCrafting;
-		this.maxStackSize = stackability;
+		this.craftingElements = craftingElements;
+		this.maxStackSize = maxStackSize;
 	}
 	
 	public String toString() {

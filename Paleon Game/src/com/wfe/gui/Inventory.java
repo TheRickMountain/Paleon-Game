@@ -76,14 +76,18 @@ public class Inventory {
 							GameState.gui.draggedItem = null;
 						} else {
 							if(slot.getItem().ID == GameState.gui.draggedItem.ID) {
-								slot.addItem(GameState.gui.draggedItem);
+								slot.addItem(GameState.gui.draggedItem,
+										GameState.gui.draggedItemCount);
 								GameState.gui.draggedItem = null;
+								GameState.gui.draggedItemCount = 0;
 							} else {
-								Item temp = slot.getItem();
-								GameState.gui.draggedItemCount = slot.getItemCount();
+								Item tempItem = slot.getItem();
+								int tempItemCount = slot.getItemCount();
 								slot.removeItem();
 								slot.addItem(GameState.gui.draggedItem);
-								GameState.gui.draggedItem = temp;
+								slot.setItemsCount(GameState.gui.draggedItemCount);
+								GameState.gui.draggedItem = tempItem;
+								GameState.gui.draggedItemCount = tempItemCount;
 							}
 						}
 					} else if(slot.getItem() != null) {
@@ -186,13 +190,13 @@ public class Inventory {
 	}
 
 	
-	public boolean addItem(String name) {
+	public boolean addItem(int id, int amount) {
 		
 		// Trying to find the same items in the inventory
 		for(Slot slot : slots) {
 			if(slot.getItem() != null) {
-				if(slot.getItem().name.equals(name)) {
-					if(slot.addItem(ItemDatabase.getItemByName(name))) {
+				if(slot.getItem().ID == id) {
+					if(slot.addItem(ItemDatabase.getItemByID(id), amount)) {
 						return true;	
 					}
 				}
@@ -202,7 +206,7 @@ public class Inventory {
 		
 		// If the same item isn't exist, adds item to the first empty slot
 		for(Slot slot : slots) {
-			if(slot.addItem(ItemDatabase.getItemByName(name)))
+			if(slot.addItem(ItemDatabase.getItemByID(id), amount))
 				return true;
 		}
 		
@@ -224,6 +228,32 @@ public class Inventory {
 		}
 		
 		return temp;
+	}
+	
+	public int containsItemAmount(int id) {
+		Item item = ItemDatabase.getItemByID(id);
+		int temp = 0;
+		for(Slot slot : slots) {
+			Item slotItem = slot.getItem();
+			if(slotItem != null) {
+				if(item.ID == slotItem.ID) {
+					temp += slot.getItemCount();
+				}
+			}
+		}
+		
+		return temp;
+	}
+	
+	public void removeItem(int id, int amount) {
+		for(Slot slot : slots) {
+			Item item = slot.getItem();
+			if(item != null) {
+				if(item.ID == id) {
+					slot.decreaseItem();
+				}
+			}
+		}
 	}
 	
 	public void render() {

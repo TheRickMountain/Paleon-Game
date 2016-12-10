@@ -16,6 +16,8 @@ public class Slot {
 	
 	private int itemCount;
 	
+	public boolean ghostItem = false;
+	
 	public Slot(Texture texture, int xPos, int yPos, int xScale, int yScale) {
 		this.texture = texture;
 		this.xPos = xPos;
@@ -40,15 +42,15 @@ public class Slot {
 		return false;
 	}
 	
-	public boolean addItem(Item item, int count) {	
+	public boolean addItem(Item item, int amount) {	
 		if(this.item != null) {
 			if(this.item.ID == item.ID) {
-				itemCount += count;
+				itemCount += amount;
 				return true;
 			}
 		} else {
 			this.item = item;
-			itemCount = count;
+			itemCount = amount;
 			return true;
 		} 
 		
@@ -90,7 +92,11 @@ public class Slot {
 	public void render() {
 		GUIRenderer.render(xPos, yPos, xScale, yScale, texture);
 		if(item != null) {
-			GUIRenderer.render(xPos, yPos, xScale, yScale, item.icon);
+			float Af = 1.0f;
+			if(ghostItem) {
+				Af = 0.5f;
+			}
+			GUIRenderer.render(xPos, yPos, xScale, yScale, item.icon, Af);
 		}
 	}
 	
