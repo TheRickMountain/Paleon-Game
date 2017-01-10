@@ -73,6 +73,10 @@ public class TerrainRenderer {
         shader.bind();
         
         shader.setUniform("plane", plane);
+        
+        shader.setUniform("view", camera.getViewMatrix());
+        shader.setUniform("lightPosition", light.position);
+        shader.setUniform("lightColor", light.color);
 
         for (List<TerrainBlock> blocks : terrainBatches.values()) {
             for (TerrainBlock block : blocks) {
@@ -101,10 +105,6 @@ public class TerrainRenderer {
     }
 
     private void prepareTerrainInstance(Terrain terrain, Camera camera, DirectionalLight light) {
-        shader.setUniform("view", camera.getViewMatrix());
-        shader.setUniform("lightPosition", light.position);
-        shader.setUniform("lightColor", light.color);
-
         shader.setUniform("model",
                 MathUtils.getModelMatrix(modelMatrix, new Vector3f(terrain.getX(), 0, terrain.getZ()),
                         new Vector3f(0, 0, 0), new Vector3f(1, 1, 1)));
