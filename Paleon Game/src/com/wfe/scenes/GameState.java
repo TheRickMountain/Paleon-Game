@@ -22,7 +22,6 @@ import com.wfe.terrain.TerrainGenerator;
 import com.wfe.terrain.TexturePack;
 import com.wfe.utils.CellInfo;
 import com.wfe.utils.GameTime;
-import com.wfe.utils.MousePicker;
 
 public class GameState implements IState {
 	
@@ -107,7 +106,7 @@ public class GameState implements IState {
         /*** *** ***/
         
         /*** Grass ***/
-        ResourceManager.loadTexture("models/grass/diffuse", "diffuse");
+        ResourceManager.loadTexture("models/grass/grass", "diffuse");
         ResourceManager.loadMesh("models/grass/grass", "grass");
         /*** *** ***/
         
@@ -193,7 +192,7 @@ public class GameState implements IState {
         Shroom shroom = new Shroom(world);
         shroom.position.set(world.cells.get("128 129").position);
        
-        GameTime.setTime(12, 00);
+        GameTime.setTime(21, 00);
         
         Stone stone1 = new Stone(world);
         stone1.position.set(world.cells.get("129 129").position);
@@ -216,11 +215,6 @@ public class GameState implements IState {
 	
 	@Override
 	public void update(float dt) throws Exception {
-		Vector3f vec = MousePicker.getCurrentTerrainPoint();
-		if(vec != null) {
-			System.out.println((int)vec.x + " " + (int)vec.y + " " + (int)vec.z);
-		}
-		
 		world.update(dt);
 		gui.update(dt);
 	}

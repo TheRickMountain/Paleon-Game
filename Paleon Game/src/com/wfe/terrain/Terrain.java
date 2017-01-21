@@ -1,14 +1,12 @@
 package com.wfe.terrain;
 
-import java.nio.FloatBuffer;
-
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import com.wfe.math.Vector3f;
+import java.nio.FloatBuffer;
 
 /**
  * Created by Rick on 08.10.2016.
@@ -42,13 +40,7 @@ public class Terrain {
         this.gridX = worldX;
         this.gridZ = worldZ;
         TerrainVertex[][] heights = null;
-        //heights = TerrainLoader.load(texturePack.getHeightMap());
-        heights = new TerrainVertex[257][257];
-        for(int i = 0; i < 257; i++) {
-        	for(int j = 0; j < 257; j++) {
-        		heights[i][j] = new TerrainVertex(0, new Vector3f(0, 1, 0));
-        	}
-        }
+        heights = TerrainLoader.load(texturePack.getHeightMap());
         if(heights.length != TERRAIN_WIDTH + 1){
             System.err.println("Terrain width must be " + (TERRAIN_WIDTH + 1) + " vertices");
             System.exit(-1);
